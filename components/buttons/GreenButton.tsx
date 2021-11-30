@@ -14,7 +14,7 @@ const GreenButton: FC<Props> = ({ text, onPress }) => {
         style={tailwind`bg-green-500 py-2 px-4 rounded-lg items-center`}
         onPress={onPress}
       >
-        <Text style={tailwind`font-medium`}>{text}</Text>
+        <Text style={tailwind`font-bold`}>{text}</Text>
       </TouchableOpacity>
     </>
   );

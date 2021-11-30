@@ -38,7 +38,7 @@ const Login = () => {
             ) : null}
             <TextInput
               placeholder="e. g. johndoe"
-              style={tailwind`px-2 bg-gray-200 rounded-lg mt-1`}
+              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
               value={values.username}
               onChangeText={handleChange("username")}
             ></TextInput>
@@ -48,7 +48,7 @@ const Login = () => {
               <Text style={tailwind`text-red-500`}>{errors.password}</Text>
             ) : null}
             <TextInput
-              style={tailwind`px-2 bg-gray-200 rounded-lg mb-3`}
+              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mb-3`}
               value={values.password}
               secureTextEntry={true}
               onChangeText={handleChange("password")}

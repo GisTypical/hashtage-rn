@@ -38,7 +38,7 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
               <Text style={tailwind`text-red-500`}>{errors.username}</Text>
             ) : null}
             <TextInput
-              style={tailwind`px-2 bg-gray-200 rounded-lg mt-1`}
+              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
               placeholder="e. g. johndoe"
               value={values.username}
               onChangeText={handleChange("username")}
@@ -50,7 +50,7 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
               <Text style={tailwind`text-red-500`}>{errors.fullName}</Text>
             ) : null}
             <TextInput
-              style={tailwind`px-2 bg-gray-200 rounded-lg mt-1`}
+              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
               placeholder="e. g. John Doe"
               value={values.fullName}
               onChangeText={handleChange("fullName")}
@@ -64,7 +64,7 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
               <Text style={tailwind`text-gray-500`}>More than 4 chars</Text>
             )}
             <TextInput
-              style={tailwind`px-2 bg-gray-200 rounded-lg mb-3`}
+              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mb-3`}
               value={values.password}
               secureTextEntry={true}
               onChangeText={handleChange("password")}
