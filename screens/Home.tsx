@@ -11,11 +11,7 @@ import {
 } from "react-native";
 import tw from "twrnc";
 
-export interface HomeScreenProps {
-  navigation: NavigationProp<any, any>;
-}
-
-const Home: FC<HomeScreenProps> = ({ navigation }) => {
+export const Home: FC<HomeScreenProps> = ({ navigation }) => {
   const [counter, setCounter] = useState<number>(0);
   const [data, setData] = useState<string>("");
 

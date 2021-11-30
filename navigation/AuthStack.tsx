@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import { useQuery } from "react-query";
 import Login from "../screens/Login";
 import Signup from "../screens/Signup";
 import Welcome from "../screens/Welcome";
@@ -7,6 +8,7 @@ import Welcome from "../screens/Welcome";
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
+  useQuery;
   return (
     <Stack.Navigator initialRouteName="Welcome">
       <Stack.Screen

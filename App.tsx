@@ -1,20 +1,16 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
-import AuthStack from "./navigation/AuthStack";
-import Details from "./screens/Details";
-import Home from "./screens/Home";
+import React, { useContext } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import AuthProvider, { AuthContext } from "./components/AuthProvider";
+import Routes from "./components/Routes";
 
-const Stack = createNativeStackNavigator();
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <AuthStack></AuthStack>
-      {/* <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
-        <Stack.Screen name="Details" component={Details}></Stack.Screen>
-      </Stack.Navigator> */}
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Routes></Routes>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
