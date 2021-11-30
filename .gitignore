@@ -11,5 +11,8 @@ npm-debug.*
 web-build/
 .vscode/
 
+# Mock-server
+db.json
+
 # macOS
 .DS_Store
