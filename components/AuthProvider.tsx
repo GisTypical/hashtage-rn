@@ -11,8 +11,8 @@ export const AuthContext = React.createContext<{
 const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState("");
 
-  const login = (user: string) => {
-    setUser(user);
+  const login = async (userString: string) => {
+    setUser(userString);
   };
 
   return (

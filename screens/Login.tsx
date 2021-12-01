@@ -8,14 +8,18 @@ import GreenButton from "../components/buttons/GreenButton";
 import ViewCenter from "../components/ViewCenter";
 import { login } from "../utils/Auth";
 import { LoginSchema } from "../utils/Schema";
-import { User } from "../utils/types";
+import { Message, User } from "../utils/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const { handleLogin } = useContext(AuthContext);
 
   const mutation = useMutation((user: User) => login(user), {
-    onSuccess: ({ data }: { data: User }) => {
-      handleLogin(data.username);
+    // On on login success
+    onSuccess: async ({ data }: { data: Message }) => {
+      await AsyncStorage.setItem("accessToken", data.accessToken);
+      await AsyncStorage.setItem("refreshToken", data.refreshToken);
+      handleLogin(data.accessToken);
     },
   });
 
@@ -25,6 +29,7 @@ const Login = () => {
       <Formik
         initialValues={{ username: "", password: "" }}
         validationSchema={LoginSchema}
+        // On user submit
         onSubmit={(values) => {
           values.username = values.username.toLowerCase();
           mutation.mutate(values);
@@ -54,7 +59,10 @@ const Login = () => {
               onChangeText={handleChange("password")}
             ></TextInput>
 
-            <GreenButton text="Login" onPress={handleSubmit} />
+            <GreenButton
+              text={mutation.isLoading ? "Please wait..." : "Login"}
+              onPress={handleSubmit}
+            />
           </View>
         )}
       </Formik>
