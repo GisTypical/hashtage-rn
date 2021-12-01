@@ -23,7 +23,7 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
     <ViewCenter>
       <Text style={tailwind`text-lg`}>Signup</Text>
       <Formik
-        initialValues={{ username: "", fullName: "", password: "" }}
+        initialValues={{ username: "", full_name: "", password: "" }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
           values.username = values.username.toLowerCase();
@@ -31,12 +31,13 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => (
-          <View style={tailwind`bg-gray-100 rounded-lg w-2/3 px-5 py-6 mt-4`}>
+          <View style={tailwind`bg-gray-100 rounded-lg w-3/4 px-5 py-6 mt-4`}>
             {/* Username */}
             <Text style={tailwind`font-bold text-base`}>Username</Text>
             {errors.username && touched.username ? (
               <Text style={tailwind`text-red-500`}>{errors.username}</Text>
             ) : null}
+
             <TextInput
               style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
               placeholder="e. g. johndoe"
@@ -46,14 +47,14 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
 
             {/* Full name */}
             <Text style={tailwind`font-bold mt-3 text-base`}>Full name</Text>
-            {errors.fullName && touched.fullName ? (
-              <Text style={tailwind`text-red-500`}>{errors.fullName}</Text>
+            {errors.full_name && touched.full_name ? (
+              <Text style={tailwind`text-red-500`}>{errors.full_name}</Text>
             ) : null}
             <TextInput
               style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
               placeholder="e. g. John Doe"
-              value={values.fullName}
-              onChangeText={handleChange("fullName")}
+              value={values.full_name}
+              onChangeText={handleChange("full_name")}
             ></TextInput>
 
             {/* Password */}
@@ -61,7 +62,9 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
             {errors.password && touched.password ? (
               <Text style={tailwind`text-red-500`}>{errors.password}</Text>
             ) : (
-              <Text style={tailwind`text-gray-500`}>More than 4 chars</Text>
+              <Text style={tailwind`text-gray-500`}>
+                More than 4 characters
+              </Text>
             )}
             <TextInput
               style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mb-3`}
@@ -70,7 +73,10 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
               onChangeText={handleChange("password")}
             ></TextInput>
 
-            <GreenButton text="Signup" onPress={handleSubmit} />
+            <GreenButton
+              text={mutation.isLoading ? "Please wait..." : "Signup"}
+              onPress={handleSubmit}
+            />
           </View>
         )}
       </Formik>

@@ -1,6 +1,6 @@
 import { NavigationProp } from "@react-navigation/core";
 import React, { FC } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
 import GreenButton from "../components/buttons/GreenButton";
 import ViewCenter from "../components/ViewCenter";

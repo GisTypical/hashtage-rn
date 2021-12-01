@@ -3,3 +3,8 @@ export interface User {
   fullName?: string;
   password: string;
 }
+
+export interface Message {
+  accessToken: string;
+  refreshToken: string;
+}
