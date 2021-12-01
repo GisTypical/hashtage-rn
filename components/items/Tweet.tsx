@@ -40,6 +40,7 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
         <ScrollView horizontal={true} style={tailwind`overflow-visible mt-2`}>
           {post.images?.map((img) => (
             <Image
+              key={img}
               source={{ uri: img }}
               style={tailwind`w-[200px] h-[200px] mr-3 rounded-xl`}
             />

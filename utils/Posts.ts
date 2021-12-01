@@ -19,7 +19,7 @@ export const createTweet = async (post: Post) => {
   formData.append("text", post.text);
   if (post.imagesUp) {
     formData.append("images", {
-      type: "image/jpg",
+      type: "image/*",
       // @ts-ignore
       uri: post.imagesUp.uri,
       name: post.imagesUp.name,

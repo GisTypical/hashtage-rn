@@ -1,10 +1,10 @@
 import { NavigationProp } from "@react-navigation/core";
 import * as ImagePicker from "expo-image-picker";
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import { Image } from "phosphor-react-native";
-import React, { useEffect, useState } from "react";
+import { Image as ImageIcon } from "phosphor-react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
-  Button,
+  Image,
   Platform,
   Text,
   TextInput,
@@ -26,7 +26,7 @@ const NewTweet = ({ navigation }: Props) => {
   const [text, setText] = useState("");
 
   const queryClient = useQueryClient();
-  const mutation = useMutation((post: Post) => createTweet(post), {
+  const { mutate, isLoading } = useMutation((post: Post) => createTweet(post), {
     onSuccess: () => {
       queryClient.invalidateQueries("tweets");
     },
@@ -60,21 +60,23 @@ const NewTweet = ({ navigation }: Props) => {
         name: image.uri.slice(image.uri.lastIndexOf("/") + 1, image.uri.length),
       };
     }
-    mutation.mutate(values);
+    mutate(values);
   };
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
           style={tailwind`bg-yellow-500 ml-5 py-2 px-4 rounded-lg`}
           onPress={onSubmit}
         >
-          <Text style={tailwind`text-black`}>Tweet</Text>
+          <Text style={tailwind`text-black`}>
+            {isLoading ? "Please wait..." : "Tweet"}
+          </Text>
         </TouchableOpacity>
       ),
     });
-  }, [navigation, text, image]);
+  }, [navigation, text, image, isLoading]);
 
   useEffect(() => {
     (async () => {
@@ -100,16 +102,24 @@ const NewTweet = ({ navigation }: Props) => {
           textAlignVertical="top"
           multiline={true}
           placeholder="Tell the world what's going on!"
-          style={tailwind`flex-1 px-2 py-1 rounded-lg text-base text-left`}
+          style={tailwind`px-2 py-1 rounded-lg text-base text-left`}
           value={text}
           onChangeText={(text) => {
             setText(text);
           }}
         ></TextInput>
+        {image?.uri ? (
+          <View style={tailwind`flex-1 mr-3`}>
+            <Image
+              style={tailwind`w-full h-[200px] rounded-xl`}
+              source={{ uri: image.uri }}
+            ></Image>
+          </View>
+        ) : null}
       </View>
 
       <Fab onPress={pickImage}>
-        <Image></Image>
+        <ImageIcon></ImageIcon>
       </Fab>
     </View>
   );
