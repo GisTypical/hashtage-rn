@@ -1,26 +1,22 @@
+import { NavigationProp } from "@react-navigation/core";
 import { ArrowsClockwise, Heart } from "phosphor-react-native";
-import React, { FC, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TouchableHighlight,
-  ScrollView,
-} from "react-native";
+import React, { FC } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
 import { Post } from "../../utils/types";
 
 interface Props {
   post: Post;
+  navigation: NavigationProp<any>;
 }
 
-export const PostItem: FC<Props> = ({ post }) => {
+export const PostItem: FC<Props> = ({ post, navigation }) => {
   return (
     <TouchableOpacity
       style={tailwind`flex-row border-b border-gray-300`}
       activeOpacity={0.9}
+      onPress={() => navigation.navigate("Thread", post.id)}
     >
       <View
         style={tailwind`bg-yellow-500 ml-4 w-12 h-12 mt-3 rounded-full justify-center items-center`}
@@ -41,7 +37,7 @@ export const PostItem: FC<Props> = ({ post }) => {
         </View>
         <Text style={tailwind`text-base w-full`}>{post.text}</Text>
 
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} style={tailwind`overflow-visible mt-2`}>
           {post.images.map((img) => (
             <Image
               source={{ uri: img }}
@@ -54,7 +50,9 @@ export const PostItem: FC<Props> = ({ post }) => {
         <View style={tailwind`flex-row py-2 items-center`}>
           <TouchableOpacity style={tailwind`flex-1 flex-row items-center`}>
             <ArrowsClockwise size={24} />
-            <Text style={tailwind`ml-2`}>{post.retweets_count}</Text>
+            <Text style={tailwind`ml-2`}>
+              {post.retweets_count || "Retweet"}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={tailwind`flex-1 flex-row items-center`}
@@ -63,7 +61,7 @@ export const PostItem: FC<Props> = ({ post }) => {
             }}
           >
             <Heart size={24} />
-            <Text style={tailwind`ml-2`}>Likes</Text>
+            <Text style={tailwind`ml-2`}>Like</Text>
           </TouchableOpacity>
         </View>
       </View>
