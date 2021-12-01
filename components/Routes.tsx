@@ -9,7 +9,7 @@ import ViewCenter from "./ViewCenter";
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
-  const { user, handleLogin } = useContext(AuthContext);
+  const { user, handleLogin: handleLogin } = useContext(AuthContext);
 
   useEffect(() => {
     const checkUser = async () => {

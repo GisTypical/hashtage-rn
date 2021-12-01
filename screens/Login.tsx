@@ -59,6 +59,11 @@ const Login = () => {
               onChangeText={handleChange("password")}
             ></TextInput>
 
+            {mutation.isError ? (
+              <View>
+                <Text>Wrong user or password</Text>
+              </View>
+            ) : null}
             <GreenButton
               text={mutation.isLoading ? "Please wait..." : "Login"}
               onPress={handleSubmit}
