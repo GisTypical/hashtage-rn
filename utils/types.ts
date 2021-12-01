@@ -13,12 +13,16 @@ export interface Message {
 }
 
 export interface Post {
-  author: User;
-  date: string;
-  id: string;
-  images: string[];
-  retweets_count: number;
   text: string;
+  images?: string[];
+  imagesUp?: {
+    uri: string;
+    name: string;
+  };
+  author?: User;
+  date?: string;
+  id?: string;
+  retweets_count?: number;
 }
 
 export interface PostRoot {

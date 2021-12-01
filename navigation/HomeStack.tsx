@@ -3,17 +3,16 @@ import React, { useContext } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { AuthContext } from "../components/AuthProvider";
 import Feed from "../screens/Feed";
+import NewTweet from "../screens/NewTweet";
 import Thread from "../screens/Thread";
 
 const Stack = createNativeStackNavigator();
 
-interface Props {}
-
-const HomeStack = (props: Props) => {
+const HomeStack = () => {
   const { handleLogout } = useContext(AuthContext);
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Feed">
       <Stack.Screen
         name="Feed"
         component={Feed}
@@ -30,6 +29,12 @@ const HomeStack = (props: Props) => {
         }}
       ></Stack.Screen>
       <Stack.Screen name="Thread" component={Thread}></Stack.Screen>
+      <Stack.Screen
+        name="NewTweet"
+        component={NewTweet}
+        options={{ headerTitle: "" }}
+      ></Stack.Screen>
+      {/* <Stack.Screen name="ImagesPicker" component={ImagesPicker}></Stack.Screen> */}
     </Stack.Navigator>
   );
 };

@@ -11,7 +11,7 @@ interface Props {
   navigation: NavigationProp<any>;
 }
 
-export const PostItem: FC<Props> = ({ post, navigation }) => {
+export const Tweet: FC<Props> = ({ post, navigation }) => {
   return (
     <TouchableOpacity
       style={tailwind`flex-row border-b border-gray-300`}
@@ -21,24 +21,24 @@ export const PostItem: FC<Props> = ({ post, navigation }) => {
       <View
         style={tailwind`bg-yellow-500 ml-4 w-12 h-12 mt-3 rounded-full justify-center items-center`}
       >
-        <Text>{post.author.username.charAt(0).toLocaleUpperCase()}</Text>
+        <Text>{post.author?.username.charAt(0).toLocaleUpperCase()}</Text>
       </View>
 
       {/* Right Side */}
       <View style={tailwind`flex-1 px-2 my-2`}>
         <View style={tailwind`flex-row items-center`}>
           <Text style={tailwind`font-bold text-base`}>
-            {post.author.username}
+            {post.author?.username}
           </Text>
           <Text style={tailwind`font-bold text-sm opacity-60`}>
             {" "}
-            • {parseDate(post.date)}
+            • {parseDate(post.date!)}
           </Text>
         </View>
         <Text style={tailwind`text-base w-full`}>{post.text}</Text>
 
         <ScrollView horizontal={true} style={tailwind`overflow-visible mt-2`}>
-          {post.images.map((img) => (
+          {post.images?.map((img) => (
             <Image
               source={{ uri: img }}
               style={tailwind`w-[200px] h-[200px] mr-3 rounded-xl`}
@@ -69,4 +69,4 @@ export const PostItem: FC<Props> = ({ post, navigation }) => {
   );
 };
 
-export default PostItem;
+export default Tweet;

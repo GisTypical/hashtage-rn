@@ -1,15 +1,22 @@
+import { NavigationProp } from "@react-navigation/core";
+import { Plus } from "phosphor-react-native";
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import tailwind from "twrnc";
 
-interface Props {}
+interface Props {
+  children: React.ReactNode;
+  onPress: () => void;
+}
 
-const Fab = (props: Props) => {
+const Fab = ({ children, onPress }: Props) => {
   return (
     <TouchableOpacity
-      style={tailwind`bg-yellow-500 rounded-full absolute bottom-8 right-8`}
+      style={tailwind`bg-yellow-500 rounded-full absolute bottom-7 right-7 w-14 h-14 items-center justify-center`}
+      activeOpacity={0.9}
+      onPress={onPress}
     >
-      <Text>+</Text>
+      {children}
     </TouchableOpacity>
   );
 };

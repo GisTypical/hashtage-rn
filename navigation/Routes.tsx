@@ -6,10 +6,11 @@ import AuthStack from "./AuthStack";
 import { refreshToken } from "../utils/Auth";
 import { AuthContext } from "../components/AuthProvider";
 import ViewCenter from "../components/ViewCenter";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
-  const { user, handleLogin: handleLogin } = useContext(AuthContext);
+  const { user, handleLogin } = useContext(AuthContext);
 
   /**
    * Check if user is logged in
@@ -18,6 +19,7 @@ const Routes = () => {
     const checkUser = async () => {
       try {
         const { data } = await refreshToken();
+        await AsyncStorage.setItem("accessToken", data.accessToken);
         handleLogin(data.accessToken);
       } catch ({ response }) {
       } finally {
