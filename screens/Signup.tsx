@@ -1,7 +1,7 @@
 import { NavigationProp } from "@react-navigation/core";
 import { Formik } from "formik";
 import React, { FC } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Keyboard, Text, TextInput, View } from "react-native";
 import { useMutation } from "react-query";
 import tailwind from "twrnc";
 import GreenButton from "../components/buttons/GreenButton";
@@ -26,18 +26,20 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
         initialValues={{ username: "", full_name: "", password: "" }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
+          Keyboard.dismiss();
           values.username = values.username.toLowerCase();
           mutation.mutate(values);
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => (
-          <View style={tailwind`bg-gray-100 rounded-lg w-3/4 px-5 py-6 mt-4`}>
+          <View
+            style={tailwind`bg-gray-100 rounded-lg w-3/4 justify-between px-5 py-6 mt-4`}
+          >
             {/* Username */}
             <Text style={tailwind`font-bold text-base`}>Username</Text>
             {errors.username && touched.username ? (
               <Text style={tailwind`text-red-500`}>{errors.username}</Text>
             ) : null}
-
             <TextInput
               style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
               placeholder="e. g. johndoe"

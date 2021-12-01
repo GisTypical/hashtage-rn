@@ -18,3 +18,7 @@ export const SignupSchema = Yup.object().shape({
   full_name: Yup.string().min(4, "Too Short!").required("Required"),
   password: Yup.string().min(4, "Too Short!").required("Required"),
 });
+
+export const TweetSchema = Yup.object().shape({
+  text: Yup.string().min(1).max(280),
+});
