@@ -1,14 +1,15 @@
-import { NavigationProp } from "@react-navigation/core";
-import { ArrowsClockwise, Heart } from "phosphor-react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ArrowsClockwise, ChatCircle, Heart } from "phosphor-react-native";
 import React, { FC } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
 import { Post } from "../../utils/types";
+import UserPictureCircle from "../UserCircle";
 
 interface Props {
   post: Post;
-  navigation: NavigationProp<any>;
+  navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const Tweet: FC<Props> = ({ post, navigation }) => {
@@ -16,54 +17,47 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
     <TouchableOpacity
       style={tailwind`flex-row border-b border-gray-300`}
       activeOpacity={0.9}
-      onPress={() => navigation.navigate("Thread", post.id)}
+      onPress={() => navigation.push("Thread", post.id)}
     >
-      <View
-        style={tailwind`bg-yellow-500 ml-4 w-12 h-12 mt-3 rounded-full justify-center items-center`}
-      >
-        <Text>{post.author?.username.charAt(0).toLocaleUpperCase()}</Text>
-      </View>
+      <UserPictureCircle username={post.author?.username} />
 
       {/* Right Side */}
       <View style={tailwind`flex-1 px-2 my-2`}>
-        <View style={tailwind`flex-row items-center`}>
-          <Text style={tailwind`font-bold text-base`}>
-            {post.author?.username}
-          </Text>
-          <Text style={tailwind`font-bold text-sm opacity-60`}>
+        <View style={tailwind`flex-row items-center mt-1`}>
+          <Text style={tailwind`font-bold`}>{post.author?.username}</Text>
+          <Text style={tailwind`font-bold opacity-60`}>
             {" "}
             • {parseDate(post.date!)}
           </Text>
         </View>
         <Text style={tailwind`text-base w-full`}>{post.text}</Text>
 
-        <ScrollView horizontal={true} style={tailwind`overflow-visible mt-2`}>
-          {post.images?.map((img) => (
+        <View style={tailwind`overflow-visible my-2`}>
+          {post.images?.length ? (
             <Image
-              key={img}
-              source={{ uri: img }}
-              style={tailwind`w-[200px] h-[200px] mr-3 rounded-xl`}
+              key={post.images[0]}
+              source={{ uri: post.images[0] }}
+              style={tailwind`w-full h-[200px] rounded-xl`}
             />
-          ))}
-        </ScrollView>
+          ) : null}
+        </View>
 
         {/* Touchable icons */}
-        <View style={tailwind`flex-row py-2 items-center`}>
-          <TouchableOpacity style={tailwind`flex-1 flex-row items-center`}>
+        <View style={tailwind`flex-row items-center mr-3 justify-between`}>
+          <TouchableOpacity style={tailwind`flex-row items-center`}>
+            <ChatCircle size={24} />
+            <Text style={tailwind`ml-2`}>{post.retweets_count || "Reply"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tailwind`flex-row items-center`}>
             <ArrowsClockwise size={24} />
             <Text style={tailwind`ml-2`}>
               {post.retweets_count || "Retweet"}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={tailwind`flex-1 flex-row items-center`}
-            onLongPress={() => {
-              alert("long");
-            }}
-          >
+          {/* <TouchableOpacity style={tailwind`flex-row items-center`}>
             <Heart size={24} />
             <Text style={tailwind`ml-2`}>Like</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </TouchableOpacity>

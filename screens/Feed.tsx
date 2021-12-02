@@ -1,4 +1,4 @@
-import { NavigationProp } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Plus } from "phosphor-react-native";
 import React, { FC } from "react";
 import { ActivityIndicator, FlatList, LogBox, View } from "react-native";
@@ -7,11 +7,10 @@ import tw from "twrnc";
 import Fab from "../components/buttons/Fab";
 import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
-import { sortByTime } from "../utils/parseDate";
 import { getPosts } from "../utils/Posts";
 
 LogBox.ignoreAllLogs(); // ignore all logs
-export const Feed: FC<{ navigation: NavigationProp<any> }> = ({
+export const Feed: FC<{ navigation: NativeStackNavigationProp<any, any> }> = ({
   navigation,
 }) => {
   const { data, isLoading } = useQuery("tweets", getPosts);

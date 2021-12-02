@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import { Keyboard, Text, TextInput, View } from "react-native";
 import { useMutation } from "react-query";
 import tailwind from "twrnc";
-import GreenButton from "../components/buttons/GreenButton";
+import YellowButton from "../components/buttons/YellowButton";
 import ViewCenter from "../components/ViewCenter";
 import { register } from "../utils/Auth";
 import { SignupSchema } from "../utils/Schema";
@@ -75,7 +75,7 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
               onChangeText={handleChange("password")}
             ></TextInput>
 
-            <GreenButton
+            <YellowButton
               text={mutation.isLoading ? "Please wait..." : "Signup"}
               onPress={handleSubmit}
             />

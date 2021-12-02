@@ -2,7 +2,7 @@ import { NavigationProp } from "@react-navigation/core";
 import * as ImagePicker from "expo-image-picker";
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import { Image as ImageIcon } from "phosphor-react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Image,
   Platform,
@@ -24,11 +24,12 @@ interface Props {
 const NewTweet = ({ navigation }: Props) => {
   const [image, setImage] = useState<ImageInfo>();
   const [text, setText] = useState("");
-
+  const textRef = useRef(null);
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation((post: Post) => createTweet(post), {
     onSuccess: () => {
       queryClient.invalidateQueries("tweets");
+      navigation.goBack();
     },
   });
 
@@ -79,7 +80,7 @@ const NewTweet = ({ navigation }: Props) => {
   }, [navigation, text, image, isLoading]);
 
   useEffect(() => {
-    (async () => {
+    const askPermissions = async () => {
       if (Platform.OS !== "web") {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -87,7 +88,8 @@ const NewTweet = ({ navigation }: Props) => {
           alert("Sorry, without storage permissions image upload wont work!");
         }
       }
-    })();
+    };
+    askPermissions();
   }, []);
 
   return (
@@ -97,12 +99,16 @@ const NewTweet = ({ navigation }: Props) => {
       >
         <Text>{}</Text>
       </View>
-      <View style={tailwind`flex-1 mt-2 pt-3`}>
+      <View style={tailwind`flex-1 mt-2 pt-3 px-2`}>
         <TextInput
+          autoFocus={true}
           textAlignVertical="top"
           multiline={true}
           placeholder="Tell the world what's going on!"
-          style={tailwind`px-2 py-1 rounded-lg text-base text-left`}
+          style={tailwind.style(
+            `px-2 py-1 rounded-lg text-base text-left justify-center`,
+            image?.uri ? "" : "flex-1"
+          )}
           value={text}
           onChangeText={(text) => {
             setText(text);

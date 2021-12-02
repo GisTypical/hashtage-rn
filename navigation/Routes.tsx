@@ -7,6 +7,7 @@ import { refreshToken } from "../utils/Auth";
 import { AuthContext } from "../components/AuthProvider";
 import ViewCenter from "../components/ViewCenter";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusBar } from "expo-status-bar";
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ const Routes = () => {
   return (
     <NavigationContainer>
       {user ? <AppTabs></AppTabs> : <AuthStack></AuthStack>}
+      <StatusBar></StatusBar>
     </NavigationContainer>
   );
 };

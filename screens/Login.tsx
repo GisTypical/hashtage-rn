@@ -5,7 +5,7 @@ import { Keyboard, Text, TextInput, View } from "react-native";
 import { useMutation } from "react-query";
 import tailwind from "twrnc";
 import { AuthContext } from "../components/AuthProvider";
-import GreenButton from "../components/buttons/GreenButton";
+import YellowButton from "../components/buttons/YellowButton";
 import ViewCenter from "../components/ViewCenter";
 import { login } from "../utils/Auth";
 import { LoginSchema } from "../utils/Schema";
@@ -77,7 +77,7 @@ const Login = () => {
                 </Text>
               </View>
             ) : null}
-            <GreenButton
+            <YellowButton
               text={mutation.isLoading ? "Please wait..." : "Login"}
               onPress={handleSubmit}
             />
