@@ -7,11 +7,11 @@ interface Props {
   onPress: () => void;
 }
 
-const GreenButton: FC<Props> = ({ text, onPress }) => {
+const YellowButton: FC<Props> = ({ text, onPress }) => {
   return (
     <>
       <TouchableOpacity
-        style={tailwind`bg-green-500 py-2 px-4 rounded-lg items-center`}
+        style={tailwind`bg-yellow-500 py-2 px-4 rounded-lg items-center`}
         onPress={onPress}
       >
         <Text style={tailwind`font-bold`}>{text}</Text>
@@ -20,4 +20,4 @@ const GreenButton: FC<Props> = ({ text, onPress }) => {
   );
 };
 
-export default GreenButton;
+export default YellowButton;
