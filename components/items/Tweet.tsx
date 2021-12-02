@@ -1,5 +1,4 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ArrowsClockwise, ChatCircle, Heart } from "phosphor-react-native";
 import React, { FC } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useMutation, useQuery, useQueryClient } from "react-query";

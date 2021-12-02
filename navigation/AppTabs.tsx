@@ -1,7 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+<<<<<<< Updated upstream
 import { House, MagnifyingGlass } from "phosphor-react-native";
+=======
+>>>>>>> Stashed changes
 import React from "react";
-import Search from "../screens/Search";
 import HomeStack from "./HomeStack";
 
 const Tabs = createBottomTabNavigator();
@@ -23,6 +25,11 @@ const AppTabs = () => {
               <MagnifyingGlass weight={weight} size={size} color={color} />
             );
           }
+<<<<<<< Updated upstream
+=======
+          // @ts-ignore
+          return <Ionicons name={iconName} size={size} color={color} />;
+>>>>>>> Stashed changes
         },
         tabBarActiveTintColor: "#F59E0B",
         tabBarInactiveTintColor: "gray",

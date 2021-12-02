@@ -3,8 +3,7 @@ import React, { useContext } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { AuthContext } from "../components/AuthProvider";
 import Feed from "../screens/Feed";
-import NewTweet from "../screens/NewTweet";
-import Thread from "../screens/Thread";
+import addTweetsRoutes from "./addTweetsRoutes";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,12 +27,7 @@ const HomeStack = () => {
           ),
         }}
       ></Stack.Screen>
-      <Stack.Screen name="Thread" component={Thread}></Stack.Screen>
-      <Stack.Screen
-        name="NewTweet"
-        component={NewTweet}
-        options={{ headerTitle: "" }}
-      ></Stack.Screen>
+      {addTweetsRoutes(Stack)}
       {/* <Stack.Screen name="ImagesPicker" component={ImagesPicker}></Stack.Screen> */}
     </Stack.Navigator>
   );

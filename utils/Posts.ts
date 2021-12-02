@@ -80,3 +80,14 @@ export const deleteTweet = async (postId: string | undefined) => {
     },
   });
 };
+
+export const searchPost = async (searchValue: string) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.get(`${API_URL}/search/${searchValue}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+};

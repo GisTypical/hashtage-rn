@@ -37,7 +37,7 @@ const Thread = ({ route, navigation }: Props) => {
     (post: Post) => commentTweet(post, route.params),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(`thread/${route.params}`);
+        queryClient.invalidateQueries();
         setText("");
         setImage(undefined);
       },

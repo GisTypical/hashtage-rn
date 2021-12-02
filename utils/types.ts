@@ -23,7 +23,11 @@ export interface Post {
   date?: string;
   id?: string;
   retweets_count?: number;
+<<<<<<< Updated upstream
   comments_count?: number;
+=======
+  didRetweet?: boolean;
+>>>>>>> Stashed changes
 }
 
 export interface PostRoot {

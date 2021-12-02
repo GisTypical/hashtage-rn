@@ -10,9 +10,12 @@ import ViewCenter from "../components/ViewCenter";
 import { getPosts } from "../utils/Posts";
 
 LogBox.ignoreAllLogs(); // ignore all logs
-export const Feed: FC<{ navigation: NativeStackNavigationProp<any, any> }> = ({
-  navigation,
-}) => {
+
+interface Props {
+  navigation: NativeStackNavigationProp<any, any>;
+}
+
+export const Feed: FC<Props> = ({ navigation }) => {
   const { data, isLoading } = useQuery("tweets", getPosts);
 
   if (isLoading) {
