@@ -1,10 +1,3 @@
-import {
-  ChatCircle,
-  ArrowsClockwise,
-  Heart,
-  DotsThreeVertical,
-  Trash,
-} from "phosphor-react-native";
 import React, { RefObject, useRef } from "react";
 import {
   ActivityIndicator,
@@ -21,6 +14,7 @@ import ActionSheet from "react-native-actions-sheet";
 import { useMutation, useQueryClient } from "react-query";
 import { deleteTweet } from "../utils/Posts";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 interface Props {
   post: Post;
@@ -44,12 +38,14 @@ const ThreadTweet = ({ post, navigation }: Props) => {
           <Text style={tailwind`font-bold`}>{post.author?.full_name}</Text>
           <Text>{post.author?.username}</Text>
         </View>
-        <TouchableOpacity
-          style={tailwind`mr-4 flex-1 items-end`}
-          onPress={() => actionSheetRef.current?.setModalVisible()}
-        >
-          <DotsThreeVertical size={22} />
-        </TouchableOpacity>
+        {post.isAuthor ? (
+          <TouchableOpacity
+            style={tailwind`mr-4 flex-1 items-end`}
+            onPress={() => actionSheetRef.current?.setModalVisible()}
+          >
+            <Ionicons name="md-reorder-three-outline" size={24} color="black" />
+          </TouchableOpacity>
+        ) : null}
       </View>
 
       <Text style={tailwind`mt-2 pl-4 text-lg`}>{post.text}</Text>
@@ -70,11 +66,11 @@ const ThreadTweet = ({ post, navigation }: Props) => {
         style={tailwind`flex-row items-center p-3 border-t border-b border-gray-200 justify-between`}
       >
         <TouchableOpacity style={tailwind`flex-row items-center`}>
-          <ChatCircle size={24} />
+          <Ionicons name="ios-chatbox-outline" size={24} color="black" />
           <Text style={tailwind`ml-2`}>{post.retweets_count || "Reply"}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={tailwind`flex-row items-center`}>
-          <ArrowsClockwise size={24} />
+          <AntDesign name="retweet" size={24} color="black" />
           <Text style={tailwind`ml-2`}>{post.retweets_count || "Retweet"}</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity style={tailwind`flex-row items-center`}>
@@ -90,7 +86,11 @@ const ThreadTweet = ({ post, navigation }: Props) => {
             }}
           >
             <View style={tailwind`flex-row ml-5 py-4`}>
-              <Trash size={24} color="rgb(239, 68, 68)" />
+              <Ionicons
+                name="trash-outline"
+                size={24}
+                color="rgb(239, 68, 68)"
+              />
               <Text style={tailwind`ml-5 text-red-500 text-base`}>
                 Delete Tweet
               </Text>

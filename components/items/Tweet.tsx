@@ -1,3 +1,4 @@
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -54,14 +55,14 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
           style={tailwind`flex-row w-2/3 items-center mr-3 justify-between`}
         >
           <TouchableOpacity style={tailwind`flex-row items-center`}>
-            <ChatCircle size={24} />
+            <Ionicons name="ios-chatbox-outline" size={24} color="black" />
             <Text style={tailwind`ml-2`}>{post.comments_count || "Reply"}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={tailwind`flex-row items-center`}
             onPress={() => mutate()}
           >
-            <ArrowsClockwise size={24} />
+            <AntDesign name="retweet" size={24} color="black" />
             <Text style={tailwind`ml-2`}>
               {post.retweets_count || "Retweet"}
             </Text>

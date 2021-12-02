@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-import React from "react";
-import { View, Text } from "react-native";
-=======
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {
@@ -17,7 +13,6 @@ import YellowButton from "../components/buttons/YellowButton";
 import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
 import { searchPost } from "../utils/Posts";
->>>>>>> Stashed changes
 
 interface Props {
   navigation: NativeStackNavigationProp<any, any>;
@@ -34,10 +29,6 @@ const Search = ({ navigation }: Props) => {
   );
 
   return (
-<<<<<<< Updated upstream
-    <View>
-      <Text>Search</Text>
-=======
     <View style={tailwind`bg-white flex-1`}>
       <View style={tailwind`flex-row p-2 px-2 border-b-2 border-gray-200`}>
         <TextInput
@@ -61,7 +52,6 @@ const Search = ({ navigation }: Props) => {
           keyExtractor={({ id }) => id}
         />
       )}
->>>>>>> Stashed changes
     </View>
   );
 };

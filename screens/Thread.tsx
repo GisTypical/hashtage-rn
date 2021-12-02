@@ -1,7 +1,7 @@
+import { Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as ImagePicker from "expo-image-picker";
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import { Image } from "phosphor-react-native";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -113,7 +113,11 @@ const Thread = ({ route, navigation }: Props) => {
               style={tailwind`mx-1 w-10 h-7 justify-center items-center`}
               onPress={pickImage}
             >
-              <Image color={image ? "#F59E0B" : "#000"}></Image>
+              <Ionicons
+                name="ios-image-outline"
+                size={24}
+                color={image ? "#F59E0B" : "#000"}
+              />
             </TouchableOpacity>
           )}
         </View>

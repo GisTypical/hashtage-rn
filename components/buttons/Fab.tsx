@@ -1,7 +1,5 @@
-import { NavigationProp } from "@react-navigation/core";
-import { Plus } from "phosphor-react-native";
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import tailwind from "twrnc";
 
 interface Props {

@@ -1,7 +1,7 @@
+import { Ionicons } from "@expo/vector-icons";
 import { NavigationProp } from "@react-navigation/core";
 import * as ImagePicker from "expo-image-picker";
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import { Image as ImageIcon } from "phosphor-react-native";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Image,
@@ -125,7 +125,7 @@ const NewTweet = ({ navigation }: Props) => {
       </View>
 
       <Fab onPress={pickImage}>
-        <ImageIcon></ImageIcon>
+        <Ionicons name="ios-image-outline" size={24} color="black" />
       </Fab>
     </View>
   );

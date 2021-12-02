@@ -1,10 +1,8 @@
+import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-<<<<<<< Updated upstream
-import { House, MagnifyingGlass } from "phosphor-react-native";
-=======
->>>>>>> Stashed changes
 import React from "react";
 import HomeStack from "./HomeStack";
+import SearchStack from "./SearchStack";
 
 const Tabs = createBottomTabNavigator();
 
@@ -14,29 +12,24 @@ const AppTabs = () => {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
-          let weight = focused ? "fill" : "regular";
+          let iconName;
 
           if (route.name === "Home") {
-            // @ts-ignore
-            return <House weight={weight} size={size} color={color} />;
+            iconName = focused ? "ios-home" : "ios-home-outline";
           } else if (route.name === "Search") {
-            return (
-              // @ts-ignore
-              <MagnifyingGlass weight={weight} size={size} color={color} />
-            );
+            iconName = "search";
           }
-<<<<<<< Updated upstream
-=======
+
+          // You can return any component that you like here!
           // @ts-ignore
           return <Ionicons name={iconName} size={size} color={color} />;
->>>>>>> Stashed changes
         },
         tabBarActiveTintColor: "#F59E0B",
         tabBarInactiveTintColor: "gray",
       })}
     >
       <Tabs.Screen name="Home" component={HomeStack}></Tabs.Screen>
-      <Tabs.Screen name="Search" component={Search}></Tabs.Screen>
+      <Tabs.Screen name="Search" component={SearchStack}></Tabs.Screen>
     </Tabs.Navigator>
   );
 };
