@@ -36,7 +36,6 @@ export const createTweet = async (post: Post) => {
       name: post.imagesUp.name,
     });
   }
-  console.log(formData);
   const accessToken = await AsyncStorage.getItem("accessToken");
   return axios.post(`${API_URL}/post`, formData, {
     headers: {
@@ -56,9 +55,26 @@ export const commentTweet = async (comment: Post, postId: string) => {
       name: comment.imagesUp.name,
     });
   }
-  console.log(formData);
   const accessToken = await AsyncStorage.getItem("accessToken");
   return axios.post(`${API_URL}/post/comment/${postId}`, formData, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const retweet = async (postId: string | undefined) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.post(`${API_URL}/post/retweet/${postId}`, null, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+export const deleteTweet = async (postId: string | undefined) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.delete(`${API_URL}/post/${postId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

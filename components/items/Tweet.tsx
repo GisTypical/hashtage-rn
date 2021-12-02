@@ -2,8 +2,10 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ArrowsClockwise, ChatCircle, Heart } from "phosphor-react-native";
 import React, { FC } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
+import { retweet } from "../../utils/Posts";
 import { Post } from "../../utils/types";
 import UserPictureCircle from "../UserCircle";
 
@@ -13,6 +15,12 @@ interface Props {
 }
 
 export const Tweet: FC<Props> = ({ post, navigation }) => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(() => retweet(post.id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("tweets");
+    },
+  });
   return (
     <TouchableOpacity
       style={tailwind`flex-row border-b border-gray-300`}
@@ -43,12 +51,17 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
         </View>
 
         {/* Touchable icons */}
-        <View style={tailwind`flex-row items-center mr-3 justify-between`}>
+        <View
+          style={tailwind`flex-row w-2/3 items-center mr-3 justify-between`}
+        >
           <TouchableOpacity style={tailwind`flex-row items-center`}>
             <ChatCircle size={24} />
-            <Text style={tailwind`ml-2`}>{post.retweets_count || "Reply"}</Text>
+            <Text style={tailwind`ml-2`}>{post.comments_count || "Reply"}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={tailwind`flex-row items-center`}>
+          <TouchableOpacity
+            style={tailwind`flex-row items-center`}
+            onPress={() => mutate()}
+          >
             <ArrowsClockwise size={24} />
             <Text style={tailwind`ml-2`}>
               {post.retweets_count || "Retweet"}

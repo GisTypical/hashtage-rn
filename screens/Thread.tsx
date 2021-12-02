@@ -89,7 +89,7 @@ const Thread = ({ route, navigation }: Props) => {
         nestedScrollEnabled={true}
         style={tailwind`bg-white flex-1 mb-9`}
       >
-        <ThreadTweet post={data?.data}></ThreadTweet>
+        <ThreadTweet navigation={navigation} post={data?.data}></ThreadTweet>
         {data?.data.children.map((tweet: Post) => (
           <Tweet key={tweet.id} post={tweet} navigation={navigation} />
         ))}

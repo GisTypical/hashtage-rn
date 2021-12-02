@@ -23,6 +23,7 @@ export interface Post {
   date?: string;
   id?: string;
   retweets_count?: number;
+  comments_count?: number;
 }
 
 export interface PostRoot {
