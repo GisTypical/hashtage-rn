@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -11,8 +12,10 @@ import { useQuery } from "react-query";
 import tailwind from "twrnc";
 import YellowButton from "../components/buttons/YellowButton";
 import Tweet from "../components/items/Tweet";
+import UserPictureCircle from "../components/UserCircle";
 import ViewCenter from "../components/ViewCenter";
 import { searchPost } from "../utils/Posts";
+import { Post, User } from "../utils/types";
 
 interface Props {
   navigation: NativeStackNavigationProp<any, any>;
@@ -44,13 +47,24 @@ const Search = ({ navigation }: Props) => {
           <ActivityIndicator color="#000" />
         </ViewCenter>
       ) : (
-        <FlatList
-          data={data?.data.posts}
-          renderItem={({ item }) => (
-            <Tweet post={item} navigation={navigation} />
-          )}
-          keyExtractor={({ id }) => id}
-        />
+        <>
+          <ScrollView>
+            <ScrollView horizontal={true} style={tailwind``}>
+              {data?.data.users.map((user: User) => (
+                <View style={tailwind`items-center justify-center ml-2`}>
+                  <UserPictureCircle
+                    key={user.username}
+                    username={user.username}
+                  ></UserPictureCircle>
+                  <Text style={tailwind``}>{user.username}</Text>
+                </View>
+              ))}
+            </ScrollView>
+            {data?.data.posts.map((post: Post) => (
+              <Tweet key={post.id} post={post} navigation={navigation} />
+            ))}
+          </ScrollView>
+        </>
       )}
     </View>
   );

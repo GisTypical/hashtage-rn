@@ -1,4 +1,6 @@
-import React, { RefObject, useRef } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React, { useRef } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -6,15 +8,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import tailwind from "twrnc";
-import { parseDate } from "../utils/parseDate";
-import { Post } from "../utils/types";
-import UserPictureCircle from "./UserCircle";
 import ActionSheet from "react-native-actions-sheet";
 import { useMutation, useQueryClient } from "react-query";
+import tailwind from "twrnc";
+import { parseDate } from "../utils/parseDate";
 import { deleteTweet } from "../utils/Posts";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { Post } from "../utils/types";
+import TweetButtons from "./buttons/TweetButtons";
+import UserPictureCircle from "./UserCircle";
 
 interface Props {
   post: Post;
@@ -26,13 +27,15 @@ const ThreadTweet = ({ post, navigation }: Props) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(() => deleteTweet(post.id), {
     onSuccess: () => {
-      queryClient.invalidateQueries("tweets");
+      post.didRetweet = true;
+      actionSheetRef.current?.hide();
+      queryClient.invalidateQueries();
       navigation.navigate("Feed");
     },
   });
   return (
     <View>
-      <View style={tailwind`flex-row items-center`}>
+      <View style={tailwind`flex-row items-center px-2 my-3`}>
         <UserPictureCircle username={post.author?.username} />
         <View style={tailwind`flex-4 px-2 mt-2`}>
           <Text style={tailwind`font-bold`}>{post.author?.full_name}</Text>
@@ -65,18 +68,7 @@ const ThreadTweet = ({ post, navigation }: Props) => {
       <View
         style={tailwind`flex-row items-center p-3 border-t border-b border-gray-200 justify-between`}
       >
-        <TouchableOpacity style={tailwind`flex-row items-center`}>
-          <Ionicons name="ios-chatbox-outline" size={24} color="black" />
-          <Text style={tailwind`ml-2`}>{post.retweets_count || "Reply"}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={tailwind`flex-row items-center`}>
-          <AntDesign name="retweet" size={24} color="black" />
-          <Text style={tailwind`ml-2`}>{post.retweets_count || "Retweet"}</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={tailwind`flex-row items-center`}>
-          <Heart size={24} />
-          <Text style={tailwind`ml-2`}>Like</Text>
-        </TouchableOpacity> */}
+        <TweetButtons post={post} />
       </View>
       <ActionSheet ref={actionSheetRef}>
         <View style={tailwind`h-16 w-full justify-center`}>

@@ -72,6 +72,15 @@ export const retweet = async (postId: string | undefined) => {
   });
 };
 
+export const deleteRetweet = async (postId: string | undefined) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.delete(`${API_URL}/post/retweet/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
 export const deleteTweet = async (postId: string | undefined) => {
   const accessToken = await AsyncStorage.getItem("accessToken");
   return axios.delete(`${API_URL}/post/${postId}`, {
