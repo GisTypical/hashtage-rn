@@ -1,10 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC } from "react";
-import { ActivityIndicator, FlatList, LogBox, View } from "react-native";
+import { ActivityIndicator, FlatList, LogBox, Text, View } from "react-native";
 import { useQuery } from "react-query";
 import tw from "twrnc";
 import Fab from "../components/buttons/Fab";
+import Retweet from "../components/items/Retweet";
+import RetweetType from "../components/items/Retweet";
 import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
 import { getPosts } from "../utils/Posts";
@@ -30,7 +32,13 @@ export const Feed: FC<Props> = ({ navigation }) => {
     <View style={tw`flex-1 bg-white`}>
       <FlatList
         data={data?.data.posts}
-        renderItem={({ item }) => <Tweet post={item} navigation={navigation} />}
+        renderItem={({ item }) =>
+          item.user_id ? (
+            <Retweet retweet={item} navigation={navigation}></Retweet>
+          ) : (
+            <Tweet post={item} navigation={navigation} />
+          )
+        }
         keyExtractor={({ id }) => id}
       />
       <Fab onPress={() => navigation.navigate("NewTweet")}>

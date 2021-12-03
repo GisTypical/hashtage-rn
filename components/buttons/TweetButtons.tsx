@@ -24,7 +24,7 @@ const TweetButtons = ({ post }: Props) => {
   });
   return (
     <View
-      style={tailwind`flex-row items-center px-3 border-gray-200 justify-between`}
+      style={tailwind`flex-row flex-1 items-center px-4 border-gray-200 justify-between`}
     >
       <View style={tailwind`flex-row items-center`}>
         <Ionicons name="ios-chatbox-outline" size={24} color="black" />

@@ -31,3 +31,44 @@ export interface Post {
 export interface PostRoot {
   posts: Post[];
 }
+
+// RETWEET
+
+export interface Id {
+  $oid: string;
+}
+
+export interface Author {
+  $oid: string;
+}
+
+export interface Date {
+  $date: number;
+}
+
+export interface PostId {
+  _id: Id;
+  author: Author;
+  date: Date;
+  img_path: string;
+  text: string;
+}
+
+export interface Id2 {
+  $oid: string;
+}
+
+export interface UserId {
+  _id: Id2;
+  followers: any[];
+  following: any[];
+  full_name: string;
+  password: string;
+  username: string;
+}
+
+export interface RetweetType {
+  id: string;
+  post_id: PostId;
+  user_id: UserId;
+}

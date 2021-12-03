@@ -35,7 +35,7 @@ const ThreadTweet = ({ post, navigation }: Props) => {
   });
   return (
     <View>
-      <View style={tailwind`flex-row items-center`}>
+      <View style={tailwind`flex-row items-center px-2 my-3`}>
         <UserPictureCircle username={post.author?.username} />
         <View style={tailwind`flex-4 px-2 mt-2`}>
           <Text style={tailwind`font-bold`}>{post.author?.full_name}</Text>

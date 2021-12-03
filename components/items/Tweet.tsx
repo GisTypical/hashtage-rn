@@ -15,14 +15,14 @@ interface Props {
 export const Tweet: FC<Props> = ({ post, navigation }) => {
   return (
     <TouchableOpacity
-      style={tailwind`flex-row border-b border-gray-300`}
+      style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}
       activeOpacity={0.9}
       onPress={() => navigation.push("Thread", post.id)}
     >
       <UserPictureCircle username={post.author?.username} />
 
       {/* Right Side */}
-      <View style={tailwind`flex-1 px-2 my-2`}>
+      <View style={tailwind`flex-1 ml-2`}>
         <View style={tailwind`flex-row items-center mt-1`}>
           <Text style={tailwind`font-bold`}>{post.author?.username}</Text>
           <Text style={tailwind`font-bold opacity-60`}>
