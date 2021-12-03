@@ -1,12 +1,10 @@
-import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
-import { retweet } from "../../utils/Posts";
 import { Post } from "../../utils/types";
+import TweetButtons from "../buttons/TweetButtons";
 import UserPictureCircle from "../UserCircle";
 
 interface Props {
@@ -15,12 +13,6 @@ interface Props {
 }
 
 export const Tweet: FC<Props> = ({ post, navigation }) => {
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation(() => retweet(post.id), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("tweets");
-    },
-  });
   return (
     <TouchableOpacity
       style={tailwind`flex-row border-b border-gray-300`}
@@ -51,27 +43,7 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
         </View>
 
         {/* Touchable icons */}
-        <View
-          style={tailwind`flex-row w-2/3 items-center mr-3 justify-between`}
-        >
-          <TouchableOpacity style={tailwind`flex-row items-center`}>
-            <Ionicons name="ios-chatbox-outline" size={24} color="black" />
-            <Text style={tailwind`ml-2`}>{post.comments_count || "Reply"}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={tailwind`flex-row items-center`}
-            onPress={() => mutate()}
-          >
-            <AntDesign name="retweet" size={24} color="black" />
-            <Text style={tailwind`ml-2`}>
-              {post.retweets_count || "Retweet"}
-            </Text>
-          </TouchableOpacity>
-          {/* <TouchableOpacity style={tailwind`flex-row items-center`}>
-            <Heart size={24} />
-            <Text style={tailwind`ml-2`}>Like</Text>
-          </TouchableOpacity> */}
-        </View>
+        <TweetButtons post={post} />
       </View>
     </TouchableOpacity>
   );
