@@ -1,6 +1,6 @@
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import { deleteRetweet, retweet } from "../../utils/Posts";
@@ -24,7 +24,7 @@ const TweetButtons = ({ post }: Props) => {
   });
   return (
     <View
-      style={tailwind`flex-row flex-1 items-center px-4 border-gray-200 justify-between`}
+      style={tailwind`flex-row w-full items-center px-4 border-gray-200 justify-between`}
     >
       <View style={tailwind`flex-row items-center`}>
         <Ionicons name="ios-chatbox-outline" size={24} color="black" />

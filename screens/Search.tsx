@@ -51,7 +51,10 @@ const Search = ({ navigation }: Props) => {
           <ScrollView>
             <ScrollView horizontal={true} style={tailwind``}>
               {data?.data.users.map((user: User) => (
-                <View style={tailwind`items-center justify-center ml-2`}>
+                <View
+                  key={user.username}
+                  style={tailwind`items-center justify-center ml-2`}
+                >
                   <UserPictureCircle
                     key={user.username}
                     username={user.username}

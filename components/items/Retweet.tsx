@@ -14,44 +14,44 @@ interface Props {
 
 const Retweet = ({ retweet, navigation }: Props) => {
   return (
-    <View>
+    <TouchableOpacity
+      activeOpacity={0.9}
+      style={tailwind`ml-1`}
+      onPress={() => navigation.push("Thread", retweet.post_id.id)}
+    >
       <Text style={tailwind`ml-3 mt-2 text-gray-400 italic`}>
         Retweeted by {retweet.user_id.username}
       </Text>
-      <TouchableOpacity
-        style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}
-        activeOpacity={0.9}
-        onPress={() => navigation.push("Thread", retweet.post_id._id.$oid)}
-      >
-        <UserPictureCircle username={retweet.post_id.author?.$oid} />
+      <View style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}>
+        <UserPictureCircle username={retweet.post_id.author.username} />
 
         {/* Right Side */}
         <View style={tailwind`flex-1 ml-2`}>
           <View style={tailwind`flex-row items-center mt-1`}>
             <Text style={tailwind`font-bold`}>
-              {retweet.post_id.author?.$oid}
+              {retweet.post_id.author.username}
             </Text>
             <Text style={tailwind`font-bold opacity-60`}>
               {" "}
-              • {parseDate(retweet.post_id.date.$date.toString())}
+              • {parseDate(retweet.post_id.date)}
             </Text>
           </View>
           <Text style={tailwind`text-base w-full`}>{retweet.post_id.text}</Text>
 
           <View style={tailwind`overflow-visible my-2`}>
-            {retweet.post_id.img_path ? (
+            {retweet.post_id.images?.length ? (
               <Image
-                source={{ uri: retweet.post_id.img_path }}
+                source={{ uri: retweet.post_id.images[0] }}
                 style={tailwind`w-full h-[200px] rounded-xl`}
               />
             ) : null}
           </View>
 
           {/* Touchable icons */}
-          {/* <TweetButtons post={retweet.post_id._id.$oid} /> */}
+          <TweetButtons post={retweet.post_id} />
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 

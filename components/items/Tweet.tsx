@@ -15,19 +15,19 @@ interface Props {
 export const Tweet: FC<Props> = ({ post, navigation }) => {
   return (
     <TouchableOpacity
-      style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}
+      style={tailwind`flex-row border-b border-gray-300 ml-1 px-2 py-2`}
       activeOpacity={0.9}
       onPress={() => navigation.push("Thread", post.id)}
     >
-      <UserPictureCircle username={post.author?.username} />
+      <UserPictureCircle username={post.author.username} />
 
       {/* Right Side */}
       <View style={tailwind`flex-1 ml-2`}>
         <View style={tailwind`flex-row items-center mt-1`}>
-          <Text style={tailwind`font-bold`}>{post.author?.username}</Text>
+          <Text style={tailwind`font-bold`}>{post.author.username}</Text>
           <Text style={tailwind`font-bold opacity-60`}>
             {" "}
-            • {parseDate(post.date!)}
+            • {parseDate(post.date)}
           </Text>
         </View>
         <Text style={tailwind`text-base w-full`}>{post.text}</Text>
@@ -41,7 +41,6 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
             />
           ) : null}
         </View>
-
         {/* Touchable icons */}
         <TweetButtons post={post} />
       </View>
