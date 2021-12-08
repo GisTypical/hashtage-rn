@@ -13,14 +13,14 @@ export interface Message {
 }
 
 export interface Post {
-  id: string;
+  id?: string;
   text: string;
-  author: User;
-  date: string;
-  didRetweet: boolean;
-  isAuthor: boolean;
-  retweets_count: number;
-  comments_count: number;
+  author?: User;
+  date?: string;
+  didRetweet?: boolean;
+  isAuthor?: boolean;
+  retweets_count?: number;
+  comments_count?: number;
   images?: string[];
   imagesUp?: {
     uri: string;

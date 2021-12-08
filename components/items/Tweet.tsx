@@ -19,15 +19,15 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
       activeOpacity={0.9}
       onPress={() => navigation.push("Thread", post.id)}
     >
-      <UserPictureCircle username={post.author.username} />
+      <UserPictureCircle username={post.author?.username} />
 
       {/* Right Side */}
       <View style={tailwind`flex-1 ml-2`}>
         <View style={tailwind`flex-row items-center mt-1`}>
-          <Text style={tailwind`font-bold`}>{post.author.username}</Text>
+          <Text style={tailwind`font-bold`}>{post.author?.username}</Text>
           <Text style={tailwind`font-bold opacity-60`}>
             {" "}
-            • {parseDate(post.date)}
+            • {parseDate(post.date!)}
           </Text>
         </View>
         <Text style={tailwind`text-base w-full`}>{post.text}</Text>

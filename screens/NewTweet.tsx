@@ -24,7 +24,6 @@ interface Props {
 const NewTweet = ({ navigation }: Props) => {
   const [image, setImage] = useState<ImageInfo>();
   const [text, setText] = useState("");
-  const textRef = useRef(null);
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation((post: Post) => createTweet(post), {
     onSuccess: () => {
