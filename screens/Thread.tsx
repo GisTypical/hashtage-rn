@@ -2,10 +2,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as ImagePicker from "expo-image-picker";
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   ActivityIndicator,
-  FlatList,
   ScrollView,
   TextInput,
   TouchableOpacity,
@@ -13,6 +12,7 @@ import {
 } from "react-native";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import tailwind from "twrnc";
+import TweetButtons from "../components/buttons/TweetButtons";
 import Tweet from "../components/items/Tweet";
 import ThreadTweet from "../components/ThreadTweet";
 import ViewCenter from "../components/ViewCenter";
@@ -28,6 +28,7 @@ interface Props {
 
 const Thread = ({ route, navigation }: Props) => {
   const [text, setText] = useState<string>("");
+  const replyRef = useRef<TextInput>(null);
   const [image, setImage] = useState<ImageInfo>();
   const { data, isLoading } = useQuery(`thread/${route.params}`, () =>
     getThread(route.params)
@@ -43,6 +44,12 @@ const Thread = ({ route, navigation }: Props) => {
       },
     }
   );
+
+  const setReplyFocus = () => {
+    if (!replyRef.current!.isFocused()) {
+      replyRef.current!.focus();
+    }
+  };
 
   if (isLoading) {
     return (
@@ -89,7 +96,14 @@ const Thread = ({ route, navigation }: Props) => {
         nestedScrollEnabled={true}
         style={tailwind`bg-white flex-1 mb-9`}
       >
-        <ThreadTweet navigation={navigation} post={data?.data}></ThreadTweet>
+        <ThreadTweet navigation={navigation} post={data?.data}>
+          <View
+            style={tailwind`flex-row items-center p-3 border-t border-b border-gray-200 justify-between`}
+          >
+            <TweetButtons onReply={setReplyFocus} post={data?.data} />
+          </View>
+        </ThreadTweet>
+
         {data?.data.children.map((tweet: Post) => (
           <Tweet key={tweet.id} post={tweet} navigation={navigation} />
         ))}
@@ -103,6 +117,7 @@ const Thread = ({ route, navigation }: Props) => {
             onSubmitEditing={onSubmit}
             value={text}
             onChangeText={(text) => setText(text)}
+            ref={replyRef}
           ></TextInput>
           {mutation.isLoading ? (
             <View style={tailwind`mx-1 w-10 h-7 justify-center items-center`}>

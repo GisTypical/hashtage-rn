@@ -8,9 +8,10 @@ import { Post } from "../../utils/types";
 
 interface Props {
   post: Post;
+  onReply: () => void;
 }
 
-const TweetButtons = ({ post }: Props) => {
+const TweetButtons = ({ post, onReply }: Props) => {
   const queryClient = useQueryClient();
   const { mutate: retweetMutation } = useMutation(() => retweet(post.id), {
     onSuccess: () => {
@@ -26,10 +27,13 @@ const TweetButtons = ({ post }: Props) => {
     <View
       style={tailwind`flex-row w-full items-center px-4 border-gray-200 justify-between`}
     >
-      <View style={tailwind`flex-row items-center`}>
+      <TouchableOpacity
+        onPress={onReply}
+        style={tailwind`flex-row items-center`}
+      >
         <Ionicons name="ios-chatbox-outline" size={24} color="black" />
         <Text style={tailwind`ml-2`}>{post.comments_count || "Reply"}</Text>
-      </View>
+      </TouchableOpacity>
       <TouchableOpacity
         style={tailwind`flex-row items-center`}
         onPress={() => {

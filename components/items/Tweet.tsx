@@ -42,7 +42,12 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
           ) : null}
         </View>
         {/* Touchable icons */}
-        <TweetButtons post={post} />
+        <TweetButtons
+          onReply={() => {
+            navigation.push("Thread", post.id);
+          }}
+          post={post}
+        />
       </View>
     </TouchableOpacity>
   );
