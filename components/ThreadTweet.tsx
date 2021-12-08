@@ -30,7 +30,7 @@ const ThreadTweet = ({ post, navigation }: Props) => {
       post.didRetweet = true;
       actionSheetRef.current?.hide();
       queryClient.invalidateQueries();
-      navigation.navigate("Feed");
+      navigation.goBack();
     },
   });
   return (
