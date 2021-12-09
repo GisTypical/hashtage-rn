@@ -30,7 +30,9 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
             • {parseDate(post.date!)}
           </Text>
         </View>
-        <Text style={tailwind`text-base w-full`}>{post.text}</Text>
+        {post.text ? (
+          <Text style={tailwind`text-base w-full`}>{post.text}</Text>
+        ) : null}
 
         <View style={tailwind`overflow-visible my-2`}>
           {post.images?.length ? (
