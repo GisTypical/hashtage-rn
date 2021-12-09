@@ -5,7 +5,7 @@ import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import React, { useRef, useState } from "react";
 import {
   ActivityIndicator,
-  ScrollView,
+  FlatList,
   TextInput,
   TouchableOpacity,
   View,
@@ -92,50 +92,52 @@ const Thread = ({ route, navigation }: Props) => {
 
   return (
     <View style={tailwind`bg-white flex-1`}>
-      <ScrollView
-        nestedScrollEnabled={true}
-        style={tailwind`bg-white flex-1 mb-9`}
-      >
-        <ThreadTweet navigation={navigation} post={data?.data}>
-          <View
-            style={tailwind`flex-row items-center p-3 border-t border-b border-gray-200 justify-between`}
-          >
-            <TweetButtons onReply={setReplyFocus} post={data?.data} />
-          </View>
-        </ThreadTweet>
-
-        {data?.data.children.map((tweet: Post) => (
-          <Tweet key={tweet.id} post={tweet} navigation={navigation} />
-        ))}
-      </ScrollView>
-      <View style={tailwind`absolute bg-gray-100 w-full bottom-0 py-1 px-3 `}>
-        <View style={tailwind`flex-row items-center`}>
-          <TextInput
-            style={tailwind`flex-1`}
-            placeholder="Reply with a tweet!"
-            returnKeyType="done"
-            onSubmitEditing={onSubmit}
-            value={text}
-            onChangeText={(text) => setText(text)}
-            ref={replyRef}
-          ></TextInput>
-          {mutation.isLoading ? (
-            <View style={tailwind`mx-1 w-10 h-7 justify-center items-center`}>
-              <ActivityIndicator color="#000"></ActivityIndicator>
-            </View>
-          ) : (
-            <TouchableOpacity
-              style={tailwind`mx-1 w-10 h-7 justify-center items-center`}
-              onPress={pickImage}
-            >
-              <Ionicons
-                name="ios-image-outline"
-                size={24}
-                color={image ? "#F59E0B" : "#000"}
-              />
-            </TouchableOpacity>
+      <View style={tailwind`bg-white flex-1 mb-9`}>
+        <FlatList
+          ListHeaderComponent={
+            <ThreadTweet navigation={navigation} post={data?.data}>
+              <View
+                style={tailwind`flex-row items-center p-3 border-t border-b border-gray-200 justify-between`}
+              >
+                <TweetButtons onReply={setReplyFocus} post={data?.data} />
+              </View>
+            </ThreadTweet>
+          }
+          data={data?.data.children}
+          keyExtractor={(item: Post) => item.id!}
+          renderItem={({ item }) => (
+            <Tweet post={item} navigation={navigation} />
           )}
-        </View>
+        ></FlatList>
+      </View>
+      <View
+        style={tailwind`absolute flex-row bg-white border-t border-gray-200 w-full bottom-0 p-2`}
+      >
+        <TextInput
+          style={tailwind`flex-1`}
+          placeholder="Reply this tweet!"
+          returnKeyType="done"
+          onSubmitEditing={onSubmit}
+          value={text}
+          onChangeText={(text) => setText(text)}
+          ref={replyRef}
+        ></TextInput>
+        {mutation.isLoading ? (
+          <View style={tailwind`mx-1 w-10 h-7 justify-center items-center`}>
+            <ActivityIndicator color="#000"></ActivityIndicator>
+          </View>
+        ) : (
+          <TouchableOpacity
+            style={tailwind`mx-1 w-10 h-7 justify-center items-center`}
+            onPress={pickImage}
+          >
+            <Ionicons
+              name="ios-image-outline"
+              size={24}
+              color={image ? "#F59E0B" : "#000"}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
