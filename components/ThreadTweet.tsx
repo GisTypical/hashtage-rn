@@ -55,7 +55,7 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
       </View>
 
       {post.text ? (
-        <Text style={tailwind`text-base w-full`}>{post.text}</Text>
+        <Text style={tailwind`text-base w-full ml-4`}>{post.text}</Text>
       ) : null}
 
       <View style={tailwind`mx-4`}>
