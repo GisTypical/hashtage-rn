@@ -24,6 +24,7 @@ interface Props {
 }
 
 const NewTweet = ({ navigation }: Props) => {
+  const textRef = useRef<TextInput>(null);
   const [image, setImage] = useState<ImageInfo>();
   const [text, setText] = useState("");
   const queryClient = useQueryClient();
@@ -94,6 +95,11 @@ const NewTweet = ({ navigation }: Props) => {
       }
     };
     askPermissions();
+    setTimeout(() => {
+      if (!textRef.current?.focus()) {
+        textRef.current?.focus();
+      }
+    }, 100);
   }, []);
 
   return (
@@ -116,7 +122,7 @@ const NewTweet = ({ navigation }: Props) => {
       </View>
       <ScrollView style={tailwind`flex-1 mt-2 pt-3`}>
         <TextInput
-          autoFocus={true}
+          ref={textRef}
           textAlignVertical="top"
           multiline={true}
           placeholder="Tell the world what's going on!"
