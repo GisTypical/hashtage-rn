@@ -8,6 +8,7 @@ import { AuthContext } from "../components/AuthProvider";
 import ViewCenter from "../components/ViewCenter";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
+import AppLoading from "expo-app-loading";
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ const Routes = () => {
   if (loading) {
     return (
       <ViewCenter>
-        <ActivityIndicator size="large" color="#000" />
+        <AppLoading />
       </ViewCenter>
     );
   }
