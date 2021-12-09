@@ -1,7 +1,13 @@
 import { AntDesign } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC } from "react";
-import { ActivityIndicator, FlatList, LogBox, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  LogBox,
+  RefreshControl,
+  View,
+} from "react-native";
 import { useQuery } from "react-query";
 import tw from "twrnc";
 import Fab from "../components/buttons/Fab";
@@ -17,7 +23,10 @@ interface Props {
 }
 
 export const Feed: FC<Props> = ({ navigation }) => {
-  const { data, isLoading } = useQuery("tweets", getPosts);
+  const { data, isLoading, isRefetching, refetch } = useQuery(
+    "tweets",
+    getPosts
+  );
 
   if (isLoading) {
     return (
@@ -39,6 +48,12 @@ export const Feed: FC<Props> = ({ navigation }) => {
           )
         }
         keyExtractor={({ id }) => id}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefetching}
+            onRefresh={refetch}
+          ></RefreshControl>
+        }
       />
       <Fab onPress={() => navigation.push("NewTweet")}>
         <AntDesign name="plus" size={24} color="black" />
