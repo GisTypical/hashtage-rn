@@ -7,8 +7,8 @@ const Stack = createNativeStackNavigator();
 
 const SearchStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Search">
-      <Stack.Screen name="Search" component={Search}></Stack.Screen>
+    <Stack.Navigator initialRouteName="SearchScreen">
+      <Stack.Screen name="SearchScreen" component={Search}></Stack.Screen>
       {addTweetsRoutes(Stack)}
     </Stack.Navigator>
   );
