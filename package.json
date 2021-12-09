@@ -25,7 +25,6 @@
     "expo-images-picker": "^2.2.3",
     "expo-status-bar": "~1.1.0",
     "formik": "^2.2.9",
-    "phosphor-react-native": "^0.4.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",

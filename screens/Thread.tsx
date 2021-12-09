@@ -114,7 +114,13 @@ const Thread = ({ route, navigation }: Props) => {
         style={tailwind`absolute flex-row bg-white border-t border-gray-200 w-full bottom-0 p-2`}
       >
         <TextInput
-          style={tailwind`flex-1`}
+          style={tailwind`flex-1 ${
+            text.length >= 200 && text.length < 280
+              ? "text-yellow-500"
+              : text.length >= 280
+              ? "text-red-500"
+              : "text-black"
+          }`}
           placeholder="Reply this tweet!"
           returnKeyType="done"
           onSubmitEditing={onSubmit}

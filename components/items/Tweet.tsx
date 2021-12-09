@@ -34,15 +34,15 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
           <Text style={tailwind`text-base w-full`}>{post.text}</Text>
         ) : null}
 
-        <View style={tailwind`overflow-visible my-2`}>
-          {post.images?.length ? (
+        {post.images?.length ? (
+          <View style={tailwind`overflow-visible my-2`}>
             <Image
               key={post.images[0]}
               source={{ uri: post.images[0] }}
               style={tailwind`w-full h-[200px] rounded-xl`}
             />
-          ) : null}
-        </View>
+          </View>
+        ) : null}
         {/* Touchable icons */}
         <TweetButtons
           onReply={() => {

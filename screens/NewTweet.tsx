@@ -6,6 +6,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Image,
   Platform,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -14,6 +15,7 @@ import {
 import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import Fab from "../components/buttons/Fab";
+import UserPictureCircle from "../components/UserCircle";
 import { createTweet } from "../utils/Posts";
 import { Post } from "../utils/types";
 
@@ -46,7 +48,7 @@ const NewTweet = ({ navigation }: Props) => {
   };
 
   const onSubmit = () => {
-    if (text.length === 0 && text.length >= 280) {
+    if (text.length === 0 || text.length >= 280) {
       return;
     }
 
@@ -67,8 +69,11 @@ const NewTweet = ({ navigation }: Props) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          style={tailwind`bg-yellow-500 ml-5 py-2 px-4 rounded-lg`}
+          style={tailwind`bg-yellow-500 ml-5 py-2 px-4 rounded-lg ${
+            text.length === 0 || text.length >= 280 ? "bg-opacity-50" : ""
+          }`}
           onPress={onSubmit}
+          disabled={text.length === 0 || text.length >= 280}
         >
           <Text style={tailwind`text-black`}>
             {isLoading ? "Please wait..." : "Tweet"}
@@ -94,11 +99,22 @@ const NewTweet = ({ navigation }: Props) => {
   return (
     <View style={tailwind`bg-white flex-1 flex-row`}>
       <View
-        style={tailwind`bg-yellow-500 ml-4 w-12 h-12 mt-3 rounded-full justify-center items-center`}
+        style={tailwind`ml-1 mt-2 px-2 py-2 place-items-center justify-between`}
       >
-        <Text>{}</Text>
+        <UserPictureCircle username={""}></UserPictureCircle>
+        <Text
+          style={tailwind`text-xs font-bold ${
+            text.length >= 200 && text.length < 280
+              ? "text-yellow-500"
+              : text.length >= 280
+              ? "text-red-500"
+              : "text-black"
+          }`}
+        >
+          {`${text.length}/280`}
+        </Text>
       </View>
-      <View style={tailwind`flex-1 mt-2 pt-3 px-2`}>
+      <ScrollView style={tailwind`flex-1 mt-2 pt-3`}>
         <TextInput
           autoFocus={true}
           textAlignVertical="top"
@@ -114,14 +130,14 @@ const NewTweet = ({ navigation }: Props) => {
           }}
         ></TextInput>
         {image?.uri ? (
-          <View style={tailwind`flex-1 mr-3`}>
+          <View style={tailwind`flex-1 mx-2 mt-1`}>
             <Image
               style={tailwind`w-full h-[200px] rounded-xl`}
               source={{ uri: image.uri }}
             ></Image>
           </View>
         ) : null}
-      </View>
+      </ScrollView>
 
       <Fab onPress={pickImage}>
         <Ionicons name="ios-image-outline" size={24} color="black" />
