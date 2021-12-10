@@ -7,7 +7,7 @@ import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import Fab from "../components/buttons/Fab";
-import NewTweetInput from "../components/NewTweetInput";
+import NewTweetInput from "../components/inputs/NewTweetInput";
 import UserPictureCircle from "../components/UserCircle";
 import { createTweet } from "../utils/Posts";
 import { Post } from "../utils/types";

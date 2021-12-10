@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useContext } from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { AuthContext } from "../components/AuthProvider";
+import { AuthContext } from "../components/providers/AuthProvider";
 import Feed from "../screens/Feed";
 import NewTweet from "../screens/NewTweet";
 import addTweetsRoutes from "./addTweetsRoutes";

@@ -4,7 +4,7 @@ import { ActivityIndicator } from "react-native";
 import AppTabs from "./AppTabs";
 import AuthStack from "./AuthStack";
 import { refreshToken } from "../utils/Auth";
-import { AuthContext } from "../components/AuthProvider";
+import { AuthContext } from "../components/providers/AuthProvider";
 import ViewCenter from "../components/ViewCenter";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";

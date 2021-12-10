@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { Keyboard, Text, TextInput, View } from "react-native";
 import { useMutation } from "react-query";
 import tailwind from "twrnc";
-import { AuthContext } from "../components/AuthProvider";
+import { AuthContext } from "../components/providers/AuthProvider";
 import YellowButton from "../components/buttons/YellowButton";
 import ViewCenter from "../components/ViewCenter";
 import { login } from "../utils/Auth";

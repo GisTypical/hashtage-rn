@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import AuthProvider, { AuthContext } from "./components/AuthProvider";
+import AuthProvider, { AuthContext } from "./components/providers/AuthProvider";
 import Routes from "./navigation/Routes";
 
 const queryClient = new QueryClient();
