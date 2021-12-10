@@ -1,23 +1,14 @@
-import { Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import * as ImagePicker from "expo-image-picker";
-import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
-import React, { forwardRef, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import React, { useRef } from "react";
+import { ActivityIndicator, FlatList, TextInput, View } from "react-native";
+import { useQuery } from "react-query";
 import tailwind from "twrnc";
 import TweetButtons from "../components/buttons/TweetButtons";
 import Tweet from "../components/items/Tweet";
 import NewComment from "../components/NewComment";
 import ThreadTweet from "../components/ThreadTweet";
 import ViewCenter from "../components/ViewCenter";
-import { commentTweet, getThread } from "../utils/Posts";
+import { getThread } from "../utils/Posts";
 import { Post } from "../utils/types";
 
 interface Props {

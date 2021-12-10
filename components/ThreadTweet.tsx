@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   Image,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,7 +14,6 @@ import tailwind from "twrnc";
 import { parseDate } from "../utils/parseDate";
 import { deleteTweet } from "../utils/Posts";
 import { Post } from "../utils/types";
-import TweetButtons from "./buttons/TweetButtons";
 import UserPictureCircle from "./UserCircle";
 
 interface Props {
