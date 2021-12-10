@@ -16,7 +16,7 @@ import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
 import { getPosts } from "../utils/Posts";
 
-LogBox.ignoreAllLogs(); // ignore all logs
+LogBox.ignoreLogs(["Setting a timer"]);
 
 interface Props {
   navigation: NativeStackNavigationProp<any, any>;
@@ -50,6 +50,7 @@ export const Feed: FC<Props> = ({ navigation }) => {
         keyExtractor={({ id }) => id}
         refreshControl={
           <RefreshControl
+            colors={["#f59e0b"]}
             refreshing={isRefetching}
             onRefresh={refetch}
           ></RefreshControl>
