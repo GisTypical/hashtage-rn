@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProp } from "@react-navigation/core";
 import { Formik } from "formik";
 import React, { useContext } from "react";
 import { Keyboard, Text, TextInput, View } from "react-native";
@@ -11,7 +12,11 @@ import { login } from "../utils/Auth";
 import { LoginSchema } from "../utils/Schema";
 import { Message, User } from "../utils/types";
 
-const Login = () => {
+interface Props {
+  navigation: NavigationProp<any>;
+}
+
+const Login = ({ navigation }: Props) => {
   const { handleLogin } = useContext(AuthContext);
 
   const mutation = useMutation((user: User) => login(user), {
@@ -32,7 +37,6 @@ const Login = () => {
         // On user submit
         onSubmit={(values) => {
           Keyboard.dismiss();
-          values.username = values.username.toLowerCase();
           mutation.mutate(values);
         }}
       >
@@ -84,6 +88,15 @@ const Login = () => {
           </View>
         )}
       </Formik>
+      <Text style={tailwind`mt-3 base`}>
+        Dont have an account?{" "}
+        <Text
+          style={tailwind`underline text-yellow-500 font-bold`}
+          onPress={() => navigation.navigate("Signup")}
+        >
+          Signup!
+        </Text>
+      </Text>
     </ViewCenter>
   );
 };

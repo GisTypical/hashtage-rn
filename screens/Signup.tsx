@@ -82,6 +82,15 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
           </View>
         )}
       </Formik>
+      <Text style={tailwind`mt-3 base`}>
+        Already have an account?{" "}
+        <Text
+          style={tailwind`underline text-yellow-500 font-bold`}
+          onPress={() => navigation.navigate("Login")}
+        >
+          Login!
+        </Text>
+      </Text>
     </ViewCenter>
   );
 };
