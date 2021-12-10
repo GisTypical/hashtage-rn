@@ -23,32 +23,41 @@ const Retweet = ({ retweet, navigation }: Props) => {
         Retweeted by {retweet.user_id.username}
       </Text>
       <View style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}>
-        <UserPictureCircle username={retweet.post_id.author.username} />
+        <UserPictureCircle username={retweet.post_id.author?.username} />
 
         {/* Right Side */}
         <View style={tailwind`flex-1 ml-2`}>
           <View style={tailwind`flex-row items-center mt-1`}>
             <Text style={tailwind`font-bold`}>
-              {retweet.post_id.author.username}
+              {retweet.post_id.author?.username}
             </Text>
             <Text style={tailwind`font-bold opacity-60`}>
               {" "}
-              • {parseDate(retweet.post_id.date)}
+              • {parseDate(retweet.post_id.date!)}
             </Text>
           </View>
-          <Text style={tailwind`text-base w-full`}>{retweet.post_id.text}</Text>
+          {retweet.post_id.text ? (
+            <Text style={tailwind`text-base w-full`}>
+              {retweet.post_id.text}
+            </Text>
+          ) : null}
 
-          <View style={tailwind`overflow-visible my-2`}>
-            {retweet.post_id.images?.length ? (
+          {retweet.post_id.images?.length ? (
+            <View style={tailwind`overflow-visible my-2`}>
               <Image
                 source={{ uri: retweet.post_id.images[0] }}
                 style={tailwind`w-full h-[200px] rounded-xl`}
               />
-            ) : null}
-          </View>
+            </View>
+          ) : null}
 
           {/* Touchable icons */}
-          <TweetButtons post={retweet.post_id} />
+          <TweetButtons
+            onReply={() => {
+              navigation.push("Thread", retweet.post_id.id);
+            }}
+            post={retweet.post_id}
+          />
         </View>
       </View>
     </TouchableOpacity>

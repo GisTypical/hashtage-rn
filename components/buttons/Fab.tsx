@@ -11,7 +11,7 @@ const Fab = ({ children, onPress }: Props) => {
   return (
     <TouchableOpacity
       style={tailwind`bg-yellow-500 rounded-full absolute bottom-7 right-7 w-14 h-14 items-center justify-center`}
-      activeOpacity={0.9}
+      activeOpacity={0.95}
       onPress={onPress}
     >
       {children}
