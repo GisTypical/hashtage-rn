@@ -50,6 +50,7 @@ const Search = ({ navigation }: Props) => {
           <FlatList
             ListHeaderComponent={
               data?.data.users.length ? (
+                // Users list
                 <FlatList
                   horizontal={true}
                   data={data?.data.users}
