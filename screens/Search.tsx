@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  ScrollView,
   Text,
   TextInput,
   View,
@@ -36,7 +35,7 @@ const Search = ({ navigation }: Props) => {
       <View style={tailwind`flex-row p-2 px-2 border-b-2 border-gray-200`}>
         <TextInput
           style={tailwind`flex-1 mr-2`}
-          placeholder="Search for any Tweet!"
+          placeholder="Search for tweets and users."
           value={search}
           onChangeText={(text) => setSearch(text)}
         />
@@ -44,27 +43,49 @@ const Search = ({ navigation }: Props) => {
       </View>
       {isLoading ? (
         <ViewCenter>
-          <ActivityIndicator color="#000" />
+          <ActivityIndicator color="#000" size="large" />
         </ViewCenter>
       ) : (
-        <>
-          <ScrollView>
-            <ScrollView horizontal={true} style={tailwind``}>
-              {data?.data.users.map((user: User) => (
-                <View style={tailwind`items-center justify-center ml-2`}>
-                  <UserPictureCircle
-                    key={user.username}
-                    username={user.username}
-                  ></UserPictureCircle>
-                  <Text style={tailwind``}>{user.username}</Text>
-                </View>
-              ))}
-            </ScrollView>
-            {data?.data.posts.map((post: Post) => (
-              <Tweet key={post.id} post={post} navigation={navigation} />
-            ))}
-          </ScrollView>
-        </>
+        <View>
+          <FlatList
+            ListHeaderComponent={
+              data?.data.users.length ? (
+                // Users list
+                <FlatList
+                  horizontal={true}
+                  data={data?.data.users}
+                  showsHorizontalScrollIndicator={false}
+                  style={tailwind`py-2 border-b border-gray-200`}
+                  renderItem={({ item: user }: { item: User }) => (
+                    <View
+                      key={user.username}
+                      style={tailwind`w-20 items-center justify-center ml-2 mr-2`}
+                    >
+                      <UserPictureCircle
+                        username={user.username}
+                      ></UserPictureCircle>
+                      <Text
+                        style={tailwind`text-xs text-center w-full text-black mt-1 font-bold`}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {user.full_name}
+                      </Text>
+                      <Text
+                        style={tailwind`text-xs text-gray-600`}
+                      >{`@${user.username}`}</Text>
+                    </View>
+                  )}
+                ></FlatList>
+              ) : null
+            }
+            data={data?.data.posts}
+            keyExtractor={(item: Post) => item.id!}
+            renderItem={({ item }) => (
+              <Tweet post={item} navigation={navigation} />
+            )}
+          ></FlatList>
+        </View>
       )}
     </View>
   );

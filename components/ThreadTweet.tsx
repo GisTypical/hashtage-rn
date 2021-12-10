@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useRef } from "react";
+import React, { ReactNode, useRef } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -14,15 +14,15 @@ import tailwind from "twrnc";
 import { parseDate } from "../utils/parseDate";
 import { deleteTweet } from "../utils/Posts";
 import { Post } from "../utils/types";
-import TweetButtons from "./buttons/TweetButtons";
 import UserPictureCircle from "./UserCircle";
 
 interface Props {
   post: Post;
   navigation: NativeStackNavigationProp<any>;
+  children: ReactNode;
 }
 
-const ThreadTweet = ({ post, navigation }: Props) => {
+const ThreadTweet = ({ post, navigation, children }: Props) => {
   const actionSheetRef = useRef<ActionSheet | null>(null);
   const queryClient = useQueryClient();
   const mutation = useMutation(() => deleteTweet(post.id), {
@@ -30,9 +30,10 @@ const ThreadTweet = ({ post, navigation }: Props) => {
       post.didRetweet = true;
       actionSheetRef.current?.hide();
       queryClient.invalidateQueries();
-      navigation.navigate("Feed");
+      navigation.goBack();
     },
   });
+
   return (
     <View>
       <View style={tailwind`flex-row items-center px-2 my-3`}>
@@ -51,7 +52,10 @@ const ThreadTweet = ({ post, navigation }: Props) => {
         ) : null}
       </View>
 
-      <Text style={tailwind`mt-2 pl-4 text-lg`}>{post.text}</Text>
+      {post.text ? (
+        <Text style={tailwind`text-base w-full ml-4`}>{post.text}</Text>
+      ) : null}
+
       <View style={tailwind`mx-4`}>
         {post.images?.length ? (
           <Image
@@ -64,12 +68,8 @@ const ThreadTweet = ({ post, navigation }: Props) => {
         </Text>
       </View>
 
-      {/* Touchable icons */}
-      <View
-        style={tailwind`flex-row items-center p-3 border-t border-b border-gray-200 justify-between`}
-      >
-        <TweetButtons post={post} />
-      </View>
+      {children}
+
       <ActionSheet ref={actionSheetRef}>
         <View style={tailwind`h-16 w-full justify-center`}>
           <TouchableOpacity

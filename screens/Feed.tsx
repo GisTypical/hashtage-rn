@@ -1,24 +1,32 @@
 import { AntDesign } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC } from "react";
-import { ActivityIndicator, FlatList, LogBox, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  LogBox,
+  RefreshControl,
+  View,
+} from "react-native";
 import { useQuery } from "react-query";
 import tw from "twrnc";
 import Fab from "../components/buttons/Fab";
 import Retweet from "../components/items/Retweet";
-import RetweetType from "../components/items/Retweet";
 import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
 import { getPosts } from "../utils/Posts";
 
-LogBox.ignoreAllLogs(); // ignore all logs
+LogBox.ignoreLogs(["Setting a timer"]);
 
 interface Props {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
 export const Feed: FC<Props> = ({ navigation }) => {
-  const { data, isLoading } = useQuery("tweets", getPosts);
+  const { data, isLoading, isRefetching, refetch } = useQuery(
+    "tweets",
+    getPosts
+  );
 
   if (isLoading) {
     return (
@@ -40,8 +48,15 @@ export const Feed: FC<Props> = ({ navigation }) => {
           )
         }
         keyExtractor={({ id }) => id}
+        refreshControl={
+          <RefreshControl
+            colors={["#f59e0b"]}
+            refreshing={isRefetching}
+            onRefresh={refetch}
+          ></RefreshControl>
+        }
       />
-      <Fab onPress={() => navigation.navigate("NewTweet")}>
+      <Fab onPress={() => navigation.push("NewTweet")}>
         <AntDesign name="plus" size={24} color="black" />
       </Fab>
     </View>

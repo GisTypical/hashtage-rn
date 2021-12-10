@@ -13,19 +13,19 @@ export interface Message {
 }
 
 export interface Post {
+  id?: string;
   text: string;
+  author?: User;
+  date?: string;
+  didRetweet?: boolean;
+  isAuthor?: boolean;
+  retweets_count?: number;
+  comments_count?: number;
   images?: string[];
   imagesUp?: {
     uri: string;
     name: string;
   };
-  author?: User;
-  date?: string;
-  id?: string;
-  retweets_count?: number;
-  comments_count?: number;
-  didRetweet?: boolean;
-  isAuthor?: boolean;
 }
 
 export interface PostRoot {
@@ -34,32 +34,14 @@ export interface PostRoot {
 
 // RETWEET
 
-export interface Id {
-  $oid: string;
+export interface RetweetType {
+  id: string;
+  post_id: Post;
+  user_id: User;
 }
 
 export interface Author {
-  $oid: string;
-}
-
-export interface Date {
-  $date: number;
-}
-
-export interface PostId {
-  _id: Id;
-  author: Author;
-  date: Date;
-  img_path: string;
-  text: string;
-}
-
-export interface Id2 {
-  $oid: string;
-}
-
-export interface UserId {
-  _id: Id2;
+  _id: ID;
   followers: any[];
   following: any[];
   full_name: string;
@@ -67,8 +49,6 @@ export interface UserId {
   username: string;
 }
 
-export interface RetweetType {
-  id: string;
-  post_id: PostId;
-  user_id: UserId;
+export interface ID {
+  $oid: string;
 }
