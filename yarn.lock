@@ -3193,6 +3193,11 @@ find-up@~5.0.0:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
 
+flatted@^3.1.0:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.4.tgz#28d9969ea90661b5134259f312ab6aa7929ac5e2"
+  integrity sha512-8/sOawo8tJ4QOBX8YlQBMxL8+RLZfxMQOif9o0KUKTNTjMYElWPE0r/m5VNFxTRd0NSw8qSy8dajrwX4RYI1Hw==
+
 flow-parser@0.*:
   version "0.166.1"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.166.1.tgz#6869ab40bd71e1129053f53435864b08616d57e9"
@@ -5412,6 +5417,13 @@ react-native@0.64.3:
     use-subscription "^1.0.0"
     whatwg-fetch "^3.0.0"
     ws "^6.1.4"
+
+react-query-native-devtools@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-query-native-devtools/-/react-query-native-devtools-3.0.1.tgz#7244eddb7f6d18bad87a373ba83f16e7a5a0454e"
+  integrity sha512-n7Sf3jQz9kdaEWN1gzZkIOePTQ09KOG1KMEQqJRvMylW7mdG8Ec9GqvuFn8bhZ4Y/mnCQcGMbMpDn0kYmKy2DQ==
+  dependencies:
+    flatted "^3.1.0"
 
 react-query@^3.33.7:
   version "3.34.0"
