@@ -14,7 +14,7 @@ export const UserPictureCircle = ({ username }: Props) => {
       style={tailwind`bg-yellow-500 w-12 h-12 rounded-full justify-center items-center`}
     >
       <AppText>
-        <Text style={tw`text-base`}>
+        <Text style={tw`text-base text-yellow-900 font-bold`}>
           {username?.charAt(0).toLocaleUpperCase()}
         </Text>
       </AppText>

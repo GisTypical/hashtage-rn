@@ -19,7 +19,7 @@ const YellowButton: FC<Props> = ({ text, onPress, full }) => {
         onPress={onPress}
       >
         <AppText>
-          <Text style={tailwind`font-bold`}>{text}</Text>
+          <Text style={tailwind`font-bold text-yellow-900`}>{text}</Text>
         </AppText>
       </TouchableOpacity>
     </>
