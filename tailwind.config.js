@@ -2,10 +2,12 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: ["Karla_400Regular", "sans-serif"],
+    },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
+};

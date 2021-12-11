@@ -6,15 +6,16 @@ import {
   FlatList,
   LogBox,
   RefreshControl,
+  Text,
   View,
 } from "react-native";
 import { useQuery } from "react-query";
-import tw from "twrnc";
 import Fab from "../components/buttons/Fab";
 import Retweet from "../components/items/Retweet";
 import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
 import { getPosts } from "../utils/Posts";
+import tw from "../utils/tailwind";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
