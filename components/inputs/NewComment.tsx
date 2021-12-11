@@ -4,15 +4,14 @@ import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import React, { forwardRef, useState } from "react";
 import {
   ActivityIndicator,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
-import { commentTweet } from "../utils/Posts";
-import { Post } from "../utils/types";
+import { commentTweet } from "../../utils/Posts";
+import { Post } from "../../utils/types";
 
 interface Props {
   postId: string;

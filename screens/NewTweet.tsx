@@ -92,12 +92,10 @@ const NewTweet = ({ navigation }: Props) => {
 
   return (
     <View style={tailwind`bg-white flex-1 flex-row`}>
-      <View
-        style={tailwind`ml-1 mt-2 px-2 py-2 place-items-center justify-between`}
-      >
+      <View style={tailwind`ml-1 mt-2 px-2 py-2 items-center justify-between`}>
         <UserPictureCircle username={""}></UserPictureCircle>
         <Text
-          style={tailwind`text-xs font-bold text-center mb-5 ${
+          style={tailwind`text-xs font-bold mb-5 ${
             text.length >= 200 && text.length < 280
               ? "text-yellow-500"
               : text.length >= 280
