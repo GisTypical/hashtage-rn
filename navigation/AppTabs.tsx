@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
+import tw from "../utils/tailwind";
 import HomeStack from "./HomeStack";
 import SearchStack from "./SearchStack";
 
@@ -27,6 +28,7 @@ const AppTabs = () => {
         tabBarActiveTintColor: "#F59E0B",
         tabBarInactiveTintColor: "gray",
         tabBarHideOnKeyboard: true,
+        tabBarLabelStyle: tw`font-sans`,
       })}
     >
       <Tabs.Screen name="Home" component={HomeStack}></Tabs.Screen>
