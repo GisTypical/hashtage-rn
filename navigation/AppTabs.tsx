@@ -26,6 +26,7 @@ const AppTabs = () => {
         },
         tabBarActiveTintColor: "#F59E0B",
         tabBarInactiveTintColor: "gray",
+        tabBarHideOnKeyboard: true,
       })}
     >
       <Tabs.Screen name="Home" component={HomeStack}></Tabs.Screen>
