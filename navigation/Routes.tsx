@@ -61,7 +61,7 @@ const Routes = () => {
   return (
     <NavigationContainer>
       {user ? <AppTabs></AppTabs> : <AuthStack></AuthStack>}
-      <StatusBar></StatusBar>
+      <StatusBar style="auto"></StatusBar>
     </NavigationContainer>
   );
 };
