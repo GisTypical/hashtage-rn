@@ -1,18 +1,38 @@
+import {
+  Karla_400Regular,
+  Karla_400Regular_Italic,
+  Karla_500Medium,
+  Karla_500Medium_Italic,
+  Karla_700Bold,
+  Karla_700Bold_Italic,
+  useFonts,
+} from "@expo-google-fonts/karla";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
+import AppLoading from "expo-app-loading";
+import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
-import AppTabs from "./AppTabs";
-import AuthStack from "./AuthStack";
-import { refreshToken } from "../utils/Auth";
 import { AuthContext } from "../components/providers/AuthProvider";
 import ViewCenter from "../components/ViewCenter";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StatusBar } from "expo-status-bar";
-import AppLoading from "expo-app-loading";
+import { refreshToken } from "../utils/Auth";
+import AppTabs from "./AppTabs";
+import AuthStack from "./AuthStack";
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
   const { user, handleLogin } = useContext(AuthContext);
+
+  /**
+   * Load fonts
+   */
+  let [fontsLoaded] = useFonts({
+    Karla_400Regular,
+    Karla_400Regular_Italic,
+    Karla_500Medium,
+    Karla_500Medium_Italic,
+    Karla_700Bold,
+    Karla_700Bold_Italic,
+  });
 
   /**
    * Check if user is logged in
@@ -31,18 +51,17 @@ const Routes = () => {
     checkUser();
   }, []);
 
-  if (loading) {
+  if (loading || !fontsLoaded) {
     return (
       <ViewCenter>
         <AppLoading />
       </ViewCenter>
     );
   }
-
   return (
     <NavigationContainer>
       {user ? <AppTabs></AppTabs> : <AuthStack></AuthStack>}
-      <StatusBar></StatusBar>
+      <StatusBar style="auto"></StatusBar>
     </NavigationContainer>
   );
 };

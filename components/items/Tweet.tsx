@@ -3,7 +3,9 @@ import React, { FC } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
+import tw from "../../utils/tailwind";
 import { Post } from "../../utils/types";
+import AppText from "../AppText";
 import TweetButtons from "../buttons/TweetButtons";
 import UserPictureCircle from "../UserCircle";
 
@@ -24,14 +26,20 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
       {/* Right Side */}
       <View style={tailwind`flex-1 ml-2`}>
         <View style={tailwind`flex-row items-center mt-1`}>
-          <Text style={tailwind`font-bold`}>{post.author?.username}</Text>
-          <Text style={tailwind`font-bold opacity-60`}>
-            {" "}
-            • {parseDate(post.date!)}
-          </Text>
+          <AppText>
+            <Text style={tailwind`font-bold`}>{post.author?.username}</Text>
+          </AppText>
+          <AppText>
+            <Text style={tailwind`font-bold opacity-60`}>
+              {" "}
+              • {parseDate(post.date!)}
+            </Text>
+          </AppText>
         </View>
         {post.text ? (
-          <Text style={tailwind`text-base w-full`}>{post.text}</Text>
+          <AppText mb={true}>
+            <Text style={tailwind`text-base w-full`}>{post.text}</Text>
+          </AppText>
         ) : null}
 
         {post.images?.length ? (

@@ -1062,6 +1062,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
+"@expo-google-fonts/karla@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/karla/-/karla-0.2.0.tgz#67f3e29c8f6104901fb3ebe966cd49a9405bf97b"
+  integrity sha512-hxI83sQm9FGSf6B4/X2PV4njMHhE2oCqBlJ2SodUxbvUByiID2/tSy8hpTJMj8ByJJ2nivwcE178uGQb1CSXRw==
+
 "@expo/config-plugins@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-3.1.0.tgz#0752ff33c5eab21cf42034a44e79df97f0f867f8"
@@ -3193,6 +3198,11 @@ find-up@~5.0.0:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
 
+flatted@^3.1.0:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.4.tgz#28d9969ea90661b5134259f312ab6aa7929ac5e2"
+  integrity sha512-8/sOawo8tJ4QOBX8YlQBMxL8+RLZfxMQOif9o0KUKTNTjMYElWPE0r/m5VNFxTRd0NSw8qSy8dajrwX4RYI1Hw==
+
 flow-parser@0.*:
   version "0.166.1"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.166.1.tgz#6869ab40bd71e1129053f53435864b08616d57e9"
@@ -5305,11 +5315,6 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-freeze@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.0.tgz#b21c65fe1783743007c8c9a2952b1c8879a77354"
-  integrity sha512-yQaiOqDmoKqks56LN9MTgY06O0qQHgV4FUrikH357DydArSZHQhl0BJFqGKIZoTqi8JizF9Dxhuk1FIZD6qCaw==
-
 react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -5346,12 +5351,11 @@ react-native-safe-area-context@3.3.2:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.3.2.tgz#9549a2ce580f2374edb05e49d661258d1b8bcaed"
   integrity sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q==
 
-react-native-screens@~3.10.1:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.10.1.tgz#2634a1a17380c559a06de391e4969ae72c4365ff"
-  integrity sha512-ZF/XHnRsuinvDY1XiCWLXxoUoSf+NgsAes2SZfX9rFQQcv128zmh/+19SSavGrSf6rQNzqytEMdRGI6yr4Gbjw==
+react-native-screens@~3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.8.0.tgz#4ec84c55a7b4a4aa9405c812978ca2ba5c0242a4"
+  integrity sha512-lHrnB/elAoMJKv8O12U6BLgeup4lB6ZKJHEOVuG/D72nv/OE9wUusbou6YCB5tp3YbaSpHflPnkFmHA/vCejpw==
   dependencies:
-    react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
 react-native-svg@12.1.1:
@@ -5412,6 +5416,13 @@ react-native@0.64.3:
     use-subscription "^1.0.0"
     whatwg-fetch "^3.0.0"
     ws "^6.1.4"
+
+react-query-native-devtools@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-query-native-devtools/-/react-query-native-devtools-3.0.1.tgz#7244eddb7f6d18bad87a373ba83f16e7a5a0454e"
+  integrity sha512-n7Sf3jQz9kdaEWN1gzZkIOePTQ09KOG1KMEQqJRvMylW7mdG8Ec9GqvuFn8bhZ4Y/mnCQcGMbMpDn0kYmKy2DQ==
+  dependencies:
+    flatted "^3.1.0"
 
 react-query@^3.33.7:
   version "3.34.0"

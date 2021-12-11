@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import tailwind from "twrnc";
+import AppText from "../AppText";
 
 interface Props {
   text: string;
@@ -17,7 +18,9 @@ const YellowButton: FC<Props> = ({ text, onPress, full }) => {
         }`}
         onPress={onPress}
       >
-        <Text style={tailwind`font-bold`}>{text}</Text>
+        <AppText>
+          <Text style={tailwind`font-bold text-yellow-900`}>{text}</Text>
+        </AppText>
       </TouchableOpacity>
     </>
   );

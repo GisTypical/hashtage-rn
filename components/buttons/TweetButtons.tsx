@@ -4,7 +4,9 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import { deleteRetweet, retweet } from "../../utils/Posts";
+import tw from "../../utils/tailwind";
 import { Post } from "../../utils/types";
+import AppText from "../AppText";
 
 interface Props {
   post: Post;
@@ -45,8 +47,13 @@ const TweetButtons = ({ post, onReply }: Props) => {
         onPress={onReply}
         style={tailwind`flex-row items-center`}
       >
-        <Ionicons name="ios-chatbox-outline" size={24} color="black" />
-        <Text style={tailwind`ml-2`}>{post.comments_count}</Text>
+        <Ionicons
+          style={tw`mr-2`}
+          name="ios-chatbox-outline"
+          size={24}
+          color="black"
+        />
+        <AppText>{post.comments_count}</AppText>
       </TouchableOpacity>
       {/* Retweet */}
       <TouchableOpacity
@@ -54,18 +61,21 @@ const TweetButtons = ({ post, onReply }: Props) => {
         onPress={onRetweet}
       >
         <AntDesign
+          style={tw`mr-2`}
           name="retweet"
           size={24}
           color={isRetweeted ? "#F59E0B" : "#000"}
         />
-        <Text
-          style={tailwind.style(
-            `ml-2`,
-            isRetweeted ? "text-yellow-500" : "text-black"
-          )}
-        >
-          {retweetCount}
-        </Text>
+        <AppText>
+          <Text
+            style={tailwind.style(
+              `ml-2`,
+              isRetweeted ? "text-yellow-500" : "text-black"
+            )}
+          >
+            {retweetCount}
+          </Text>
+        </AppText>
       </TouchableOpacity>
       {/* <TouchableOpacity style={tailwind`flex-row items-center`}>
       <Heart size={24} />

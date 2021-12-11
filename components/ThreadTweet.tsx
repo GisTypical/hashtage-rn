@@ -13,7 +13,9 @@ import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import { parseDate } from "../utils/parseDate";
 import { deleteTweet } from "../utils/Posts";
+import tw from "../utils/tailwind";
 import { Post } from "../utils/types";
+import AppText from "./AppText";
 import UserPictureCircle from "./UserCircle";
 
 interface Props {
@@ -29,7 +31,11 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
     onSuccess: () => {
       post.didRetweet = true;
       actionSheetRef.current?.hide();
-      queryClient.invalidateQueries();
+      /**
+       * Remove query from cache after invalidating all queries
+       */
+      queryClient.removeQueries(["tweet", "thread", post.id]);
+      queryClient.invalidateQueries(["tweet"]);
       navigation.goBack();
     },
   });
@@ -38,34 +44,42 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
     <View>
       <View style={tailwind`flex-row items-center px-2 my-3`}>
         <UserPictureCircle username={post.author?.username} />
-        <View style={tailwind`flex-4 px-2 mt-2`}>
-          <Text style={tailwind`font-bold`}>{post.author?.full_name}</Text>
-          <Text>{post.author?.username}</Text>
+        <View style={tailwind`flex-1 px-2 mt-2`}>
+          <AppText>
+            <Text style={tw`font-bold`}>{post.author?.full_name}</Text>
+          </AppText>
+          <AppText>{post.author?.username}</AppText>
         </View>
         {post.isAuthor ? (
           <TouchableOpacity
             style={tailwind`mr-4 flex-1 items-end`}
             onPress={() => actionSheetRef.current?.setModalVisible()}
           >
-            <Ionicons name="md-reorder-three-outline" size={24} color="black" />
+            <Ionicons name="ellipsis-vertical" size={20} color="black" />
           </TouchableOpacity>
         ) : null}
       </View>
 
       {post.text ? (
-        <Text style={tailwind`text-base w-full ml-4`}>{post.text}</Text>
+        <View style={tw`ml-4 mb-2`}>
+          <AppText>
+            <Text style={tailwind`text-base w-full`}>{post.text}</Text>
+          </AppText>
+        </View>
       ) : null}
 
-      <View style={tailwind`mx-4`}>
+      <View style={tailwind`ml-4 mb-2`}>
         {post.images?.length ? (
           <Image
             source={{ uri: post.images[0] }}
             style={tailwind`w-full h-[200px] my-3 rounded-2xl`}
           ></Image>
         ) : null}
-        <Text style={tailwind`font-bold text-sm opacity-60 mb-2`}>
-          {parseDate(post.date!)}
-        </Text>
+        <AppText>
+          <Text style={tailwind`font-bold text-sm opacity-60`}>
+            {parseDate(post.date!)}
+          </Text>
+        </AppText>
       </View>
 
       {children}
@@ -83,13 +97,17 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
                 size={24}
                 color="rgb(239, 68, 68)"
               />
-              <Text style={tailwind`ml-5 text-red-500 text-base`}>
-                Delete Tweet
-              </Text>
+              <View style={tw`ml-3`}>
+                <AppText>
+                  <Text style={tailwind`text-red-500 text-base`}>
+                    Delete Tweet
+                  </Text>
+                </AppText>
+              </View>
               {mutation.isLoading ? (
                 <ActivityIndicator
                   style={tailwind`flex-1`}
-                  color="#000"
+                  color="rgb(239, 68, 68)"
                 ></ActivityIndicator>
               ) : null}
             </View>

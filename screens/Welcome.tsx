@@ -1,9 +1,10 @@
 import { NavigationProp } from "@react-navigation/core";
 import React, { FC } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
-import tailwind from "twrnc";
+import { Text, TouchableOpacity, View } from "react-native";
+import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
 import ViewCenter from "../components/ViewCenter";
+import tw from "../utils/tailwind";
 
 export interface WelcomeScreenProps {
   navigation: NavigationProp<any, any>;
@@ -12,8 +13,10 @@ export interface WelcomeScreenProps {
 const Welcome: FC<WelcomeScreenProps> = ({ navigation }) => {
   return (
     <ViewCenter>
-      <Text style={tailwind`text-2xl mb-10`}>Welcome to hashtage!</Text>
-      <View style={tailwind`items-center w-1/2 justify-between`}>
+      <Text style={tw`text-2xl mb-10`}>
+        <AppText>Welcome to hashtage!</AppText>
+      </Text>
+      <View style={tw`items-center w-1/2 justify-between`}>
         <YellowButton
           text="Signup"
           full={true}
@@ -22,12 +25,12 @@ const Welcome: FC<WelcomeScreenProps> = ({ navigation }) => {
           }}
         ></YellowButton>
         <TouchableOpacity
-          style={tailwind`py-2 px-4 w-full bg-gray-100 rounded-lg mt-3`}
+          style={tw`py-2 px-4 w-full bg-gray-100 rounded-lg mt-3`}
           onPress={() => {
             navigation.navigate("Login");
           }}
         >
-          <Text style={tailwind`text-center font-bold`}>Login</Text>
+          <Text style={tw`text-center font-sans-bold`}>Login</Text>
         </TouchableOpacity>
       </View>
     </ViewCenter>
