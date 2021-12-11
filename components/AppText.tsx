@@ -8,7 +8,9 @@ interface Props {
 }
 
 const AppText = ({ children, mb }: Props) => {
-  return <Text style={tw.style(`font-sans`, { "mb-1": mb! })}>{children}</Text>;
+  return (
+    <Text style={tw.style(`font-sans`, mb ? "mb-1" : "")}>{children}</Text>
+  );
 };
 
 export default AppText;
