@@ -29,7 +29,11 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
     onSuccess: () => {
       post.didRetweet = true;
       actionSheetRef.current?.hide();
-      queryClient.invalidateQueries();
+      /**
+       * Remove query from cache after invalidating all queries
+       */
+      queryClient.removeQueries(["tweet", "thread", post.id]);
+      queryClient.invalidateQueries(["tweet"]);
       navigation.goBack();
     },
   });

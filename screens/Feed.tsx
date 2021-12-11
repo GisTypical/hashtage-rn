@@ -24,7 +24,7 @@ interface Props {
 
 export const Feed: FC<Props> = ({ navigation }) => {
   const { data, isLoading, isRefetching, refetch } = useQuery(
-    "tweets",
+    ["tweets"],
     getPosts
   );
 

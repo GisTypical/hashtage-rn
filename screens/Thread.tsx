@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import tailwind from "twrnc";
 import TweetButtons from "../components/buttons/TweetButtons";
 import Tweet from "../components/items/Tweet";
-import NewComment from "../components/NewComment";
+import NewComment from "../components/inputs/NewComment";
 import ThreadTweet from "../components/ThreadTweet";
 import ViewCenter from "../components/ViewCenter";
 import { getThread } from "../utils/Posts";
@@ -20,7 +20,7 @@ interface Props {
 
 const Thread = ({ route, navigation }: Props) => {
   const replyRef = useRef<TextInput>(null);
-  const { data, isLoading } = useQuery(`thread/${route.params}`, () =>
+  const { data, isLoading } = useQuery(["tweet", "thread", route.params], () =>
     getThread(route.params)
   );
 
