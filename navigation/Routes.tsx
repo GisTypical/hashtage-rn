@@ -1,6 +1,8 @@
 import {
   Karla_400Regular,
   Karla_400Regular_Italic,
+  Karla_500Medium,
+  Karla_500Medium_Italic,
   Karla_700Bold,
   Karla_700Bold_Italic,
   useFonts,
@@ -26,6 +28,8 @@ const Routes = () => {
   let [fontsLoaded] = useFonts({
     Karla_400Regular,
     Karla_400Regular_Italic,
+    Karla_500Medium,
+    Karla_500Medium_Italic,
     Karla_700Bold,
     Karla_700Bold_Italic,
   });

@@ -6,7 +6,6 @@ import {
   FlatList,
   LogBox,
   RefreshControl,
-  Text,
   View,
 } from "react-native";
 import { useQuery } from "react-query";

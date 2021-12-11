@@ -1,7 +1,7 @@
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { Image, ScrollView, TextInput, View } from "react-native";
-import tailwind from "twrnc";
+import tw from "../../utils/tailwind";
 
 interface Props {
   text: string;
@@ -19,14 +19,14 @@ const NewTweetInput = ({ text, setText, image }: Props) => {
   }, []);
 
   return (
-    <ScrollView style={tailwind`flex-1 mt-2 pt-3`}>
+    <ScrollView style={tw`flex-1 mt-2 pt-3`}>
       <TextInput
         ref={textRef}
         textAlignVertical="top"
         multiline={true}
         placeholder="Tell the world what's going on!"
-        style={tailwind.style(
-          `px-2 py-1 rounded-lg text-base text-left justify-center`,
+        style={tw.style(
+          `px-2 py-1 rounded-lg text-base text-left justify-center font-sans`,
           image?.uri ? "" : "flex-1"
         )}
         value={text}
@@ -35,9 +35,9 @@ const NewTweetInput = ({ text, setText, image }: Props) => {
         }}
       ></TextInput>
       {image?.uri ? (
-        <View style={tailwind`flex-1 mx-2 mt-1`}>
+        <View style={tw`flex-1 mx-2 mt-1`}>
           <Image
-            style={tailwind`w-full h-[200px] rounded-xl`}
+            style={tw`w-full h-[200px] rounded-xl`}
             source={{ uri: image.uri }}
           ></Image>
         </View>

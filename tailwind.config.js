@@ -3,7 +3,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      sans: ["Karla_400Regular", "sans-serif"],
+      sans: ["Karla_500Medium", "sans-serif"],
+      "sans-bold": ["Karla_700Bold", "sans-serif"],
     },
   },
   variants: {

@@ -3,11 +3,12 @@ import { Formik } from "formik";
 import React, { FC } from "react";
 import { Keyboard, Text, TextInput, View } from "react-native";
 import { useMutation } from "react-query";
-import tailwind from "twrnc";
+import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
 import ViewCenter from "../components/ViewCenter";
 import { register } from "../utils/Auth";
 import { SignupSchema } from "../utils/Schema";
+import tw from "../utils/tailwind";
 import { User } from "../utils/types";
 
 const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
@@ -21,7 +22,9 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
 
   return (
     <ViewCenter>
-      <Text style={tailwind`text-lg`}>Signup</Text>
+      <AppText>
+        <Text style={tw`text-lg`}>Signup</Text>
+      </AppText>
       <Formik
         initialValues={{ username: "", full_name: "", password: "" }}
         validationSchema={SignupSchema}
@@ -33,43 +36,55 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => (
           <View
-            style={tailwind`bg-gray-100 rounded-lg w-3/4 justify-between px-5 py-6 mt-4`}
+            style={tw`bg-gray-100 rounded-lg w-3/4 justify-between px-5 py-6 mt-4`}
           >
             {/* Username */}
-            <Text style={tailwind`font-bold text-base`}>Username</Text>
+            <AppText>
+              <Text style={tw`font-bold text-base`}>Username</Text>
+            </AppText>
             {errors.username && touched.username ? (
-              <Text style={tailwind`text-red-500`}>{errors.username}</Text>
+              <AppText>
+                <Text style={tw`text-red-500`}>{errors.username}</Text>
+              </AppText>
             ) : null}
             <TextInput
-              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
+              style={tw`px-2 py-1 bg-gray-200 rounded-lg mt-1 font-sans`}
               placeholder="e. g. johndoe"
               value={values.username}
               onChangeText={handleChange("username")}
             ></TextInput>
 
             {/* Full name */}
-            <Text style={tailwind`font-bold mt-3 text-base`}>Full name</Text>
+            <AppText>
+              <Text style={tw`font-bold mt-3 text-base`}>Full name</Text>
+            </AppText>
             {errors.full_name && touched.full_name ? (
-              <Text style={tailwind`text-red-500`}>{errors.full_name}</Text>
+              <AppText>
+                <Text style={tw`text-red-500`}>{errors.full_name}</Text>
+              </AppText>
             ) : null}
             <TextInput
-              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mt-1`}
+              style={tw`px-2 py-1 font-sans bg-gray-200 rounded-lg mt-1`}
               placeholder="e. g. John Doe"
               value={values.full_name}
               onChangeText={handleChange("full_name")}
             ></TextInput>
 
             {/* Password */}
-            <Text style={tailwind`font-bold mt-3 text-base`}>Password</Text>
+            <AppText>
+              <Text style={tw`font-bold mt-3 text-base`}>Password</Text>
+            </AppText>
             {errors.password && touched.password ? (
-              <Text style={tailwind`text-red-500`}>{errors.password}</Text>
+              <AppText>
+                <Text style={tw`text-red-500`}>{errors.password}</Text>
+              </AppText>
             ) : (
-              <Text style={tailwind`text-gray-500`}>
-                More than 4 characters
-              </Text>
+              <AppText>
+                <Text style={tw`text-gray-500`}>More than 4 characters</Text>
+              </AppText>
             )}
             <TextInput
-              style={tailwind`px-2 py-1 bg-gray-200 rounded-lg mb-3`}
+              style={tw`px-2 py-1 font-sans bg-gray-200 rounded-lg mb-3`}
               value={values.password}
               secureTextEntry={true}
               onChangeText={handleChange("password")}
@@ -82,14 +97,16 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
           </View>
         )}
       </Formik>
-      <Text style={tailwind`mt-3 base`}>
-        Already have an account?{" "}
-        <Text
-          style={tailwind`underline text-yellow-500 font-bold`}
-          onPress={() => navigation.navigate("Login")}
-        >
-          Login!
-        </Text>
+      <Text style={tw`mt-3 base`}>
+        <AppText>
+          Already have an account?{" "}
+          <Text
+            style={tw`underline text-yellow-500 font-bold`}
+            onPress={() => navigation.navigate("Login")}
+          >
+            Login!
+          </Text>
+        </AppText>
       </Text>
     </ViewCenter>
   );

@@ -1,7 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useContext } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
+import AppText from "../components/AppText";
 import { AuthContext } from "../components/providers/AuthProvider";
+import Title from "../components/Title";
 import Feed from "../screens/Feed";
 import NewTweet from "../screens/NewTweet";
 import addTweetsRoutes from "./addTweetsRoutes";
@@ -17,13 +19,14 @@ const HomeStack = () => {
         name="Feed"
         component={Feed}
         options={{
+          headerTitle: () => <Title text="Feed"></Title>,
           headerRight: () => (
             <TouchableOpacity
               onPress={() => {
                 handleLogout();
               }}
             >
-              <Text>Logout</Text>
+              <AppText>Logout</AppText>
             </TouchableOpacity>
           ),
         }}

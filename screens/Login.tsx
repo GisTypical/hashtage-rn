@@ -4,12 +4,13 @@ import { Formik } from "formik";
 import React, { useContext } from "react";
 import { Keyboard, Text, TextInput, View } from "react-native";
 import { useMutation } from "react-query";
-import tailwind from "twrnc";
-import { AuthContext } from "../components/providers/AuthProvider";
+import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
+import { AuthContext } from "../components/providers/AuthProvider";
 import ViewCenter from "../components/ViewCenter";
 import { login } from "../utils/Auth";
 import { LoginSchema } from "../utils/Schema";
+import tw from "../utils/tailwind";
 import { Message, User } from "../utils/types";
 
 interface Props {
@@ -30,7 +31,9 @@ const Login = ({ navigation }: Props) => {
 
   return (
     <ViewCenter>
-      <Text style={tailwind`text-lg`}>Login</Text>
+      <AppText>
+        <Text style={tw`text-lg`}>Login</Text>
+      </AppText>
       <Formik
         initialValues={{ username: "", password: "" }}
         validationSchema={LoginSchema}
@@ -42,30 +45,34 @@ const Login = ({ navigation }: Props) => {
       >
         {({ values, handleChange, handleSubmit, errors, touched }) => (
           <View
-            style={tailwind`bg-gray-100 rounded-lg w-2/3 h-64 justify-between px-5 py-6 mt-4`}
+            style={tw`bg-gray-100 rounded-lg w-2/3 h-64 justify-between px-5 py-6 mt-4`}
           >
             <View>
-              <Text style={tailwind`font-bold text-base`}>Username</Text>
+              <AppText mb={true}>
+                <Text style={tw`font-bold text-base`}>Username</Text>
+              </AppText>
               {errors.username && touched.username ? (
-                <Text style={tailwind`text-red-500 mb-1`}>
-                  {errors.username}
-                </Text>
+                <AppText mb={true}>
+                  <Text style={tw`text-red-500`}>{errors.username}</Text>
+                </AppText>
               ) : null}
               <TextInput
                 placeholder="e. g. johndoe"
-                style={tailwind`px-2 py-1 bg-gray-200 rounded-lg`}
+                style={tw`px-2 py-1 bg-gray-200 rounded-lg font-sans`}
                 value={values.username}
                 onChangeText={handleChange("username")}
               ></TextInput>
             </View>
 
             <View>
-              <Text style={tailwind`font-bold mb-1 text-base`}>Password</Text>
-              {errors.password && touched.password ? (
-                <Text style={tailwind`text-red-500`}>{errors.password}</Text>
-              ) : null}
+              <AppText mb={true}>
+                <Text style={tw`font-bold text-base`}>Password</Text>
+                {errors.password && touched.password ? (
+                  <Text style={tw`text-red-500`}>{errors.password}</Text>
+                ) : null}
+              </AppText>
               <TextInput
-                style={tailwind`px-2 py-1 bg-gray-200 rounded-lg`}
+                style={tw`px-2 py-1 bg-gray-200 rounded-lg font-sans`}
                 value={values.password}
                 secureTextEntry={true}
                 onChangeText={handleChange("password")}
@@ -74,10 +81,10 @@ const Login = ({ navigation }: Props) => {
 
             {mutation.isError ? (
               <View
-                style={tailwind`bg-red-100 border border-red-500 py-1 rounded-lg`}
+                style={tw`bg-red-100 border border-red-500 py-1 rounded-lg`}
               >
-                <Text style={tailwind`text-center text-red-500`}>
-                  Wrong user or password
+                <Text style={tw`text-center text-red-500`}>
+                  <AppText>Wrong user or password</AppText>
                 </Text>
               </View>
             ) : null}
@@ -88,15 +95,19 @@ const Login = ({ navigation }: Props) => {
           </View>
         )}
       </Formik>
-      <Text style={tailwind`mt-3 base`}>
-        Dont have an account?{" "}
-        <Text
-          style={tailwind`underline text-yellow-500 font-bold`}
-          onPress={() => navigation.navigate("Signup")}
-        >
-          Signup!
-        </Text>
-      </Text>
+      <View style={tw`mt-3`}>
+        <AppText>
+          <Text>
+            Dont have an account?{" "}
+            <Text
+              style={tw`underline text-yellow-500 font-bold`}
+              onPress={() => navigation.navigate("Signup")}
+            >
+              Signup!
+            </Text>
+          </Text>
+        </AppText>
+      </View>
     </ViewCenter>
   );
 };

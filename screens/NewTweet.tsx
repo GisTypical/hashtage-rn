@@ -5,11 +5,12 @@ import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
-import tailwind from "twrnc";
+import AppText from "../components/AppText";
 import Fab from "../components/buttons/Fab";
 import NewTweetInput from "../components/inputs/NewTweetInput";
 import UserPictureCircle from "../components/UserCircle";
 import { createTweet } from "../utils/Posts";
+import tw from "../utils/tailwind";
 import { Post } from "../utils/types";
 
 interface Props {
@@ -63,14 +64,14 @@ const NewTweet = ({ navigation }: Props) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
-          style={tailwind`bg-yellow-500 ml-5 py-2 px-4 rounded-lg ${
+          style={tw`bg-yellow-500 ml-5 py-2 px-4 rounded-lg ${
             text.length === 0 || text.length >= 280 ? "bg-opacity-50" : ""
           }`}
           onPress={onSubmit}
           disabled={text.length === 0 || text.length >= 280}
         >
-          <Text style={tailwind`text-black`}>
-            {isLoading ? "Please wait..." : "Tweet"}
+          <Text style={tw`text-black`}>
+            <AppText>{isLoading ? "Please wait..." : "Tweet"}</AppText>
           </Text>
         </TouchableOpacity>
       ),
@@ -91,20 +92,24 @@ const NewTweet = ({ navigation }: Props) => {
   }, []);
 
   return (
-    <View style={tailwind`bg-white flex-1 flex-row`}>
-      <View style={tailwind`ml-1 mt-2 px-2 py-2 items-center justify-between`}>
+    <View style={tw`bg-white flex-1 flex-row`}>
+      <View style={tw`ml-1 mx-2 mt-2 w-14 py-2 items-center justify-between`}>
         <UserPictureCircle username={""}></UserPictureCircle>
-        <Text
-          style={tailwind`text-xs font-bold mb-5 ${
-            text.length >= 200 && text.length < 280
-              ? "text-yellow-500"
-              : text.length >= 280
-              ? "text-red-500"
-              : "text-black"
-          }`}
-        >
-          {`${text.length}/280`}
-        </Text>
+        <View style={tw`mb-5 bg-red-200`}>
+          <AppText>
+            <Text
+              style={tw`text-xs font-bold ${
+                text.length >= 200 && text.length < 280
+                  ? "text-yellow-500"
+                  : text.length >= 280
+                  ? "text-red-500"
+                  : "text-black"
+              }`}
+            >
+              {`${text.length}/280`}
+            </Text>
+          </AppText>
+        </View>
       </View>
 
       <NewTweetInput text={text} setText={setText} image={image} />

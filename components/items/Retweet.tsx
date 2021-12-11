@@ -3,7 +3,9 @@ import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
+import tw from "../../utils/tailwind";
 import { RetweetType } from "../../utils/types";
+import AppText from "../AppText";
 import TweetButtons from "../buttons/TweetButtons";
 import UserPictureCircle from "../UserCircle";
 
@@ -19,27 +21,39 @@ const Retweet = ({ retweet, navigation }: Props) => {
       style={tailwind`ml-1`}
       onPress={() => navigation.push("Thread", retweet.post_id.id)}
     >
-      <Text style={tailwind`ml-3 mt-2 text-gray-400 italic`}>
-        Retweeted by {retweet.user_id.username}
-      </Text>
+      <View style={tw`ml-3 mt-2`}>
+        <AppText>
+          <Text style={tw`text-gray-400 italic`}>
+            Retweeted by {retweet.user_id.username}
+          </Text>
+        </AppText>
+      </View>
       <View style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}>
         <UserPictureCircle username={retweet.post_id.author?.username} />
 
         {/* Right Side */}
         <View style={tailwind`flex-1 ml-2`}>
           <View style={tailwind`flex-row items-center mt-1`}>
-            <Text style={tailwind`font-bold`}>
-              {retweet.post_id.author?.username}
-            </Text>
-            <Text style={tailwind`font-bold opacity-60`}>
-              {" "}
-              • {parseDate(retweet.post_id.date!)}
-            </Text>
+            <AppText>
+              <Text style={tailwind`font-bold`}>
+                {retweet.post_id.author?.username}
+              </Text>
+            </AppText>
+            <AppText>
+              <Text style={tailwind`font-bold opacity-60`}>
+                {" "}
+                • {parseDate(retweet.post_id.date!)}
+              </Text>
+            </AppText>
           </View>
+
+          {/* Text Retweet */}
           {retweet.post_id.text ? (
-            <Text style={tailwind`text-base w-full`}>
-              {retweet.post_id.text}
-            </Text>
+            <AppText mb={true}>
+              <Text style={tailwind`text-base w-full`}>
+                {retweet.post_id.text}
+              </Text>
+            </AppText>
           ) : null}
 
           {retweet.post_id.images?.length ? (
