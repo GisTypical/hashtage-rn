@@ -40,7 +40,7 @@ const Thread = ({ route, navigation }: Props) => {
 
   return (
     <View style={tailwind`bg-white flex-1`}>
-      <View style={tailwind`bg-white flex-1 mb-9`}>
+      <View style={tailwind`bg-white flex-1 mb-11`}>
         <FlatList
           ListHeaderComponent={
             // Thread Tweet
