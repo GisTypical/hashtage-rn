@@ -15,7 +15,7 @@ const NewTweetInput = ({ text, setText, image }: Props) => {
   useEffect(() => {
     setTimeout(() => {
       textRef.current!.focus();
-    }, 250);
+    }, 150);
   }, []);
 
   return (
