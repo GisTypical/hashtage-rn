@@ -9,9 +9,9 @@ import {
   View,
 } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
-import tailwind from "twrnc";
 import { commentTweet } from "../../utils/Posts";
-import { Post } from "../../utils/types";
+import tw from "../../utils/tailwind";
+import { Post, PostRoot } from "../../utils/types";
 
 interface Props {
   postId: string;
@@ -23,7 +23,15 @@ const NewComment = forwardRef(
     const [image, setImage] = useState<ImageInfo>();
     const queryClient = useQueryClient();
     const mutation = useMutation((post: Post) => commentTweet(post, postId), {
-      onSuccess: () => {
+      onSuccess: ({ data: newComment }) => {
+        queryClient.setQueryData(["tweets", "thread", postId], (data) => {
+          let oldData = data as { data: Post };
+          oldData.data.children = [
+            ...oldData.data.children!,
+            newComment.comment,
+          ];
+          return data;
+        });
         queryClient.invalidateQueries();
         setText("");
         setImage(undefined);
@@ -66,10 +74,10 @@ const NewComment = forwardRef(
 
     return (
       <View
-        style={tailwind`absolute flex-row bg-white border-t border-gray-200 w-full bottom-0 p-2`}
+        style={tw`absolute flex-row bg-white border-t border-gray-200 w-full bottom-0 p-2`}
       >
         <TextInput
-          style={tailwind`flex-1 ${
+          style={tw`flex-1 font-sans ${
             text.length >= 200 && text.length < 280
               ? "text-yellow-500"
               : text.length >= 280
@@ -84,12 +92,12 @@ const NewComment = forwardRef(
           ref={ref}
         ></TextInput>
         {mutation.isLoading ? (
-          <View style={tailwind`mx-1 w-10 h-7 justify-center items-center`}>
+          <View style={tw`mx-1 w-10 h-7 justify-center items-center`}>
             <ActivityIndicator color="#000"></ActivityIndicator>
           </View>
         ) : (
           <TouchableOpacity
-            style={tailwind`mx-1 w-10 h-7 justify-center items-center`}
+            style={tw`mx-1 w-10 h-7 justify-center items-center`}
             onPress={pickImage}
           >
             <Ionicons

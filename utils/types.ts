@@ -26,6 +26,7 @@ export interface Post {
     uri: string;
     name: string;
   };
+  children?: Post[];
 }
 
 export interface PostRoot {
