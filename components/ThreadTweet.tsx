@@ -29,7 +29,6 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(() => deleteTweet(post.id), {
     onSuccess: () => {
-      post.didRetweet = true;
       actionSheetRef.current?.hide();
       /**
        * Remove query from cache after invalidating all queries
@@ -60,10 +59,11 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
         ) : null}
       </View>
 
+      {/* Thread Tweet Text */}
       {post.text ? (
         <View style={tw`ml-4 mb-2`}>
           <AppText>
-            <Text style={tailwind`text-base w-full`}>{post.text}</Text>
+            <Text style={tailwind`text-xl w-full`}>{post.text}</Text>
           </AppText>
         </View>
       ) : null}
@@ -72,7 +72,7 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
         {post.images?.length ? (
           <Image
             source={{ uri: post.images[0] }}
-            style={tailwind`w-full h-[200px] my-3 rounded-2xl`}
+            style={tailwind`w-full h-[200px] mb-2 rounded-2xl`}
           ></Image>
         ) : null}
         <AppText>

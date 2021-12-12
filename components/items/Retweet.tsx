@@ -33,7 +33,7 @@ const Retweet = ({ retweet, navigation }: Props) => {
 
         {/* Right Side */}
         <View style={tailwind`flex-1 ml-2`}>
-          <View style={tailwind`flex-row items-center mt-1`}>
+          <View style={tailwind`flex-row items-center mt-1 mb-2`}>
             <AppText>
               <Text style={tailwind`font-bold`}>
                 {retweet.post_id.author?.username}
@@ -47,17 +47,19 @@ const Retweet = ({ retweet, navigation }: Props) => {
             </AppText>
           </View>
 
-          {/* Text Retweet */}
+          {/* Retweet Text*/}
           {retweet.post_id.text ? (
-            <AppText mb={true}>
-              <Text style={tailwind`text-base w-full`}>
-                {retweet.post_id.text}
-              </Text>
-            </AppText>
+            <View style={tw`mb-2 -mt-1`}>
+              <AppText>
+                <Text style={tailwind`text-base w-full leading-tight`}>
+                  {retweet.post_id.text}
+                </Text>
+              </AppText>
+            </View>
           ) : null}
 
           {retweet.post_id.images?.length ? (
-            <View style={tailwind`overflow-visible my-2`}>
+            <View style={tailwind`overflow-visible mb-2`}>
               <Image
                 source={{ uri: retweet.post_id.images[0] }}
                 style={tailwind`w-full h-[200px] rounded-xl`}
