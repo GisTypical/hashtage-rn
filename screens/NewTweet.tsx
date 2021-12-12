@@ -7,7 +7,6 @@ import { Platform, Text, TouchableOpacity, View } from "react-native";
 import { useMutation, useQueryClient } from "react-query";
 import AppText from "../components/AppText";
 import Fab from "../components/buttons/Fab";
-import YellowButton from "../components/buttons/YellowButton";
 import NewTweetInput from "../components/inputs/NewTweetInput";
 import UserPictureCircle from "../components/UserCircle";
 import { createTweet } from "../utils/Posts";
@@ -70,10 +69,12 @@ const NewTweet = ({ navigation }: Props) => {
       headerRight: () => (
         <TouchableOpacity
           style={tw`bg-yellow-500 ml-5 py-2 px-4 rounded-lg ${
-            text.length === 0 || text.length >= 280 ? "bg-opacity-50" : ""
+            !image && (text.length === 0 || text.length >= 280)
+              ? "bg-opacity-50"
+              : ""
           }`}
           onPress={onSubmit}
-          disabled={text.length === 0 || text.length >= 280}
+          disabled={!image && (text.length === 0 || text.length >= 280)}
         >
           <Text style={tw`text-yellow-900`}>
             <AppText>{isLoading ? "Please wait..." : "Tweet"}</AppText>
@@ -120,7 +121,11 @@ const NewTweet = ({ navigation }: Props) => {
       <NewTweetInput text={text} setText={setText} image={image} />
 
       <Fab onPress={pickImage}>
-        <Ionicons name="ios-image-outline" size={24} color="black" />
+        <Ionicons
+          name="ios-image-outline"
+          size={24}
+          style={tw`text-yellow-900`}
+        />
       </Fab>
     </View>
   );
