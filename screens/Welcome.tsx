@@ -13,7 +13,7 @@ export interface WelcomeScreenProps {
 const Welcome: FC<WelcomeScreenProps> = ({ navigation }) => {
   return (
     <ViewCenter>
-      <Text style={tw`text-2xl mb-10`}>
+      <Text style={tw`text-2xl mb-10 font-bold`}>
         <AppText>Welcome to hashtage!</AppText>
       </Text>
       <View style={tw`items-center w-1/2 justify-between`}>

@@ -7,6 +7,7 @@ import { useMutation } from "react-query";
 import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
 import { AuthContext } from "../components/providers/AuthProvider";
+import Title from "../components/Title";
 import ViewCenter from "../components/ViewCenter";
 import { login } from "../utils/Auth";
 import { LoginSchema } from "../utils/Schema";
@@ -31,9 +32,7 @@ const Login = ({ navigation }: Props) => {
 
   return (
     <ViewCenter>
-      <AppText>
-        <Text style={tw`text-lg`}>Login</Text>
-      </AppText>
+      <Title text="Login"></Title>
       <Formik
         initialValues={{ username: "", password: "" }}
         validationSchema={LoginSchema}

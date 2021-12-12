@@ -5,6 +5,7 @@ import { Keyboard, Text, TextInput, View } from "react-native";
 import { useMutation } from "react-query";
 import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
+import Title from "../components/Title";
 import ViewCenter from "../components/ViewCenter";
 import { register } from "../utils/Auth";
 import { SignupSchema } from "../utils/Schema";
@@ -22,9 +23,7 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
 
   return (
     <ViewCenter>
-      <AppText>
-        <Text style={tw`text-lg`}>Signup</Text>
-      </AppText>
+      <Title text="Signup"></Title>
       <Formik
         initialValues={{ username: "", full_name: "", password: "" }}
         validationSchema={SignupSchema}
@@ -97,7 +96,7 @@ const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
           </View>
         )}
       </Formik>
-      <Text style={tw`mt-3 base`}>
+      <Text style={tw`mt-3`}>
         <AppText>
           Already have an account?{" "}
           <Text
