@@ -57,7 +57,7 @@ export const Feed: FC<Props> = ({ navigation }) => {
         }
       />
       <Fab onPress={() => navigation.push("NewTweet")}>
-        <AntDesign name="plus" size={24} color="black" />
+        <AntDesign name="plus" size={24} color="rgb(120, 53, 15)" />
       </Fab>
     </View>
   );
