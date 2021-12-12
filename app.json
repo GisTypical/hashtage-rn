@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "hashtage",
-    "slug": "hashtage",
-    "version": "0.1.0",
+    "name": "Hashtage",
+    "slug": "Hashtage",
+    "version": "0.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
