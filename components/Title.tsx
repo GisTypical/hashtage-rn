@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import tw from "../utils/tailwind";
 import AppText from "./AppText";
 
