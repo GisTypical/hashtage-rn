@@ -34,8 +34,8 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
       /**
        * Remove query from cache after invalidating all queries
        */
-      queryClient.removeQueries(["tweet", "thread", post.id]);
-      queryClient.invalidateQueries(["tweet"]);
+      queryClient.removeQueries(["tweets", "thread", post.id]);
+      queryClient.invalidateQueries(["tweets"]);
       navigation.goBack();
     },
   });
@@ -48,7 +48,7 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
           <AppText>
             <Text style={tw`font-bold`}>{post.author?.full_name}</Text>
           </AppText>
-          <AppText>{post.author?.username}</AppText>
+          <AppText>{`@${post.author?.username}`}</AppText>
         </View>
         {post.isAuthor ? (
           <TouchableOpacity

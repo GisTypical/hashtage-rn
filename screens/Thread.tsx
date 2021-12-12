@@ -20,7 +20,7 @@ interface Props {
 
 const Thread = ({ route, navigation }: Props) => {
   const replyRef = useRef<TextInput>(null);
-  const { data, isLoading } = useQuery(["tweet", "thread", route.params], () =>
+  const { data, isLoading } = useQuery(["tweets", "thread", route.params], () =>
     getThread(route.params)
   );
 
