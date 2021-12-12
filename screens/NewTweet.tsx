@@ -12,7 +12,7 @@ import NewTweetInput from "../components/inputs/NewTweetInput";
 import UserPictureCircle from "../components/UserCircle";
 import { createTweet } from "../utils/Posts";
 import tw from "../utils/tailwind";
-import { Post } from "../utils/types";
+import { Post, PostRoot } from "../utils/types";
 
 interface Props {
   navigation: NavigationProp<any>;
@@ -24,8 +24,12 @@ const NewTweet = ({ navigation }: Props) => {
 
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation((post: Post) => createTweet(post), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("tweets");
+    onSuccess: ({ data: newTweetData }) => {
+      queryClient.setQueryData(["tweets"], (data) => {
+        let oldData = data as { data: PostRoot };
+        oldData.data.posts = [newTweetData.post, ...oldData.data.posts!];
+        return data;
+      });
       navigation.goBack();
     },
   });
