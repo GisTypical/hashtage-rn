@@ -3,7 +3,6 @@ import React, { FC } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
-import tw from "../../utils/tailwind";
 import { Post } from "../../utils/types";
 import AppText from "../AppText";
 import TweetButtons from "../buttons/TweetButtons";
