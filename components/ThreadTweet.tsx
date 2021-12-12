@@ -68,7 +68,7 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
         </View>
       ) : null}
 
-      <View style={tailwind`ml-4 mb-2`}>
+      <View style={tailwind`mx-4 mb-2`}>
         {post.images?.length ? (
           <Image
             source={{ uri: post.images[0] }}
