@@ -47,7 +47,7 @@ const NewTweet = ({ navigation }: Props) => {
   };
 
   const onSubmit = () => {
-    if (text.length === 0 || text.length >= 280) {
+    if (!image && (text.length === 0 || text.length >= 280)) {
       return;
     }
 
