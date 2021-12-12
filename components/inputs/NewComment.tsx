@@ -32,7 +32,7 @@ const NewComment = forwardRef(
           ];
           return data;
         });
-        queryClient.invalidateQueries();
+        queryClient.invalidateQueries(["tweets", "thread", postId]);
         setText("");
         setImage(undefined);
       },
