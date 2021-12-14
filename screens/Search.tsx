@@ -1,11 +1,12 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList, RefreshControl, Text, TextInput, View } from "react-native";
 import { useQuery } from "react-query";
 import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
 import Tweet from "../components/items/Tweet";
 import UserPictureCircle from "../components/UserCircle";
+import UsersList from "../components/UsersList";
 import { searchPost } from "../utils/Posts";
 import tw from "../utils/tailwind";
 import { Post, User } from "../utils/types";
@@ -24,56 +25,37 @@ const Search = ({ navigation }: Props) => {
     }
   );
 
+  const renderItem = useCallback(
+    ({ item }) => <Tweet post={item} navigation={navigation} />,
+    []
+  );
+
   return (
     <View style={tw`bg-white flex-1`}>
-      <View style={tw`flex-row p-2 px-2 border-b-2 border-gray-200`}>
+      <View
+        style={tw`absolute z-10 bg-white flex-row p-2 px-2 border-b-2 border-gray-200`}
+      >
         <TextInput
           style={tw`flex-1 mr-2 font-sans`}
           placeholder="Search for tweets and users."
           value={search}
           onChangeText={(text) => setSearch(text)}
+          returnKeyType="done"
+          onSubmitEditing={() => refetch()}
         />
         <YellowButton text="Search" onPress={refetch} />
       </View>
       <View>
         <FlatList
+          style={tw`mt-12`}
           ListHeaderComponent={
             data?.data.users.length ? (
               // Users list
-              <FlatList
-                horizontal={true}
-                data={data?.data.users}
-                showsHorizontalScrollIndicator={false}
-                style={tw`py-2 border-b border-gray-200`}
-                renderItem={({ item: user }: { item: User }) => (
-                  <View
-                    key={user.username}
-                    style={tw`w-20 items-center justify-center ml-2 mr-2`}
-                  >
-                    <UserPictureCircle
-                      username={user.username}
-                    ></UserPictureCircle>
-                    <Text
-                      style={tw`font-sans-bold text-xs text-center w-full text-black`}
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                    >
-                      {user.full_name}
-                    </Text>
-                    <AppText>
-                      <Text
-                        style={tw`text-xs text-gray-600`}
-                      >{`@${user.username}`}</Text>
-                    </AppText>
-                  </View>
-                )}
-              ></FlatList>
+              <UsersList users={data.data.users}></UsersList>
             ) : null
           }
           data={data?.data.posts}
-          renderItem={({ item }) => (
-            <Tweet post={item} navigation={navigation} />
-          )}
+          renderItem={renderItem}
           keyExtractor={(item: Post) => item.id!}
           refreshControl={
             <RefreshControl
@@ -81,6 +63,9 @@ const Search = ({ navigation }: Props) => {
               refreshing={isFetching}
             ></RefreshControl>
           }
+          initialNumToRender={7}
+          maxToRenderPerBatch={7}
+          windowSize={10}
         ></FlatList>
       </View>
     </View>

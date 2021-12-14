@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { parseDate } from "../../utils/parseDate";
 import tw from "../../utils/tailwind";
@@ -13,7 +13,7 @@ interface Props {
   navigation: NativeStackNavigationProp<any, any>;
 }
 
-export const Tweet: FC<Props> = ({ post, navigation }) => {
+const Tweet: FC<Props> = memo(({ post, navigation }) => {
   return (
     <TouchableOpacity
       style={tw`flex-row border-b border-gray-300 ml-1 px-2 py-2`}
@@ -52,7 +52,9 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
           <View style={tw`overflow-visible mb-2`}>
             <Image
               key={post.images[0]}
-              source={{ uri: post.images[0] }}
+              source={{
+                uri: post.images[0].replace("/upload", "/upload/q_40"),
+              }}
               style={tw`w-full h-[200px] rounded-xl`}
             />
           </View>
@@ -67,6 +69,6 @@ export const Tweet: FC<Props> = ({ post, navigation }) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 export default Tweet;

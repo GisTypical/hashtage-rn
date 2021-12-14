@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React from "react";
+import React, { memo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
 import { parseDate } from "../../utils/parseDate";
@@ -14,7 +14,7 @@ interface Props {
   navigation: NativeStackNavigationProp<any>;
 }
 
-const Retweet = ({ retweet, navigation }: Props) => {
+const Retweet = memo(({ retweet, navigation }: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -61,7 +61,12 @@ const Retweet = ({ retweet, navigation }: Props) => {
           {retweet.post_id.images?.length ? (
             <View style={tailwind`overflow-visible mb-2`}>
               <Image
-                source={{ uri: retweet.post_id.images[0] }}
+                source={{
+                  uri: retweet.post_id.images[0].replace(
+                    "/upload",
+                    "/upload/q_40"
+                  ),
+                }}
                 style={tailwind`w-full h-[200px] rounded-xl`}
               />
             </View>
@@ -78,6 +83,6 @@ const Retweet = ({ retweet, navigation }: Props) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 export default Retweet;
