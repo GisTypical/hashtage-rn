@@ -27,6 +27,9 @@ export interface Post {
     name: string;
   };
   children?: Post[];
+  parent?: {
+    id: string;
+  };
 }
 
 export interface PostRoot {

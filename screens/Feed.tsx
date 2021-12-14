@@ -6,6 +6,7 @@ import {
   FlatList,
   LogBox,
   RefreshControl,
+  ScrollView,
   View,
 } from "react-native";
 import { useQuery } from "react-query";
@@ -15,6 +16,7 @@ import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
 import { getPosts } from "../utils/Posts";
 import tw from "../utils/tailwind";
+import { Post } from "../utils/types";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -28,11 +30,11 @@ export const Feed: FC<Props> = ({ navigation }) => {
     getPosts
   );
 
-  const renderItem = useCallback(({ item }) => {
+  const renderItem = useCallback((item) => {
     if (item.user_id) {
-      return <Retweet retweet={item} navigation={navigation} />;
+      return <Retweet key={item.id} retweet={item} navigation={navigation} />;
     } else {
-      return <Tweet post={item} navigation={navigation} />;
+      return <Tweet key={item.id} post={item} navigation={navigation} />;
     }
   }, []);
 
@@ -48,10 +50,7 @@ export const Feed: FC<Props> = ({ navigation }) => {
 
   return (
     <View style={tw`flex-1 bg-white`}>
-      <FlatList
-        data={data?.data.posts}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
+      <ScrollView
         refreshControl={
           <RefreshControl
             colors={["#f59e0b"]}
@@ -59,10 +58,9 @@ export const Feed: FC<Props> = ({ navigation }) => {
             onRefresh={refetch}
           ></RefreshControl>
         }
-        initialNumToRender={7}
-        maxToRenderPerBatch={7}
-        windowSize={10}
-      />
+      >
+        {data?.data.posts.map((post: Post) => renderItem(post))}
+      </ScrollView>
       <Fab onPress={() => navigation.push("NewTweet")}>
         <AntDesign name="plus" size={24} color="rgb(120, 53, 15)" />
       </Fab>

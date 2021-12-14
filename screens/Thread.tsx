@@ -33,7 +33,7 @@ const Thread = ({ route, navigation }: Props) => {
   if (isLoading) {
     return (
       <ViewCenter>
-        <ActivityIndicator size="large" color="#000" />
+        <ActivityIndicator size="large" color="#f59e0b" />
       </ViewCenter>
     );
   }
@@ -59,7 +59,7 @@ const Thread = ({ route, navigation }: Props) => {
           )}
         ></FlatList>
       </View>
-      <NewComment ref={replyRef} postId={route.params} />
+      <NewComment ref={replyRef} post={data?.data} />
     </View>
   );
 };
