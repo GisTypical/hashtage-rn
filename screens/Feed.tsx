@@ -1,6 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -28,10 +28,20 @@ export const Feed: FC<Props> = ({ navigation }) => {
     getPosts
   );
 
+  const renderItem = useCallback(({ item }) => {
+    if (item.user_id) {
+      return <Retweet retweet={item} navigation={navigation} />;
+    } else {
+      return <Tweet post={item} navigation={navigation} />;
+    }
+  }, []);
+
+  const keyExtractor = useCallback((item) => item.id, []);
+
   if (isLoading) {
     return (
       <ViewCenter>
-        <ActivityIndicator size="large" color="#000" />
+        <ActivityIndicator size="large" color="#f59e0b" />
       </ViewCenter>
     );
   }
@@ -40,14 +50,8 @@ export const Feed: FC<Props> = ({ navigation }) => {
     <View style={tw`flex-1 bg-white`}>
       <FlatList
         data={data?.data.posts}
-        renderItem={({ item }) =>
-          item.user_id ? (
-            <Retweet retweet={item} navigation={navigation}></Retweet>
-          ) : (
-            <Tweet post={item} navigation={navigation} />
-          )
-        }
-        keyExtractor={({ id }) => id}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
         refreshControl={
           <RefreshControl
             colors={["#f59e0b"]}
@@ -55,6 +59,9 @@ export const Feed: FC<Props> = ({ navigation }) => {
             onRefresh={refetch}
           ></RefreshControl>
         }
+        initialNumToRender={7}
+        maxToRenderPerBatch={7}
+        windowSize={10}
       />
       <Fab onPress={() => navigation.push("NewTweet")}>
         <AntDesign name="plus" size={24} color="rgb(120, 53, 15)" />
