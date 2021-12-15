@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Text } from "react-native";
+import { useContext } from "react";
 import { useMutation } from "react-query";
-import { login } from "../utils/Auth";
-import { User, Message } from "../utils/types";
 import { AuthContext } from "../components/providers/AuthProvider";
+import { login } from "../utils/Auth";
+import { Message, User } from "../utils/types";
 
 const useLogin = () => {
   const { handleLogin } = useContext(AuthContext);

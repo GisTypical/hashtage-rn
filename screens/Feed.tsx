@@ -3,18 +3,16 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC, useCallback } from "react";
 import {
   ActivityIndicator,
-  FlatList,
   LogBox,
   RefreshControl,
   ScrollView,
   View,
 } from "react-native";
-import { useQuery } from "react-query";
 import Fab from "../components/buttons/Fab";
 import Retweet from "../components/items/Retweet";
 import Tweet from "../components/items/Tweet";
 import ViewCenter from "../components/ViewCenter";
-import { getPosts } from "../utils/Posts";
+import useFeed from "../hooks/useFeed";
 import tw from "../utils/tailwind";
 import { Post } from "../utils/types";
 
@@ -25,10 +23,7 @@ interface Props {
 }
 
 export const Feed: FC<Props> = ({ navigation }) => {
-  const { data, isLoading, isRefetching, refetch } = useQuery(
-    ["tweets"],
-    getPosts
-  );
+  const { data, isLoading, isRefetching, refetch } = useFeed();
 
   const renderItem = useCallback((item) => {
     if (item.user_id) {
@@ -37,8 +32,6 @@ export const Feed: FC<Props> = ({ navigation }) => {
       return <Tweet key={item.id} post={item} navigation={navigation} />;
     }
   }, []);
-
-  const keyExtractor = useCallback((item) => item.id, []);
 
   if (isLoading) {
     return (
