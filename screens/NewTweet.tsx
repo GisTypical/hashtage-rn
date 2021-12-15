@@ -88,7 +88,7 @@ const NewTweet = ({ navigation }: Props) => {
   return (
     <View style={tw`bg-white flex-1 flex-row`}>
       <View style={tw`ml-1 mx-2 mt-2 w-14 py-2 items-center justify-between`}>
-        <UserPictureCircle username={""}></UserPictureCircle>
+        <UserPictureCircle disabled={true}></UserPictureCircle>
         <View style={tw`mb-5`}>
           <AppText>
             <Text

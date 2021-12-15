@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, FlatList } from "react-native";
 import tw from "../utils/tailwind";
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const UsersList = ({ users }: Props) => {
+  const navigation = useNavigation();
   return (
     <FlatList
       horizontal={true}
@@ -21,7 +23,10 @@ const UsersList = ({ users }: Props) => {
           key={user.username}
           style={tw`w-20 items-center justify-center ml-2 mr-2`}
         >
-          <UserPictureCircle username={user.username}></UserPictureCircle>
+          <UserPictureCircle
+            author={user}
+            navigation={navigation}
+          ></UserPictureCircle>
           <Text
             style={tw`font-sans-bold text-xs text-center w-full text-black`}
             numberOfLines={1}
