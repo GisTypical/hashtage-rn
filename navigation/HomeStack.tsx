@@ -37,7 +37,6 @@ const HomeStack = () => {
         options={{ headerTitle: "" }}
       ></Stack.Screen>
       {addTweetsRoutes(Stack)}
-      {/* <Stack.Screen name="ImagesPicker" component={ImagesPicker}></Stack.Screen> */}
     </Stack.Navigator>
   );
 };
