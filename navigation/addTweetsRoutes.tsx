@@ -1,9 +1,6 @@
 import React from "react";
-import { Text } from "react-native";
-import AppText from "../components/AppText";
 import Title from "../components/Title";
 import Thread from "../screens/Thread";
-import tw from "../utils/tailwind";
 
 const addTweetsRoutes = (Stack: any) => {
   return (
