@@ -11,7 +11,7 @@ import {
 import ActionSheet from "react-native-actions-sheet";
 import tailwind from "twrnc";
 import useDeleteTweet from "../hooks/useDeleteTweet";
-import { parseDate } from "../utils/parseDate";
+import { parseDateTime } from "../utils/parseDate";
 import tw from "../utils/tailwind";
 import { Post } from "../utils/types";
 import AppText from "./AppText";
@@ -30,7 +30,7 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
   return (
     <View>
       <View style={tailwind`flex-row items-center px-2 my-3`}>
-        <UserPictureCircle username={post.author?.username} />
+        <UserPictureCircle author={post.author} navigation={navigation} />
         <View style={tailwind`flex-1 px-2 mt-2`}>
           <AppText>
             <Text style={tw`font-bold`}>{post.author?.full_name}</Text>
@@ -65,7 +65,7 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
         ) : null}
         <AppText>
           <Text style={tailwind`font-bold text-sm opacity-60`}>
-            {parseDate(post.date!)}
+            {parseDateTime(post.date!)}
           </Text>
         </AppText>
       </View>

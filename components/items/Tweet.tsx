@@ -1,7 +1,7 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC, memo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { parseDate } from "../../utils/parseDate";
+import { parseDateTime } from "../../utils/parseDate";
 import tw from "../../utils/tailwind";
 import { Post } from "../../utils/types";
 import AppText from "../AppText";
@@ -20,7 +20,7 @@ const Tweet: FC<Props> = memo(({ post, navigation }) => {
       activeOpacity={0.9}
       onPress={() => navigation.push("Thread", post.id)}
     >
-      <UserPictureCircle username={post.author?.username} />
+      <UserPictureCircle author={post.author} navigation={navigation} />
 
       {/* Right Side */}
       <View style={tw`flex-1 ml-2`}>
@@ -32,7 +32,7 @@ const Tweet: FC<Props> = memo(({ post, navigation }) => {
           <AppText>
             <Text style={tw`font-bold opacity-60`}>
               {" "}
-              • {parseDate(post.date!)}
+              • {parseDateTime(post.date!)}
             </Text>
           </AppText>
         </View>

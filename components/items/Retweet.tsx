@@ -2,7 +2,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { memo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import tailwind from "twrnc";
-import { parseDate } from "../../utils/parseDate";
+import { parseDateTime } from "../../utils/parseDate";
 import tw from "../../utils/tailwind";
 import { RetweetType } from "../../utils/types";
 import AppText from "../AppText";
@@ -29,7 +29,10 @@ const Retweet = memo(({ retweet, navigation }: Props) => {
         </AppText>
       </View>
       <View style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}>
-        <UserPictureCircle username={retweet.post_id.author?.username} />
+        <UserPictureCircle
+          author={retweet.post_id.author}
+          navigation={navigation}
+        />
 
         {/* Right Side */}
         <View style={tailwind`flex-1 ml-2`}>
@@ -42,7 +45,7 @@ const Retweet = memo(({ retweet, navigation }: Props) => {
             <AppText>
               <Text style={tailwind`font-bold opacity-60`}>
                 {" "}
-                • {parseDate(retweet.post_id.date!)}
+                • {parseDateTime(retweet.post_id.date!)}
               </Text>
             </AppText>
           </View>
