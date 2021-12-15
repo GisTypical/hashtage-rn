@@ -7,14 +7,18 @@ import {
 } from "@expo-google-fonts/karla";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/providers/AuthProvider";
 import ViewCenter from "../components/ViewCenter";
+import Profile from "../screens/Profile";
 import { refreshToken } from "../utils/Auth";
 import AppTabs from "./AppTabs";
 import AuthStack from "./AuthStack";
+
+const Stack = createNativeStackNavigator();
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
@@ -56,7 +60,21 @@ const Routes = () => {
   }
   return (
     <NavigationContainer>
-      {user ? <AppTabs></AppTabs> : <AuthStack></AuthStack>}
+      {user ? (
+        <Stack.Navigator
+          initialRouteName="AppTabs"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="AppTabs" component={AppTabs}></Stack.Screen>
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{ headerShown: true }}
+          ></Stack.Screen>
+        </Stack.Navigator>
+      ) : (
+        <AuthStack></AuthStack>
+      )}
       <StatusBar style="auto"></StatusBar>
     </NavigationContainer>
   );

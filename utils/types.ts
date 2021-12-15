@@ -1,10 +1,21 @@
 export interface User {
-  _id?: string;
+  id?: string;
   password: string;
   username: string;
-  followers?: any[];
-  following?: any[];
   full_name?: string;
+}
+
+export interface UserProfile {
+  id: string;
+  password: string;
+  username: string;
+  full_name: string;
+  followers: number;
+  following: number;
+  address: string;
+  bio: string;
+  birthday: string;
+  isFollower: boolean;
 }
 
 export interface Message {
