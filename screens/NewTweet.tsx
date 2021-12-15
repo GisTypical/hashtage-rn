@@ -4,14 +4,13 @@ import * as ImagePicker from "expo-image-picker";
 import { ImageInfo } from "expo-image-picker/build/ImagePicker.types";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
-import { useMutation, useQueryClient } from "react-query";
 import AppText from "../components/AppText";
 import Fab from "../components/buttons/Fab";
 import NewTweetInput from "../components/inputs/NewTweetInput";
 import UserPictureCircle from "../components/UserCircle";
-import { createTweet } from "../utils/Posts";
+import useNewTweet from "../hooks/useNewTweet";
 import tw from "../utils/tailwind";
-import { Post, PostRoot } from "../utils/types";
+import { Post } from "../utils/types";
 
 interface Props {
   navigation: NavigationProp<any>;
@@ -20,18 +19,7 @@ interface Props {
 const NewTweet = ({ navigation }: Props) => {
   const [text, setText] = useState("");
   const [image, setImage] = useState<ImageInfo>();
-
-  const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation((post: Post) => createTweet(post), {
-    onSuccess: ({ data: newTweetData }) => {
-      queryClient.setQueryData(["tweets"], (data) => {
-        let oldData = data as { data: PostRoot };
-        oldData.data.posts = [newTweetData.post, ...oldData.data.posts!];
-        return data;
-      });
-      navigation.goBack();
-    },
-  });
+  const { mutate, isLoading } = useNewTweet({ navigation });
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({

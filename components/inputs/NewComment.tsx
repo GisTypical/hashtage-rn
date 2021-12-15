@@ -8,10 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useMutation, useQueryClient } from "react-query";
-import { commentTweet } from "../../utils/Posts";
+import useNewComment from "../../hooks/useNewComment";
 import tw from "../../utils/tailwind";
-import { Post, PostRoot } from "../../utils/types";
+import { Post } from "../../utils/types";
 
 interface Props {
   post: Post;
@@ -21,48 +20,7 @@ const NewComment = forwardRef(
   ({ post }: Props, ref: React.LegacyRef<TextInput>) => {
     const [text, setText] = useState<string>("");
     const [image, setImage] = useState<ImageInfo>();
-    const queryClient = useQueryClient();
-    const mutation = useMutation(
-      (comment: Post) => commentTweet(comment, post.id!),
-      {
-        onSuccess: ({ data: newComment }) => {
-          queryClient.setQueryData(["tweets", "thread", post.id], (data) => {
-            let threadData = data as { data: Post };
-            threadData.data.children = [
-              ...threadData.data.children!,
-              newComment.comment,
-            ];
-            threadData.data.comments_count!++;
-            return threadData;
-          });
-          /**
-           * Check if it has parent
-           */
-          if (post.parent) {
-            /**
-             * Update the counter inside comment on parent thread data
-             */
-            queryClient.invalidateQueries(["tweets", "thread", post.parent.id]);
-          } else {
-            queryClient.setQueryData("tweets", (data) => {
-              let allTweetsData = data as { data: PostRoot };
-              allTweetsData.data.posts = allTweetsData.data.posts.map(
-                (tweet: Post) => {
-                  if (tweet.id === post.id) {
-                    tweet.comments_count!++;
-                  }
-                  return tweet;
-                }
-              );
-
-              return allTweetsData;
-            });
-          }
-          setText("");
-          setImage(undefined);
-        },
-      }
-    );
+    const mutation = useNewComment({ post });
 
     const pickImage = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -96,6 +54,8 @@ const NewComment = forwardRef(
         };
       }
       mutation.mutate(values);
+      setText("");
+      setImage(undefined);
     };
 
     return (
@@ -127,7 +87,7 @@ const NewComment = forwardRef(
             onPress={pickImage}
           >
             <Ionicons
-              name="ios-image-outline"
+              name={image ? "image-sharp" : "image-outline"}
               size={24}
               color={image ? "#F59E0B" : "#000"}
             />

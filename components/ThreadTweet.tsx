@@ -9,12 +9,11 @@ import {
   View,
 } from "react-native";
 import ActionSheet from "react-native-actions-sheet";
-import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
+import useDeleteTweet from "../hooks/useDeleteTweet";
 import { parseDate } from "../utils/parseDate";
-import { deleteTweet } from "../utils/Posts";
 import tw from "../utils/tailwind";
-import { Post, PostRoot } from "../utils/types";
+import { Post } from "../utils/types";
 import AppText from "./AppText";
 import UserPictureCircle from "./UserCircle";
 
@@ -26,55 +25,7 @@ interface Props {
 
 const ThreadTweet = ({ post, navigation, children }: Props) => {
   const actionSheetRef = useRef<ActionSheet | null>(null);
-  const queryClient = useQueryClient();
-  const mutation = useMutation(() => deleteTweet(post.id), {
-    onSuccess: () => {
-      actionSheetRef.current?.hide();
-      navigation.goBack();
-
-      /**
-       * Check if it has a parent, for deletion from UI
-       */
-      if (post.parent) {
-        /**
-         * If it has a parent delete tweet from parent cache
-         */
-        queryClient.setQueryData(
-          ["tweets", "thread", post.parent?.id],
-          (data) => {
-            let parentThreadData = data as { data: Post };
-            parentThreadData.data.children =
-              parentThreadData.data.children?.filter(
-                (childPost: Post) => childPost.id !== post.id
-              );
-            // Decrease comments count
-            parentThreadData.data.comments_count!--;
-
-            // Update grandparent for the comment count
-            queryClient.invalidateQueries([
-              "tweets",
-              "thread",
-              parentThreadData.data.parent?.id,
-            ]);
-            return parentThreadData;
-          }
-        );
-      } else {
-        /**
-         * If it is from root (doesn't have a parent) delete tweet from feed cache
-         */
-        queryClient.setQueryData(["tweets"], (data) => {
-          let allTweetsData = data as { data: PostRoot };
-          allTweetsData.data.posts = allTweetsData.data.posts.filter(
-            (childPost: Post) => childPost.id !== post.id
-          );
-
-          return allTweetsData;
-        });
-      }
-      queryClient.removeQueries(["tweets", "thread", post.id]);
-    },
-  });
+  const mutation = useDeleteTweet({ actionSheetRef, navigation, post });
 
   return (
     <View>

@@ -1,14 +1,13 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useRef } from "react";
 import { ActivityIndicator, FlatList, TextInput, View } from "react-native";
-import { useQuery } from "react-query";
 import tailwind from "twrnc";
 import TweetButtons from "../components/buttons/TweetButtons";
-import Tweet from "../components/items/Tweet";
 import NewComment from "../components/inputs/NewComment";
+import Tweet from "../components/items/Tweet";
 import ThreadTweet from "../components/ThreadTweet";
 import ViewCenter from "../components/ViewCenter";
-import { getThread } from "../utils/Posts";
+import useThread from "../hooks/useThread";
 import { Post } from "../utils/types";
 
 interface Props {
@@ -20,9 +19,7 @@ interface Props {
 
 const Thread = ({ route, navigation }: Props) => {
   const replyRef = useRef<TextInput>(null);
-  const { data, isLoading } = useQuery(["tweets", "thread", route.params], () =>
-    getThread(route.params)
-  );
+  const { data, isLoading } = useThread({ route });
 
   const setReplyFocus = () => {
     if (!replyRef.current!.isFocused()) {

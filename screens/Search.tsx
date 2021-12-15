@@ -1,15 +1,12 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useCallback, useState } from "react";
-import { FlatList, RefreshControl, Text, TextInput, View } from "react-native";
-import { useQuery } from "react-query";
-import AppText from "../components/AppText";
+import { FlatList, RefreshControl, TextInput, View } from "react-native";
 import YellowButton from "../components/buttons/YellowButton";
 import Tweet from "../components/items/Tweet";
-import UserPictureCircle from "../components/UserCircle";
 import UsersList from "../components/UsersList";
-import { searchPost } from "../utils/Posts";
+import useSearch from "../hooks/useSearch";
 import tw from "../utils/tailwind";
-import { Post, User } from "../utils/types";
+import { Post } from "../utils/types";
 
 interface Props {
   navigation: NativeStackNavigationProp<any, any>;
@@ -17,13 +14,7 @@ interface Props {
 
 const Search = ({ navigation }: Props) => {
   const [search, setSearch] = useState("");
-  const { data, refetch, isFetching } = useQuery(
-    "search",
-    () => searchPost(search),
-    {
-      enabled: false,
-    }
-  );
+  const { data, refetch, isFetching } = useSearch({ search });
 
   const renderItem = useCallback(
     ({ item }) => <Tweet post={item} navigation={navigation} />,
@@ -50,7 +41,6 @@ const Search = ({ navigation }: Props) => {
           style={tw`mt-12`}
           ListHeaderComponent={
             data?.data.users.length ? (
-              // Users list
               <UsersList users={data.data.users}></UsersList>
             ) : null
           }

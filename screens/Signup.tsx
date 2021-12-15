@@ -2,24 +2,20 @@ import { NavigationProp } from "@react-navigation/core";
 import { Formik } from "formik";
 import React, { FC } from "react";
 import { Keyboard, Text, TextInput, View } from "react-native";
-import { useMutation } from "react-query";
 import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
 import Title from "../components/Title";
 import ViewCenter from "../components/ViewCenter";
-import { register } from "../utils/Auth";
+import useSignup from "../hooks/useSignup";
 import { SignupSchema } from "../utils/Schema";
 import tw from "../utils/tailwind";
-import { User } from "../utils/types";
 
-const Signup: FC<{ navigation: NavigationProp<any, any> }> = ({
-  navigation,
-}) => {
-  const mutation = useMutation((user: User) => register(user), {
-    onSuccess: () => {
-      navigation.navigate("Login");
-    },
-  });
+interface Props {
+  navigation: NavigationProp<any>;
+}
+
+const Signup: FC<Props> = ({ navigation }) => {
+  const mutation = useSignup({ navigation });
 
   return (
     <ViewCenter>
