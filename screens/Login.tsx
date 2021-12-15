@@ -1,34 +1,21 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationProp } from "@react-navigation/core";
 import { Formik } from "formik";
-import React, { useContext } from "react";
+import React from "react";
 import { Keyboard, Text, TextInput, View } from "react-native";
-import { useMutation } from "react-query";
 import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
-import { AuthContext } from "../components/providers/AuthProvider";
 import Title from "../components/Title";
 import ViewCenter from "../components/ViewCenter";
-import { login } from "../utils/Auth";
+import useLogin from "../hooks/useLogin";
 import { LoginSchema } from "../utils/Schema";
 import tw from "../utils/tailwind";
-import { Message, User } from "../utils/types";
 
 interface Props {
   navigation: NavigationProp<any>;
 }
 
 const Login = ({ navigation }: Props) => {
-  const { handleLogin } = useContext(AuthContext);
-
-  const mutation = useMutation((user: User) => login(user), {
-    // On on login success
-    onSuccess: async ({ data }: { data: Message }) => {
-      await AsyncStorage.setItem("accessToken", data.accessToken);
-      await AsyncStorage.setItem("refreshToken", data.refreshToken);
-      handleLogin(data.accessToken);
-    },
-  });
+  const mutation = useLogin();
 
   return (
     <ViewCenter>
