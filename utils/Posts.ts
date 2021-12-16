@@ -100,3 +100,24 @@ export const searchPost = async (searchValue: string) => {
     },
   });
 };
+
+export const like = async (postId: string) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.post(`${API_URL}/post/like/${postId}`, null, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+};
+export const dislike = async (postId: string) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.delete(`${API_URL}/post/like/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+};
