@@ -12,9 +12,9 @@ export interface UserProfile {
   full_name: string;
   followers: number;
   following: number;
-  address: string;
-  bio: string;
-  birthday: string;
+  address?: string;
+  bio?: string;
+  birthday?: string;
   isFollower: boolean;
 }
 

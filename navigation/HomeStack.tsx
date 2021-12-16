@@ -31,12 +31,6 @@ const HomeStack = () => {
           ),
         }}
       ></Stack.Screen>
-      <Stack.Screen
-        name="NewTweet"
-        component={NewTweet}
-        options={{ headerTitle: "" }}
-      ></Stack.Screen>
-      {addTweetsRoutes(Stack)}
     </Stack.Navigator>
   );
 };

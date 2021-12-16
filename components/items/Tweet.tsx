@@ -1,7 +1,7 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC, memo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { parseDateTime } from "../../utils/parseDate";
+import { parseDate } from "../../utils/parseDate";
 import tw from "../../utils/tailwind";
 import { Post } from "../../utils/types";
 import AppText from "../AppText";
@@ -32,7 +32,7 @@ const Tweet: FC<Props> = memo(({ post, navigation }) => {
           <AppText>
             <Text style={tw`font-bold opacity-60`}>
               {" "}
-              • {parseDateTime(post.date!)}
+              • {parseDate(post.date!)}
             </Text>
           </AppText>
         </View>
@@ -48,6 +48,7 @@ const Tweet: FC<Props> = memo(({ post, navigation }) => {
           </View>
         ) : null}
 
+        {/* Image */}
         {post.images?.length ? (
           <View style={tw`overflow-visible mb-2`}>
             <Image
@@ -59,6 +60,7 @@ const Tweet: FC<Props> = memo(({ post, navigation }) => {
             />
           </View>
         ) : null}
+
         {/* Touchable icons */}
         <TweetButtons
           onReply={() => {

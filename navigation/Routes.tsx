@@ -12,8 +12,11 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/providers/AuthProvider";
+import Title from "../components/Title";
 import ViewCenter from "../components/ViewCenter";
+import NewTweet from "../screens/NewTweet";
 import Profile from "../screens/Profile";
+import Thread from "../screens/Thread";
 import { refreshToken } from "../utils/Auth";
 import AppTabs from "./AppTabs";
 import AuthStack from "./AuthStack";
@@ -70,6 +73,19 @@ const Routes = () => {
             name="Profile"
             component={Profile}
             options={{ headerShown: true }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="NewTweet"
+            component={NewTweet}
+            options={{ headerTitle: "", headerShown: true }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="Thread"
+            component={Thread}
+            options={{
+              headerTitle: () => <Title text="Thread"></Title>,
+              headerShown: true,
+            }}
           ></Stack.Screen>
         </Stack.Navigator>
       ) : (
