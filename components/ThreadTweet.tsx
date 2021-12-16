@@ -49,7 +49,7 @@ const ThreadTweet = ({ post, navigation, children }: Props) => {
 
       {/* Thread Tweet Text */}
       {post.text ? (
-        <View style={tw`ml-4 mb-2`}>
+        <View style={tw`ml-4 mr-2 mb-2`}>
           <AppText>
             <Text style={tailwind`text-xl w-full`}>{post.text}</Text>
           </AppText>
