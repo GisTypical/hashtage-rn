@@ -1,8 +1,6 @@
 export interface User {
-  id?: string;
   password: string;
   username: string;
-  full_name?: string;
 }
 
 export interface UserProfile {
@@ -26,12 +24,14 @@ export interface Message {
 export interface Post {
   id?: string;
   text: string;
-  author?: User;
+  author?: UserProfile;
   date?: string;
   didRetweet?: boolean;
+  didLike?: boolean;
   isAuthor?: boolean;
   retweets_count?: number;
   comments_count?: number;
+  likes_count?: number;
   images?: string[];
   imagesUp?: {
     uri: string;
@@ -52,18 +52,5 @@ export interface PostRoot {
 export interface RetweetType {
   id: string;
   post_id: Post;
-  user_id: User;
-}
-
-export interface Author {
-  _id: ID;
-  followers: any[];
-  following: any[];
-  full_name: string;
-  password: string;
-  username: string;
-}
-
-export interface ID {
-  $oid: string;
+  user_id: UserProfile;
 }
