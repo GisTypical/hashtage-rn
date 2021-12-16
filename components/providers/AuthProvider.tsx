@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { FC, useState } from "react";
+import jwt_decode from "jwt-decode";
 
 export const AuthContext = React.createContext<{
   user: string | null;
@@ -15,7 +16,8 @@ const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<string | null>("");
 
   const handleLogin = async (userToken: string) => {
-    setUser(userToken);
+    const decoded = jwt_decode(userToken!) as { sub: string };
+    setUser(decoded.sub);
   };
 
   const handleLogout = async () => {

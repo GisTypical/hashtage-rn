@@ -1,7 +1,7 @@
-import axios from "axios";
-import { User } from "./types";
-import { API_URL } from "react-native-dotenv";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { API_URL } from "react-native-dotenv";
+import { User } from "./types";
 
 export const register = (user: User) => {
   return axios.post(`${API_URL}/register`, user);

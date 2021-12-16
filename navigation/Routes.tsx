@@ -14,6 +14,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/providers/AuthProvider";
 import Title from "../components/Title";
 import ViewCenter from "../components/ViewCenter";
+import EditUser from "../screens/EditUser";
 import NewTweet from "../screens/NewTweet";
 import Profile from "../screens/Profile";
 import Thread from "../screens/Thread";
@@ -61,6 +62,7 @@ const Routes = () => {
       </ViewCenter>
     );
   }
+
   return (
     <NavigationContainer>
       {user ? (
@@ -84,6 +86,14 @@ const Routes = () => {
             component={Thread}
             options={{
               headerTitle: () => <Title text="Thread"></Title>,
+              headerShown: true,
+            }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="EditUser"
+            component={EditUser}
+            options={{
+              headerTitle: () => <Title text="Edit User"></Title>,
               headerShown: true,
             }}
           ></Stack.Screen>

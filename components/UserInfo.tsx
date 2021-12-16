@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { NavigationProp } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import useFollow from "../hooks/useFollow";
@@ -12,9 +13,11 @@ import UserPictureCircle from "./UserCircle";
 
 interface Props {
   user: UserProfile;
+  currentUserId: string;
+  navigation: NavigationProp<any>;
 }
 
-const UserInfo = ({ user }: Props) => {
+const UserInfo = ({ user, currentUserId, navigation }: Props) => {
   const { mutate: followMutate } = useFollow();
   const { mutate: unfollowMutate } = useUnfollow();
 
@@ -27,13 +30,29 @@ const UserInfo = ({ user }: Props) => {
   };
 
   return (
-    <View style={tw`px-2 pt-6 border-b-2 border-gray-200`}>
+    <View style={tw`px-2 pt-3 border-b-2 border-gray-200`}>
       <View style={tw`flex-row items-center justify-between mx-2`}>
         <UserPictureCircle author={user} disabled={true}></UserPictureCircle>
-        <YellowButton
-          text={!user.isFollower ? "Follow" : "Following"}
-          onPress={() => onClick()}
-        ></YellowButton>
+        {currentUserId === user.id ? (
+          <YellowButton
+            text="Edit"
+            onPress={() =>
+              navigation.navigate("EditUser", {
+                id: user.id,
+                username: user.username,
+                full_name: user.full_name,
+                bio: user.bio,
+                address: user.address,
+                birthday: user.birthday,
+              })
+            }
+          ></YellowButton>
+        ) : (
+          <YellowButton
+            text={!user.isFollower ? "Follow" : "Following"}
+            onPress={() => onClick()}
+          ></YellowButton>
+        )}
       </View>
       <View style={tw`my-1`}>
         <AppText>
