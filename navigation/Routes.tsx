@@ -68,7 +68,7 @@ const Routes = () => {
       {user ? (
         <Stack.Navigator
           initialRouteName="AppTabs"
-          screenOptions={{ headerShown: false }}
+          screenOptions={{ headerShown: false, animation: "fade_from_bottom" }}
         >
           <Stack.Screen name="AppTabs" component={AppTabs}></Stack.Screen>
           <Stack.Screen
