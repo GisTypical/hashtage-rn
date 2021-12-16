@@ -16,6 +16,8 @@ interface Props {
 const TweetButtons = ({ post, onReply }: Props) => {
   const [isRetweeted, setIsRetweeted] = useState(false);
   const [retweetCount, setRetweetCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
   const queryClient = useQueryClient();
   const { mutate: retweetMutation } = useMutation(() => retweet(post.id), {
     onSuccess: () => {
@@ -28,19 +30,17 @@ const TweetButtons = ({ post, onReply }: Props) => {
     },
   });
   const { mutate: likeMutation } = useMutation(() => like(post.id!), {
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-    },
+    onSuccess: () => {},
   });
   const { mutate: dislikeMutation } = useMutation(() => dislike(post.id!), {
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-    },
+    onSuccess: () => {},
   });
 
   useEffect(() => {
     setIsRetweeted(post.didRetweet!);
     setRetweetCount(post.retweets_count!);
+    setIsLiked(post.didLike!);
+    setLikesCount(post.likes_count!);
   }, [post.didRetweet, post.retweets_count]);
 
   function onRetweet() {
@@ -51,8 +51,8 @@ const TweetButtons = ({ post, onReply }: Props) => {
 
   function onLikeButton() {
     !post.didLike ? likeMutation() : dislikeMutation();
-    // setIsRetweeted(!isRetweeted);
-    // setRetweetCount(!isRetweeted ? retweetCount + 1 : retweetCount - 1);
+    setIsLiked(!isLiked);
+    setLikesCount(!isLiked ? likesCount + 1 : likesCount - 1);
   }
   return (
     <View
@@ -100,15 +100,13 @@ const TweetButtons = ({ post, onReply }: Props) => {
       >
         <AntDesign
           style={tailwind`mr-2`}
-          name={!post.didLike ? "hearto" : "heart"}
+          name={!isLiked ? "hearto" : "heart"}
           size={24}
-          color={!post.didLike ? "black" : "#F59E0B"}
+          color={!isLiked ? "black" : "#F59E0B"}
         />
         <AppText>
-          <Text
-            style={tw.style(!post.didLike ? "text-black" : "text-yellow-500")}
-          >
-            {post.likes_count}
+          <Text style={tw.style(!isLiked ? "text-black" : "text-yellow-500")}>
+            {likesCount}
           </Text>
         </AppText>
       </TouchableOpacity>
