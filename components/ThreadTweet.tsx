@@ -26,7 +26,6 @@ interface Props {
 const ThreadTweet = ({ post, navigation, children }: Props) => {
   const actionSheetRef = useRef<ActionSheet | null>(null);
   const mutation = useDeleteTweet({ actionSheetRef, navigation, post });
-
   return (
     <View>
       <View style={tailwind`flex-row items-center px-2 my-3`}>
