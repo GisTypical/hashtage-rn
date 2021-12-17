@@ -1,5 +1,3 @@
-import React from "react";
-import { View, Text } from "react-native";
 import { useQuery } from "react-query";
 import { getProfile } from "../utils/Profile";
 

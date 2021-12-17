@@ -11,6 +11,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import AppText from "../components/AppText";
 import { AuthContext } from "../components/providers/AuthProvider";
 import Title from "../components/Title";
 import ViewCenter from "../components/ViewCenter";
@@ -26,7 +28,7 @@ const Stack = createNativeStackNavigator();
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
-  const { user, handleLogin } = useContext(AuthContext);
+  const { user, handleLogin, handleLogout } = useContext(AuthContext);
 
   /**
    * Load fonts
@@ -46,7 +48,7 @@ const Routes = () => {
       try {
         const { data } = await refreshToken();
         await AsyncStorage.setItem("accessToken", data.accessToken);
-        handleLogin(data.accessToken);
+        handleLogin(data.accessToken, data.following);
       } catch ({ response }) {
       } finally {
         setLoading(false);
@@ -68,7 +70,7 @@ const Routes = () => {
       {user ? (
         <Stack.Navigator
           initialRouteName="AppTabs"
-          screenOptions={{ headerShown: false }}
+          screenOptions={{ headerShown: false, animation: "fade_from_bottom" }}
         >
           <Stack.Screen name="AppTabs" component={AppTabs}></Stack.Screen>
           <Stack.Screen
@@ -93,7 +95,16 @@ const Routes = () => {
             name="EditUser"
             component={EditUser}
             options={{
-              headerTitle: () => <Title text="Edit User"></Title>,
+              headerTitle: () => <Title text="Edit Profile"></Title>,
+              headerRight: () => (
+                <TouchableOpacity
+                  onPress={() => {
+                    handleLogout();
+                  }}
+                >
+                  <AppText>Logout</AppText>
+                </TouchableOpacity>
+              ),
               headerShown: true,
             }}
           ></Stack.Screen>
@@ -105,5 +116,4 @@ const Routes = () => {
     </NavigationContainer>
   );
 };
-
 export default Routes;

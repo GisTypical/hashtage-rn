@@ -3,11 +3,11 @@ import React from "react";
 import { Text, TouchableHighlight } from "react-native";
 import tailwind from "twrnc";
 import tw from "../utils/tailwind";
-import { User } from "../utils/types";
+import { UserProfile } from "../utils/types";
 import AppText from "./AppText";
 
 interface Props {
-  author?: User;
+  author?: UserProfile;
   navigation?: NavigationProp<any>;
   disabled?: boolean;
 }

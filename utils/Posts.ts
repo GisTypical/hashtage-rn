@@ -3,9 +3,9 @@ import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import { Post } from "./types";
 
-export const getPosts = async () => {
+export const getPosts = async ({ timeline }: { timeline: boolean }) => {
   const accessToken = await AsyncStorage.getItem("accessToken");
-  return axios.get(`${API_URL}/post`, {
+  return axios.get(`${API_URL}/${timeline ? "timeline" : "post"}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",
@@ -93,6 +93,27 @@ export const deleteTweet = async (postId: string | undefined) => {
 export const searchPost = async (searchValue: string) => {
   const accessToken = await AsyncStorage.getItem("accessToken");
   return axios.get(`${API_URL}/search/${searchValue}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const like = async (postId: string) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.post(`${API_URL}/post/like/${postId}`, null, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+};
+export const dislike = async (postId: string) => {
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return axios.delete(`${API_URL}/post/like/${postId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",

@@ -25,26 +25,7 @@ const useDeleteTweet = ({ actionSheetRef, navigation, post }: Props) => {
         /**
          * If it has a parent delete tweet from parent cache
          */
-        queryClient.setQueryData(
-          ["tweets", "thread", post.parent?.id],
-          (data) => {
-            let parentThreadData = data as { data: Post };
-            parentThreadData.data.children =
-              parentThreadData.data.children?.filter(
-                (childPost: Post) => childPost.id !== post.id
-              );
-            // Decrease comments count
-            parentThreadData.data.comments_count!--;
-
-            // Update grandparent for the comment count
-            queryClient.invalidateQueries([
-              "tweets",
-              "thread",
-              parentThreadData.data.parent?.id,
-            ]);
-            return parentThreadData;
-          }
-        );
+        queryClient.invalidateQueries(["tweets", "thread", post.parent?.id]);
       } else {
         /**
          * If it is from root (doesn't have a parent) delete tweet from feed cache
@@ -56,6 +37,14 @@ const useDeleteTweet = ({ actionSheetRef, navigation, post }: Props) => {
           );
 
           return allTweetsData;
+        });
+
+        queryClient.setQueryData(["profile", post.author?.id], (data) => {
+          let profileTweetsData = data as { data: PostRoot };
+          profileTweetsData.data.posts = profileTweetsData.data.posts.filter(
+            (childPost: Post) => childPost.id !== post.id
+          );
+          return profileTweetsData;
         });
       }
       queryClient.removeQueries(["tweets", "thread", post.id]);

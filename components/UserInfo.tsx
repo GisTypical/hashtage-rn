@@ -21,7 +21,7 @@ const UserInfo = ({ user, currentUserId, navigation }: Props) => {
   const { mutate: followMutate } = useFollow();
   const { mutate: unfollowMutate } = useUnfollow();
 
-  const onClick = () => {
+  const onFollowClick = () => {
     if (!user.isFollower) {
       followMutate(user.id);
     } else {
@@ -50,7 +50,7 @@ const UserInfo = ({ user, currentUserId, navigation }: Props) => {
         ) : (
           <YellowButton
             text={!user.isFollower ? "Follow" : "Following"}
-            onPress={() => onClick()}
+            onPress={() => onFollowClick()}
           ></YellowButton>
         )}
       </View>

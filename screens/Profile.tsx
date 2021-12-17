@@ -1,11 +1,12 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext } from "react";
 import {
   ActivityIndicator,
   FlatList,
   RefreshControl,
   View,
 } from "react-native";
+import Retweet from "../components/items/Retweet";
 import Tweet from "../components/items/Tweet";
 import { AuthContext } from "../components/providers/AuthProvider";
 import UserInfo from "../components/UserInfo";
@@ -26,6 +27,27 @@ const Profile = ({ route, navigation }: Props) => {
   });
   const { user } = useContext(AuthContext);
 
+  const renderItem = useCallback(
+    ({ item }) => {
+      if (item.post_id) {
+        return (
+          <Retweet
+            retweet={{ id: item.id, post_id: item.post_id, user_id: data.user }}
+            navigation={navigation}
+          />
+        );
+      } else {
+        return (
+          <Tweet
+            navigation={navigation}
+            post={{ ...item, author: data.user }}
+          ></Tweet>
+        );
+      }
+    },
+    [data]
+  );
+
   if (isLoading) {
     return (
       <ViewCenter>
@@ -35,7 +57,7 @@ const Profile = ({ route, navigation }: Props) => {
   }
 
   return (
-    <View style={tw`bg-white`}>
+    <View style={tw`bg-white flex-1`}>
       <FlatList
         ListHeaderComponent={
           <UserInfo
@@ -45,12 +67,7 @@ const Profile = ({ route, navigation }: Props) => {
           />
         }
         data={data.posts}
-        renderItem={({ item }) => (
-          <Tweet
-            navigation={navigation}
-            post={{ ...item, author: data.user }}
-          ></Tweet>
-        )}
+        renderItem={renderItem}
         refreshControl={
           <RefreshControl
             colors={["#f59e0b"]}
