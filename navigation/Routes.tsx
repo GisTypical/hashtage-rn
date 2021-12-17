@@ -28,7 +28,7 @@ const Stack = createNativeStackNavigator();
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
-  const { user, handleLogin, handleLogout } = useContext(AuthContext);
+  const { user, handleLogin } = useContext(AuthContext);
 
   /**
    * Load fonts
@@ -76,7 +76,9 @@ const Routes = () => {
           <Stack.Screen
             name="Profile"
             component={Profile}
-            options={{ headerShown: true }}
+            options={{
+              headerShown: true,
+            }}
           ></Stack.Screen>
           <Stack.Screen
             name="NewTweet"
@@ -96,15 +98,6 @@ const Routes = () => {
             component={EditUser}
             options={{
               headerTitle: () => <Title text="Edit Profile"></Title>,
-              headerRight: () => (
-                <TouchableOpacity
-                  onPress={() => {
-                    handleLogout();
-                  }}
-                >
-                  <AppText>Logout</AppText>
-                </TouchableOpacity>
-              ),
               headerShown: true,
             }}
           ></Stack.Screen>

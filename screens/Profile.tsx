@@ -1,11 +1,14 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useLayoutEffect } from "react";
 import {
   ActivityIndicator,
   FlatList,
   RefreshControl,
+  TouchableOpacity,
   View,
 } from "react-native";
+import AppText from "../components/AppText";
+import YellowButton from "../components/buttons/YellowButton";
 import Retweet from "../components/items/Retweet";
 import Tweet from "../components/items/Tweet";
 import { AuthContext } from "../components/providers/AuthProvider";
@@ -25,7 +28,24 @@ const Profile = ({ route, navigation }: Props) => {
   const { data, isLoading, refetch, isRefetching } = useProfile({
     userId: route.params,
   });
-  const { user } = useContext(AuthContext);
+  const { user, handleLogout } = useContext(AuthContext);
+
+  useLayoutEffect(() => {
+    if (data) {
+      navigation.setOptions({
+        headerRight: () =>
+          user === data.user.id ? (
+            <TouchableOpacity
+              onPress={() => {
+                handleLogout();
+              }}
+            >
+              <AppText>Logout</AppText>
+            </TouchableOpacity>
+          ) : null,
+      });
+    }
+  }, [handleLogout, user, data]);
 
   const renderItem = useCallback(
     ({ item }) => {
