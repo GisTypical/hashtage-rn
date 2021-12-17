@@ -13,7 +13,7 @@ const useLogin = () => {
     onSuccess: async ({ data }: { data: Message }) => {
       await AsyncStorage.setItem("accessToken", data.accessToken);
       await AsyncStorage.setItem("refreshToken", data.refreshToken);
-      handleLogin(data.accessToken);
+      handleLogin(data.accessToken, data.following);
     },
   });
 };

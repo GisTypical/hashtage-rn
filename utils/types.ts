@@ -19,6 +19,7 @@ export interface UserProfile {
 export interface Message {
   accessToken: string;
   refreshToken: string;
+  following: number;
 }
 
 export interface Post {

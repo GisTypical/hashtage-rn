@@ -3,9 +3,9 @@ import axios from "axios";
 import { API_URL } from "react-native-dotenv";
 import { Post } from "./types";
 
-export const getPosts = async () => {
+export const getPosts = async ({ timeline }: { timeline: boolean }) => {
   const accessToken = await AsyncStorage.getItem("accessToken");
-  return axios.get(`${API_URL}/post`, {
+  return axios.get(`${API_URL}/${timeline ? "timeline" : "post"}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       Accept: "application/json",

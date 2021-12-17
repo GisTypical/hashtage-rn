@@ -46,7 +46,7 @@ const Routes = () => {
       try {
         const { data } = await refreshToken();
         await AsyncStorage.setItem("accessToken", data.accessToken);
-        handleLogin(data.accessToken);
+        handleLogin(data.accessToken, data.following);
       } catch ({ response }) {
       } finally {
         setLoading(false);
@@ -93,7 +93,7 @@ const Routes = () => {
             name="EditUser"
             component={EditUser}
             options={{
-              headerTitle: () => <Title text="Edit User"></Title>,
+              headerTitle: () => <Title text="Edit Profile"></Title>,
               headerShown: true,
             }}
           ></Stack.Screen>
