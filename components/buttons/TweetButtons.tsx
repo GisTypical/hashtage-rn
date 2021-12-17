@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 import tailwind from "twrnc";
 import { deleteRetweet, retweet, like, dislike } from "../../utils/Posts";
 import tw from "../../utils/tailwind";
-import { Post } from "../../utils/types";
+import { Post, PostRoot } from "../../utils/types";
 import AppText from "../AppText";
 
 interface Props {
@@ -30,7 +30,37 @@ const TweetButtons = ({ post, onReply }: Props) => {
     },
   });
   const { mutate: likeMutation } = useMutation(() => like(post.id!), {
-    onSuccess: () => {},
+    onSuccess: () => {
+      queryClient.setQueryData(["tweets"], (data) => {
+        let allTweetsData = data as { data: PostRoot };
+        allTweetsData.data.posts = allTweetsData.data.posts.map(
+          (tweet: Post) => {
+            if (tweet.id === post.id) {
+              tweet.didLike = true;
+              tweet.likes_count!++;
+            }
+            return tweet;
+          }
+        );
+
+        return allTweetsData;
+      });
+
+      queryClient.setQueryData(["tweets", post.author?.id], (data) => {
+        let allTweetsData = data as { data: PostRoot };
+        allTweetsData.data.posts = allTweetsData.data.posts.map(
+          (tweet: Post) => {
+            if (tweet.id === post.id) {
+              tweet.didLike = true;
+              tweet.likes_count!++;
+            }
+            return tweet;
+          }
+        );
+
+        return allTweetsData;
+      });
+    },
   });
   const { mutate: dislikeMutation } = useMutation(() => dislike(post.id!), {
     onSuccess: () => {},

@@ -29,7 +29,21 @@ const useNewComment = ({ post }: Props) => {
          */
         queryClient.invalidateQueries(["tweets", "thread", post.parent.id]);
       } else {
-        queryClient.setQueryData("tweets", (data) => {
+        queryClient.setQueryData(["tweets"], (data) => {
+          let allTweetsData = data as { data: PostRoot };
+          allTweetsData.data.posts = allTweetsData.data.posts.map(
+            (tweet: Post) => {
+              if (tweet.id === post.id) {
+                tweet.comments_count!++;
+              }
+              return tweet;
+            }
+          );
+
+          return allTweetsData;
+        });
+
+        queryClient.setQueryData(["tweets", post.author?.id], (data) => {
           let allTweetsData = data as { data: PostRoot };
           allTweetsData.data.posts = allTweetsData.data.posts.map(
             (tweet: Post) => {
