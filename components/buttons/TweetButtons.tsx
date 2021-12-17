@@ -14,10 +14,10 @@ interface Props {
 }
 
 const TweetButtons = ({ post, onReply }: Props) => {
-  const [isRetweeted, setIsRetweeted] = useState(false);
-  const [retweetCount, setRetweetCount] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(0);
+  const [isRetweeted, setIsRetweeted] = useState(post.didRetweet);
+  const [retweetCount, setRetweetCount] = useState(post.retweets_count);
+  const [isLiked, setIsLiked] = useState(post.didLike);
+  const [likesCount, setLikesCount] = useState(post.likes_count);
   const queryClient = useQueryClient();
   const { mutate: retweetMutation } = useMutation(() => retweet(post.id), {
     onSuccess: () => {
@@ -66,23 +66,23 @@ const TweetButtons = ({ post, onReply }: Props) => {
     onSuccess: () => {},
   });
 
-  useEffect(() => {
-    setIsRetweeted(post.didRetweet!);
-    setRetweetCount(post.retweets_count!);
-    setIsLiked(post.didLike!);
-    setLikesCount(post.likes_count!);
-  }, [post.didRetweet, post.retweets_count]);
+  // useEffect(() => {
+  //   setIsRetweeted(post.didRetweet!);
+  //   setRetweetCount(post.retweets_count!);
+  //   setIsLiked(post.didLike!);
+  //   setLikesCount(post.likes_count!);
+  // }, [post.didRetweet, post.retweets_count]);
 
   function onRetweet() {
     isRetweeted ? unretweet() : retweetMutation();
     setIsRetweeted(!isRetweeted);
-    setRetweetCount(!isRetweeted ? retweetCount + 1 : retweetCount - 1);
+    setRetweetCount(!isRetweeted ? retweetCount! + 1 : retweetCount! - 1);
   }
 
   function onLikeButton() {
     !post.didLike ? likeMutation() : dislikeMutation();
     setIsLiked(!isLiked);
-    setLikesCount(!isLiked ? likesCount + 1 : likesCount - 1);
+    setLikesCount(!isLiked ? likesCount! + 1 : likesCount! - 1);
   }
   return (
     <View
