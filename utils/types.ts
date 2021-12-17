@@ -39,9 +39,7 @@ export interface Post {
     name: string;
   };
   children?: Post[];
-  parent?: {
-    id: string;
-  };
+  parent?: Post;
 }
 
 export interface PostRoot {
