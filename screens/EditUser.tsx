@@ -1,7 +1,8 @@
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { NavigationProp } from "@react-navigation/native";
 import { Formik, FormikProps } from "formik";
-import React, { useLayoutEffect, useRef } from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { Platform, ScrollView, Text, TextInput, View } from "react-native";
 import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
 import Title from "../components/Title";
@@ -20,6 +21,15 @@ interface Props {
 
 const EditUser = ({ route: { params }, navigation }: Props) => {
   const { mutate, isLoading } = useEditUser({ navigation });
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [show, setShow] = useState(false);
+
+  const onChange = (event: Event, selectedDate: Date | undefined) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+  };
+
   const formRef = useRef<
     FormikProps<{
       username: string;
@@ -30,6 +40,7 @@ const EditUser = ({ route: { params }, navigation }: Props) => {
       password: string;
     }>
   >();
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -121,8 +132,14 @@ const EditUser = ({ route: { params }, navigation }: Props) => {
               </AppText>
               <TextInput
                 style={tw`px-2 py-1 bg-gray-200 rounded-lg mb-1 font-sans`}
-                value={values.birthday}
+                value={parseDate(date.toISOString()).slice(5, 14)}
                 onChangeText={handleChange("birthday")}
+                onPressIn={() => {
+                  setShow(true);
+                }}
+                selectTextOnFocus={false}
+                pointerEvents="none"
+                showSoftInputOnFocus={false}
               ></TextInput>
 
               <View style={tw`border-t-2 mt-4 pt-2 border-gray-300`}>
@@ -147,6 +164,16 @@ const EditUser = ({ route: { params }, navigation }: Props) => {
           )}
         </Formik>
       </ScrollView>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={"date"}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
     </View>
   );
 };
