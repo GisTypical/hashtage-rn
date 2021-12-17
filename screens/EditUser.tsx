@@ -1,5 +1,6 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker, { Event } from "@react-native-community/datetimepicker";
 import { NavigationProp } from "@react-navigation/native";
+import dayjs from "dayjs";
 import { Formik, FormikProps } from "formik";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { Platform, ScrollView, Text, TextInput, View } from "react-native";
@@ -7,7 +8,6 @@ import AppText from "../components/AppText";
 import YellowButton from "../components/buttons/YellowButton";
 import Title from "../components/Title";
 import useEditUser from "../hooks/useEditUser";
-import { parseDate } from "../utils/parseDate";
 import { EditUserSchema } from "../utils/Schema";
 import tw from "../utils/tailwind";
 import { UserProfile } from "../utils/types";
@@ -21,25 +21,17 @@ interface Props {
 
 const EditUser = ({ route: { params }, navigation }: Props) => {
   const { mutate, isLoading } = useEditUser({ navigation });
-  const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
+  const formRef = useRef<FormikProps<UserProfile>>(null);
 
-  const onChange = (event: Event, selectedDate: Date | undefined) => {
-    const currentDate = selectedDate || date;
+  const onChange = (event: Event, date: Date | undefined) => {
+    const currentDate = date || date;
     setShow(Platform.OS === "ios");
-    setDate(currentDate);
+    formRef.current?.setFieldValue(
+      "birthday",
+      dayjs(date).format("DD/MM/YYYY")
+    );
   };
-
-  const formRef = useRef<
-    FormikProps<{
-      username: string;
-      full_name: string;
-      bio: string;
-      address: string;
-      birthday: string;
-      password: string;
-    }>
-  >();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -65,7 +57,7 @@ const EditUser = ({ route: { params }, navigation }: Props) => {
             full_name: params.full_name,
             bio: params.bio!,
             address: params.address!,
-            birthday: parseDate(params.birthday!).slice(5, 14),
+            birthday: dayjs(params.birthday).add(1, "day").format("DD/MM/YYYY"),
             password: "",
             id: "",
             following: 0,
@@ -132,12 +124,10 @@ const EditUser = ({ route: { params }, navigation }: Props) => {
               </AppText>
               <TextInput
                 style={tw`px-2 py-1 bg-gray-200 rounded-lg mb-1 font-sans`}
-                value={parseDate(date.toISOString()).slice(5, 14)}
-                onChangeText={handleChange("birthday")}
+                value={values.birthday}
                 onPressIn={() => {
                   setShow(true);
                 }}
-                selectTextOnFocus={false}
                 pointerEvents="none"
                 showSoftInputOnFocus={false}
               ></TextInput>
@@ -167,7 +157,7 @@ const EditUser = ({ route: { params }, navigation }: Props) => {
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={dayjs(params.birthday).add(1, "day").toDate()}
           mode={"date"}
           is24Hour={true}
           display="default"
