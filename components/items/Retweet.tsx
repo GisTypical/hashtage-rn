@@ -18,7 +18,7 @@ const Retweet = memo(({ retweet, navigation }: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
-      style={tailwind`ml-1`}
+      style={tailwind`pl-1 border-b border-gray-300`}
       onPress={() => navigation.push("Thread", retweet.post_id.id)}
     >
       <View style={tw`ml-3 mt-2`}>
@@ -28,7 +28,7 @@ const Retweet = memo(({ retweet, navigation }: Props) => {
           </Text>
         </AppText>
       </View>
-      <View style={tailwind`flex-row border-b border-gray-300 px-2 py-2`}>
+      <View style={tailwind`flex-row px-2 py-2`}>
         <UserPictureCircle
           author={retweet.post_id.author}
           navigation={navigation}
