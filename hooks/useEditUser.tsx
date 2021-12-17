@@ -14,14 +14,10 @@ const useEditUser = ({ navigation }: Props) => {
       queryClient.setQueryData(["profile", data.user.id], (oldData) => {
         navigation.goBack();
         let newUserProfile = oldData as { data: { user: UserProfile } };
-        console.log(newUserProfile.data.user);
-
         newUserProfile.data.user = {
           ...newUserProfile.data.user,
           ...data.user,
         };
-
-        console.log(newUserProfile.data.user);
         return newUserProfile;
       });
     },

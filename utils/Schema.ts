@@ -19,6 +19,16 @@ export const SignupSchema = Yup.object().shape({
   password: Yup.string().min(4, "Too Short!").required("Required"),
 });
 
-export const TweetSchema = Yup.object().shape({
-  text: Yup.string().min(1).max(280),
+export const EditUserSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(4, "Too Short!")
+    .max(40, "Too Long!")
+    .required("Required"),
+  full_name: Yup.string().min(4, "Too Short!").required("Required"),
+  bio: Yup.string(),
+  addres: Yup.string(),
+  birthday: Yup.string(),
+  password: Yup.string()
+    .min(4, "Too Short!")
+    .required("Enter the same password or another if you want to change it"),
 });
