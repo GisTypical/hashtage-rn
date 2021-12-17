@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -35,7 +35,7 @@ const Profile = ({ route, navigation }: Props) => {
   }
 
   return (
-    <View style={tw`bg-white`}>
+    <View style={tw`bg-white flex-1`}>
       <FlatList
         ListHeaderComponent={
           <UserInfo
