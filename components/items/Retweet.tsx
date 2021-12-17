@@ -1,3 +1,4 @@
+import { AntDesign } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { memo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -21,7 +22,8 @@ const Retweet = memo(({ retweet, navigation }: Props) => {
       style={tailwind`pl-1 border-b border-gray-300`}
       onPress={() => navigation.push("Thread", retweet.post_id.id)}
     >
-      <View style={tw`ml-3 mt-2`}>
+      <View style={tw`flex-row ml-3 mt-2`}>
+        <AntDesign style={tw`mr-2`} name="retweet" size={17} color="gray" />
         <AppText>
           <Text style={tw`text-gray-400 italic`}>
             Retweeted by {retweet.user_id.username}

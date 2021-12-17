@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { FC, memo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -20,13 +21,19 @@ const Tweet: FC<Props> = memo(({ post, navigation }) => {
       activeOpacity={0.9}
       onPress={() => navigation.push("Thread", post.id)}
     >
-      {post.parent ? (
+      {post.parent?.author ? (
         <TouchableOpacity
-          style={tw`ml-3 mt-2`}
+          style={tw`flex-row ml-3 mt-2`}
           onPress={() => navigation.push("Thread", post.parent?.id)}
         >
+          <Ionicons
+            style={tw`mr-2`}
+            name="ios-chatbox-outline"
+            size={17}
+            color="gray"
+          />
           <AppText>
-            <Text style={tw`text-gray-400 italic`}>
+            <Text style={tw`flex-row items-center text-gray-400 italic`}>
               Replying to {post.parent.author?.username}
             </Text>
           </AppText>
