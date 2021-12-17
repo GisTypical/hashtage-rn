@@ -57,6 +57,15 @@ const useDeleteTweet = ({ actionSheetRef, navigation, post }: Props) => {
 
           return allTweetsData;
         });
+
+        queryClient.setQueryData(["profile", post.author?.id], (data) => {
+          let profileTweetsData = data as { data: PostRoot };
+          profileTweetsData.data.posts = profileTweetsData.data.posts.filter(
+            (childPost: Post) => childPost.id !== post.id
+          );
+
+          return profileTweetsData;
+        });
       }
       queryClient.removeQueries(["tweets", "thread", post.id]);
     },
